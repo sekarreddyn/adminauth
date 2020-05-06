@@ -13,14 +13,14 @@ export function auth(state = initialState, action) {
         ...state,
         loggingIn: true,
         user: action.user,
-        loading: true
+        loading: true,
       };
     case authConstants.LOGIN_SUCCESS:
       return {
         ...state,
         loggedIn: true,
         loading: false,
-        user: action.user
+        user: action.user,
       };
     case authConstants.LOGIN_FAILURE:
       return {
@@ -28,13 +28,13 @@ export function auth(state = initialState, action) {
         loggedIn: false,
         loggingIn: false,
         loading: false,
-        error: action.error
+        error: action.error,
       };
     case authConstants.LOGOUT:
       return {
         loggingIn: false,
         loading: false,
-        user: {}
+        user: {},
       };
     default:
       return state;

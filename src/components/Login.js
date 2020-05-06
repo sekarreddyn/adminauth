@@ -18,11 +18,7 @@ class Login extends Component {
       }
     });
   };
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.auth.error !== this.props.auth.error) {
-      message.error(this.props.auth.error && this.props.auth.error[0]);
-    }
-  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { loading } = this.props.auth;

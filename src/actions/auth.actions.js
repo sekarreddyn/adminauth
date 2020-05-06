@@ -13,7 +13,7 @@ function login(data) {
     http
       .post("auth/login", data)
       .then(function (response) {
-        if (response.data.success) {
+        if (response.data) {
           let user = {
             ...response.data.data,
             token: response.headers["x-auth-token"],
