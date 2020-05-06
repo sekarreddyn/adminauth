@@ -6,17 +6,12 @@ export const authActions = {
   logout,
 };
 
-function login({ username, password }) {
+function login(data) {
   return (dispatch) => {
-    dispatch(request(username));
+    dispatch(request(authActions));
 
     http
-      .get("auth/login", {
-        params: {
-          username,
-          password,
-        },
-      })
+      .post("auth/login", data)
       .then(function (response) {
         if (response.data.success) {
           let user = {

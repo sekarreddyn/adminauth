@@ -8,7 +8,7 @@ import { Form, Icon, Input, Button, Row, Col, message, Card } from "antd";
 import "../App.css";
 import logo from "../assets/logo2.svg";
 
-class NormalLoginForm extends Component {
+class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ loading: true });
@@ -111,12 +111,10 @@ class NormalLoginForm extends Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
-  NormalLoginForm
-);
+const WrappedLogin = Form.create({ name: "normal_login" })(Login);
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(WrappedNormalLoginForm);
+export default connect(mapStateToProps)(WrappedLogin);
