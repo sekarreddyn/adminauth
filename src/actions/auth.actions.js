@@ -3,37 +3,34 @@ import { http, history } from "../helpers";
 
 export const authActions = {
   login,
-  logout
+  logout,
 };
 
 function login({ username, password }) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request(username));
 
     http
-      .get("auth/internal/login", {
+      .get("auth/login", {
         params: {
           username,
-          password
-        }
+          password,
+        },
       })
-      .then(function(response) {
+      .then(function (response) {
         if (response.data.success) {
           let user = {
             ...response.data.data,
-            token: response.headers["x-auth-token"]
+            token: response.headers["x-auth-token"],
           };
-
           localStorage.setItem("user", JSON.stringify(user));
-
           dispatch(success(user));
-
           history.push("/");
         } else {
           dispatch(failure(response.data.reason));
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         dispatch(failure(error));
       });
   };
@@ -50,20 +47,9 @@ function login({ username, password }) {
 }
 
 function logout() {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.removeItem("user");
     dispatch({ type: authConstants.LOGOUT });
     history.push("/login");
-
-    /*
-    http
-      .post("auth/internal/logout")
-      .then(function(response) {
-        localStorage.removeItem("user");
-        dispatch({ type: authConstants.LOGOUT });
-      })
-      .catch(function(error) {
-        dispatch({ type: authConstants.LOGOUT });
-      });*/
   };
 }

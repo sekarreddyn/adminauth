@@ -58,7 +58,7 @@ class NormalLoginForm extends Component {
               }}
             >
               <Form.Item>
-                {getFieldDecorator("username", {
+                {getFieldDecorator("emailOrMobile", {
                   rules: [
                     { required: true, message: "Please input your email!" },
                   ],
