@@ -15,8 +15,8 @@ function login(data) {
       .then(function (response) {
         if (response.data) {
           let user = {
-            ...response.data.data,
-            token: response.headers["x-auth-token"],
+            ...response.data,
+            token: response.data.token,
           };
           localStorage.setItem("user", JSON.stringify(user));
           dispatch(success(user));

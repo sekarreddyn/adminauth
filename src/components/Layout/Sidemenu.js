@@ -60,6 +60,12 @@ class Sidemenu extends Component {
               <span>Dashboard</span>
             </NavLink>
           </Menu.Item>
+          <Menu.Item key="organizations">
+            <NavLink to="/organizations">
+              <Icon type="star" />
+              <span>Organizations</span>
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </Sider>
     );
