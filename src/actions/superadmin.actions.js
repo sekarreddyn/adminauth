@@ -9,12 +9,9 @@ function getOrganizations(pagable) {
   return (dispatch) => {
     dispatch(request(pagable));
     http
-      .get(
-        `${appConfig.apiEndpoint}${appConfig.apiUrl}super-admin/organization`,
-        {
-          params: pagable,
-        }
-      )
+      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}user/`, {
+        params: pagable,
+      })
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));

@@ -13,7 +13,8 @@ class Organizations extends Component {
   }
 
   render() {
-    console.log(this.props);
+    console.log("Data", this.props.organization.organization_list.data);
+    console.log("Loading", this.props.organization.organization_list.loading);
     return <div>organizations</div>;
   }
 }
