@@ -8,10 +8,10 @@ const { Content, Footer } = Layout;
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       localStorage.getItem("user") ? (
         <Layout style={{ minHeight: "100vh" }}>
-          <Sidemenu />
+          {/* <Sidemenu /> */}
           <Layout>
             <Header />
             <Content
@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
                 margin: "24px 16px",
                 padding: 24,
                 background: "#fff",
-                minHeight: 280
+                minHeight: 280,
               }}
             >
               <Component key={props.match.params.type} {...props} />
@@ -32,8 +32,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
           to={{
             pathname: "/login",
             state: {
-              from: props.location
-            }
+              from: props.location,
+            },
           }}
         />
       )

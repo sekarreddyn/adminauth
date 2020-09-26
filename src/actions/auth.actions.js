@@ -9,25 +9,27 @@ export const authActions = {
 function login(data) {
   return (dispatch) => {
     dispatch(request(authActions));
+    localStorage.setItem("user", JSON.stringify(data));
+    history.push("/");
 
-    http
-      .post("auth/login", data)
-      .then(function (response) {
-        if (response.data) {
-          let user = {
-            ...response.data,
-            token: response.data.token,
-          };
-          localStorage.setItem("user", JSON.stringify(user));
-          dispatch(success(user));
-          history.push("/");
-        } else {
-          dispatch(failure(response.data.reason));
-        }
-      })
-      .catch(function (error) {
-        dispatch(failure(error));
-      });
+    // http
+    //   .post("auth/login", data)
+    //   .then(function (response) {
+    //     if (response.data) {
+    //       let user = {
+    //         ...response.data,
+    //         token: response.data.token,
+    //       };
+    //       localStorage.setItem("user", JSON.stringify(user));
+    //       dispatch(success(user));
+    //       history.push("/");
+    //     } else {
+    //       dispatch(failure(response.data.reason));
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     dispatch(failure(error));
+    //   });
   };
 
   function request(user) {

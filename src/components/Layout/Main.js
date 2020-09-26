@@ -5,7 +5,7 @@ import Dashboard from "../../components/Dashboard";
 import Temp from "../../components/Temp";
 import Organization from "../../components/Organization";
 import { history } from "../../helpers/history";
-// import PrivateRoute from "../../helpers/privateRoute";
+import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";
 
 class RouterApp extends Component {
@@ -13,9 +13,9 @@ class RouterApp extends Component {
     return (
       <Router history={history}>
         <ErrorBoundary>
-          <Route exact path="/organizations" component={Organization} />
-          <Route exact path="/" component={Dashboard} />
-          <Route exact path="/temp" component={Temp} />
+          <PrivateRoute exact path="/organizations" component={Organization} />
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/temp" component={Temp} />
           <Route exact path="/login" component={Login} />
         </ErrorBoundary>
       </Router>
