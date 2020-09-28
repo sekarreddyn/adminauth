@@ -8,6 +8,7 @@ import { Form, Icon, Input, Button, Row, Col, message, Card } from "antd";
 
 import "../App.css";
 import logo from "../assets/login-logo.png";
+import analyticedge from "../assets/analyticedge-logo.png";
 
 class Login extends Component {
 
@@ -40,26 +41,26 @@ class Login extends Component {
           align="middle"
           style={{ width: "100%", height: "100vh" }}
         >
-          <Card bodyStyle={{ paddingTop: 40, paddingBottom: 10 }}>
+          <Card>
             <Col span={24}>
               <img
                 alt="Media Simulator"
                 src={logo}
-                className="login-logo mb-6 mx-auto"
+                className="login-logo mb-4 mx-auto"
                 style={{
                   textAlign: "center",
                   marginRight: "auto",
                   marginLeft: "auto",
                 }}
               />
-              <h3 className="text-center text-primary mb-5">Login with your user credentials to access Media Simulator</h3>
+              <h3 className="text-center text-primary mb-3">Login with your user credentials to access Media Simulator</h3>
 
 
               <Form
                 onSubmit={this.handleSubmit}
                 className="login-form"
               >
-                <Form.Item className="mb-3">
+                <Form.Item className="mb-3" label="Email Address">
                   {getFieldDecorator("emailOrMobile", {
                     rules: [
                       { required: true, message: "Please enter your email " },
@@ -74,7 +75,7 @@ class Login extends Component {
                     />
                   )}
                 </Form.Item>
-                <Form.Item className="mb-3" label="Password">
+                <Form.Item className="mb-0" label="Password">
                   {getFieldDecorator("password", {
                     rules: [
                       {
@@ -96,8 +97,10 @@ class Login extends Component {
                     />
                   )}
                 </Form.Item>
-
-                <Form.Item>
+                <p className="text-right mb-5">
+                  <NavLink to="/forgot-password">Forgot Password</NavLink>
+                </p>
+                <Form.Item className="mb-0">
                   <Button
                     type="primary"
                     htmlType="submit"
@@ -106,10 +109,10 @@ class Login extends Component {
                     size="large"
                   >
                     Log in
-                </Button>
-
-                  <p className="info-text">Don’t have login access? <NavLink className="font-weight-bold" to="/request-access">Request Access</NavLink></p>
+                  </Button>
+                  <p className="info-text text-center mb-4">Don’t have login access? <NavLink className="font-weight-bold" to="/request-access">Request Access</NavLink></p>
                 </Form.Item>
+                <p className="poweredby mb-0 text-center">Powered By <img src={analyticedge} alt="" /> </p>
               </Form>
             </Col>
           </Card>

@@ -123,3 +123,11 @@
   .text-hide {
     @include text-hide($ignore-warning: true);
   }
+
+// Fill Color
+
+  @each $color, $value in $theme-colors {
+    .fill-#{$color} {
+      fill: $value !important;
+    }
+  }

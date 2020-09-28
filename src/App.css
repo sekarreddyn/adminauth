@@ -906,7 +906,7 @@
 }
 
 .border-success {
-  border-color: #28a745 !important;
+  border-color: #86D295 !important;
 }
 
 .border-info {
@@ -4124,11 +4124,11 @@ a.text-secondary:hover, a.text-secondary:focus {
 }
 
 .text-success {
-  color: #28a745 !important;
+  color: #86D295 !important;
 }
 
 a.text-success:hover, a.text-success:focus {
-  color: #1e7e34 !important;
+  color: #61c474 !important;
 }
 
 .text-info {
@@ -4195,15 +4195,53 @@ a.text-dark:hover, a.text-dark:focus {
   border: 0;
 }
 
+.fill-primary {
+  fill: #F40000 !important;
+}
+
+.fill-secondary {
+  fill: #FF6720 !important;
+}
+
+.fill-success {
+  fill: #86D295 !important;
+}
+
+.fill-info {
+  fill: #17a2b8 !important;
+}
+
+.fill-warning {
+  fill: #ffc107 !important;
+}
+
+.fill-danger {
+  fill: #F40000 !important;
+}
+
+.fill-light {
+  fill: #f8f9fa !important;
+}
+
+.fill-dark {
+  fill: #343a40 !important;
+}
+
 body .ant-btn {
   font-weight: bold;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  letter-spacing: 0;
 }
 
 body .ant-btn.ant-btn-lg {
-  height: 50px;
-  padding: 0 15px;
+  padding: 16px 15px;
   font-size: 16px;
   border-radius: 4px;
+  line-height: 1;
+  height: auto;
 }
 
 body .ant-btn.ant-btn-primary {
@@ -4216,8 +4254,23 @@ body .ant-btn.ant-btn-primary {
 }
 
 body .ant-btn.ant-btn-primary:hover, body .ant-btn.ant-btn-primary:focus, body .ant-btn.ant-btn-primary:active {
-  border-color: #c10000;
-  background: #c10000;
+  border-color: #db0000;
+  background: #db0000;
+  -webkit-box-shadow: 0px 10px 10px -10px rgba(244, 0, 0, 0.4);
+          box-shadow: 0px 10px 10px -10px rgba(244, 0, 0, 0.4);
+}
+
+body .ant-form-item {
+  position: relative;
+}
+
+body .ant-form-item .has-error .ant-form-explain, body .ant-form-item .has-error .ant-form-split {
+  text-align: left;
+  color: #F40000;
+  position: absolute;
+  left: 0;
+  font-size: 12px;
+  bottom: -20px;
 }
 
 body .ant-input {
@@ -4226,10 +4279,8 @@ body .ant-input {
 
 body .ant-input:hover, body .ant-input:focus, body .ant-input:active {
   border: solid 1px #8BD3E6;
-}
-
-body .has-error .ant-form-explain, body .has-error .ant-form-split {
-  text-align: left;
+  -webkit-box-shadow: 0 0 0 2px rgba(139, 211, 230, 0.2);
+          box-shadow: 0 0 0 2px rgba(139, 211, 230, 0.2);
 }
 
 body input:-webkit-autofill,
@@ -4275,9 +4326,19 @@ body.login .ant-btn.ant-btn-primary {
   text-transform: uppercase;
 }
 
-body.login img {
+body.login img.login-logo {
   max-width: 100%;
   display: block;
+}
+
+body.login .poweredby {
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+body.login .poweredby img {
+  max-width: 100px;
+  margin-left: 10px;
 }
 
 a {
@@ -4285,9 +4346,5 @@ a {
 }
 
 a:hover, a:focus, a:active {
-  color: #c10000;
-}
-
-body {
-  background: url("./assets/login-bg.jpg") no-repeat center center;
+  color: #db0000;
 }

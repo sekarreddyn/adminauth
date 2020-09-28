@@ -5,6 +5,10 @@ import Dashboard from "../../components/Dashboard";
 import Temp from "../../components/Temp";
 import RequestAccess from "../RequestAcess";
 import Organization from "../../components/Organization";
+import ForgotPassword from "../../components/Forgotpassword";
+import PasswordEmail from "../../components/PasswordEmail";
+import RequestEmail from "../../components/RequestEmail";
+
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";
@@ -19,6 +23,10 @@ class RouterApp extends Component {
           <PrivateRoute exact path="/temp" component={Temp} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/request-access" component={RequestAccess} />
+          <Route exact path="/request-emailsent" component={RequestEmail} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
+          <Route exact path="/forgot-emailsent" component={PasswordEmail} />
+
         </ErrorBoundary>
       </Router>
     );

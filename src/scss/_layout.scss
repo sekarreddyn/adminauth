@@ -2,10 +2,6 @@ a{
   color: $primary;
 
   @include hover-focus-active{
-    color: darken($primary, 10)
+    color: darken($primary, 5)
   }
-}
-
-body{
-  background: url('./assets/login-bg.jpg') no-repeat center center;
 }

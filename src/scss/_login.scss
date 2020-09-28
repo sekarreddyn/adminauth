@@ -26,9 +26,18 @@ body.login{
     text-transform: uppercase;
   }
 
-  img{
+  img.login-logo{
     max-width: 100%;
-    display: block;
-    
+    display: block; 
+  }
+
+  .poweredby{
+    color: $gray-600;
+    text-transform: uppercase;
+
+    img{
+      max-width: 100px;
+      margin-left: 10px;
+    }
   }
 }

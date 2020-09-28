@@ -52,7 +52,9 @@ class Login extends Component {
                 marginLeft: "auto",
               }}
             />
-            <h3 className="text-center text-primary mb-3">Request access to Media Simulator</h3>
+            <h3 className="text-center text-primary mb-2">Forgot Password?</h3>
+            <p className="text-center mb-4">Dont Worry? Just fill in your email address <br />
+            and we’ll send the link to reset the password</p>
 
 
             <Form
@@ -65,21 +67,6 @@ class Login extends Component {
                 width: 350,
               }}
             >
-              <Form.Item className="mb-3" label="User Name">
-                {getFieldDecorator("username", {
-                  rules: [
-                    { required: true, message: "User Name" },
-                  ],
-                })(
-                  <Input
-                    prefix={
-                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="Full Name"
-                    size="large"
-                  />
-                )}
-              </Form.Item>
               <Form.Item className="mb-5" label="Email Address">
                 {getFieldDecorator("email", {
                   rules: [
@@ -103,10 +90,10 @@ class Login extends Component {
                   loading={loading}
                   size="large"
                 >
-                  Request Access
+                  Reset Password
                 </Button> */}
 
-                <NavLink className="ant-btn ant-btn-primary ant-btn-lg" to="/request-emailsent">Request Access</NavLink>
+                <NavLink className="ant-btn ant-btn-primary ant-btn-lg" to="/forgot-emailsent">Reset Password</NavLink>
 
                 <p className="info-text text-center mb-4">
                   <Icon type="arrow-left" /> Back to  <NavLink className="font-weight-bold" to="/">login</NavLink>
