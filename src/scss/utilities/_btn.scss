@@ -1,0 +1,17 @@
+.ant-btn{
+  display: block;
+  letter-spacing: 1px;
+
+  @include hover-focus-active{
+    background: darken( $primary, 20 );
+  }
+
+  &.ant-btn-primary{
+    background: $primary;
+
+    @include hover-focus-active{
+      border-color: darken( $primary, 20 );
+      background: darken( $primary, 20 );
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { Router, Route } from "react-router-dom";
 import Login from "../../components/Login";
 import Dashboard from "../../components/Dashboard";
 import Temp from "../../components/Temp";
+import RequestAccess from "../RequestAcess";
 import Organization from "../../components/Organization";
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
@@ -17,6 +18,7 @@ class RouterApp extends Component {
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/temp" component={Temp} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/request-access" component={RequestAccess} />
         </ErrorBoundary>
       </Router>
     );

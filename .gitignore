@@ -36,3 +36,4 @@ grunt.json
 /.settings/
 *.classpath
 /geek-assess.code-workspace
+*.code-workspace
