@@ -4,6 +4,8 @@ import { http, history } from "../helpers";
 export const authActions = {
   login,
   logout,
+  signup,
+  forgotPassword,
 };
 
 function login(data) {
@@ -12,24 +14,24 @@ function login(data) {
     localStorage.setItem("user", JSON.stringify(data));
     history.push("/");
 
-    // http
-    //   .post("auth/login", data)
-    //   .then(function (response) {
-    //     if (response.data) {
-    //       let user = {
-    //         ...response.data,
-    //         token: response.data.token,
-    //       };
-    //       localStorage.setItem("user", JSON.stringify(user));
-    //       dispatch(success(user));
-    //       history.push("/");
-    //     } else {
-    //       dispatch(failure(response.data.reason));
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     dispatch(failure(error));
-    //   });
+    http
+      .post("auth/login", data)
+      .then(function (response) {
+        if (response.data) {
+          let user = {
+            ...response.data,
+            token: response.data.token,
+          };
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(success(user));
+          history.push("/");
+        } else {
+          dispatch(failure(response.data.reason));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+      });
   };
 
   function request(user) {
@@ -49,4 +51,73 @@ function logout() {
     dispatch({ type: authConstants.LOGOUT });
     history.push("/login");
   };
+}
+
+function signup(data) {
+  return (dispatch) => {
+    dispatch(request(authActions));
+
+    http
+      .post("register", data)
+      .then(function (response) {
+        if (response.data) {
+          let user = {
+            ...response.data,
+            token: response.data.token,
+          };
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(success(user));
+          history.push("/");
+        } else {
+          dispatch(failure(response.data.reason));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+      });
+  };
+
+  function request(user) {
+    return { type: authConstants.SIGNUP_REQUEST, user };
+  }
+  function success(user) {
+    return { type: authConstants.SIGNUP_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: authConstants.SIGNUP_FAILURE, error };
+  }
+}
+
+function forgotPassword(data) {
+  return (dispatch) => {
+    dispatch(request({ data }));
+    http
+      .post(`forgot-password`, data)
+      .then(function (response) {
+        if (response.data) {
+        }
+        dispatch(success(response.data));
+      })
+      .catch(function (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.reason
+        ) {
+          dispatch(failure(error.response.data.reason));
+        } else {
+          dispatch(failure("error"));
+        }
+      });
+  };
+
+  function request(user) {
+    return { type: authConstants.FORGOT_PASSWORD_REQUEST, user };
+  }
+  function success(user) {
+    return { type: authConstants.FORGOT_PASSWORD_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: authConstants.FORGOT_PASSWORD_FAILURE, error };
+  }
 }
