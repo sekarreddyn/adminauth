@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import Header from "../components/Layout/Header";
-import Sidemenu from "../components/Layout/Sidemenu";
 import { Layout } from "antd";
 
 const { Content, Footer } = Layout;
@@ -11,7 +10,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     render={(props) =>
       localStorage.getItem("user") ? (
         <Layout style={{ minHeight: "100vh" }}>
-          {/* <Sidemenu /> */}
           <Layout>
             <Header />
             <Content

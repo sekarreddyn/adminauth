@@ -4,14 +4,13 @@ import { authActions } from "../actions";
 import { NavLink } from "react-router-dom";
 import "antd/dist/antd.css";
 import "../index.css";
-import { Form, Icon, Input, Button, Row, Col, message, Card } from "antd";
+import { Form, Icon, Input, Button, Row, Col, Card } from "antd";
 
 import "../App.css";
 import logo from "../assets/login-logo.png";
 import analyticedge from "../assets/analyticedge-logo.png";
 
 class Login extends Component {
-
   componentDidMount() {
     document.body.classList.add("login");
     return () => {
@@ -41,7 +40,7 @@ class Login extends Component {
           align="middle"
           style={{ width: "100%", height: "100vh" }}
         >
-          <Card>
+          <Card style={{ maxWidth: 450 }}>
             <Col span={24}>
               <img
                 alt="Media Simulator"
@@ -53,13 +52,11 @@ class Login extends Component {
                   marginLeft: "auto",
                 }}
               />
-              <h3 className="text-center text-primary mb-3">Login with your user credentials to access Media Simulator</h3>
+              <h3 className="text-center text-primary mb-3">
+                Login with your user credentials to access media simulator
+              </h3>
 
-
-              <Form
-                onSubmit={this.handleSubmit}
-                className="login-form"
-              >
+              <Form onSubmit={this.handleSubmit} className="login-form">
                 <Form.Item className="mb-3" label="Email Address">
                   {getFieldDecorator("emailOrMobile", {
                     rules: [
@@ -68,7 +65,10 @@ class Login extends Component {
                   })(
                     <Input
                       prefix={
-                        <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                        <Icon
+                          type="user"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
                       }
                       placeholder="email"
                       size="large"
@@ -89,7 +89,10 @@ class Login extends Component {
                   })(
                     <Input.Password
                       prefix={
-                        <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                        <Icon
+                          type="lock"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
                       }
                       type="password"
                       placeholder="Password"
@@ -110,9 +113,16 @@ class Login extends Component {
                   >
                     Log in
                   </Button>
-                  <p className="info-text text-center mb-4">Don’t have login access? <NavLink className="font-weight-bold" to="/request-access">Request Access</NavLink></p>
+                  <p className="info-text text-center mb-4">
+                    Don’t have login access?{" "}
+                    <NavLink className="font-weight-bold" to="/request-access">
+                      Request Access
+                    </NavLink>
+                  </p>
                 </Form.Item>
-                <p className="poweredby mb-0 text-center">Powered By <img src={analyticedge} alt="" /> </p>
+                <p className="poweredby mb-0 text-center">
+                  Powered By <img src={analyticedge} alt="" />{" "}
+                </p>
               </Form>
             </Col>
           </Card>

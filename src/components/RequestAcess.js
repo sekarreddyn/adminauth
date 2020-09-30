@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authActions } from "../actions";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "antd/dist/antd.css";
 import "../index.css";
-import { Form, Icon, Input, Button, Row, Col, message, Card } from "antd";
+import { Form, Icon, Input, Row, Col, Card } from "antd";
 
 import "../App.css";
 import logo from "../assets/login-logo.png";
 import analyticedge from "../assets/analyticedge-logo.png";
 
 class Login extends Component {
-
   componentDidMount() {
     document.body.classList.add("login");
     return () => {
@@ -31,7 +30,6 @@ class Login extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { loading } = this.props.auth;
 
     return (
       <Row
@@ -40,7 +38,7 @@ class Login extends Component {
         align="middle"
         style={{ width: "100%", height: "100vh" }}
       >
-        <Card>
+        <Card style={{ maxWidth: 450 }}>
           <Col span={24}>
             <img
               alt="Media Simulator"
@@ -52,8 +50,9 @@ class Login extends Component {
                 marginLeft: "auto",
               }}
             />
-            <h3 className="text-center text-primary mb-3">Request access to Media Simulator</h3>
-
+            <h3 className="text-center text-primary mb-3">
+              Request access to media simulator
+            </h3>
 
             <Form
               onSubmit={this.handleSubmit}
@@ -67,9 +66,7 @@ class Login extends Component {
             >
               <Form.Item className="mb-3" label="User Name">
                 {getFieldDecorator("username", {
-                  rules: [
-                    { required: true, message: "User Name" },
-                  ],
+                  rules: [{ required: true, message: "User Name" }],
                 })(
                   <Input
                     prefix={
@@ -106,16 +103,24 @@ class Login extends Component {
                   Request Access
                 </Button> */}
 
-                <NavLink className="ant-btn ant-btn-primary ant-btn-lg" to="/request-emailsent">Request Access</NavLink>
+                <NavLink
+                  className="ant-btn ant-btn-primary ant-btn-lg"
+                  to="/request-emailsent"
+                >
+                  Request Access
+                </NavLink>
 
                 <p className="info-text text-center mb-4">
-                  <Icon type="arrow-left" /> Back to  <NavLink className="font-weight-bold" to="/">login</NavLink>
+                  <Icon type="arrow-left" /> Back to{" "}
+                  <NavLink className="font-weight-bold" to="/">
+                    login
+                  </NavLink>
                 </p>
               </Form.Item>
 
-              <p className="poweredby mb-0 text-center">Powered By <img src={analyticedge} alt="" /> </p>
-
-
+              <p className="poweredby mb-0 text-center">
+                Powered By <img src={analyticedge} alt="" />{" "}
+              </p>
             </Form>
           </Col>
         </Card>
