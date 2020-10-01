@@ -3,7 +3,7 @@ import { Redirect, Route } from "react-router-dom";
 import Header from "../components/Layout/Header";
 import { Layout } from "antd";
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -12,13 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         <Layout style={{ minHeight: "100vh" }}>
           <Layout>
             <Header />
-            <Content
-              style={{
-                margin: "24px 16px",
-                padding: 24,
-                minHeight: 280,
-              }}
-            >
+            <Content>
               <Component key={props.match.params.type} {...props} />
             </Content>
           </Layout>

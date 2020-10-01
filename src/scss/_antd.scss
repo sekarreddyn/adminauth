@@ -32,6 +32,17 @@ body{
         box-shadow: 0px 10px 10px -10px rgba($primary, 0.4);
       }
     }
+
+    &.ant-btn-link{
+      border: none;
+      background: none;
+      color: $gray-900;
+      
+      @include hover-focus-active{
+        border: none;
+        background: none;
+      }
+    }
   }
 
   // Inputs
@@ -73,5 +84,38 @@ body{
     -webkit-text-fill-color: $black;
     -webkit-box-shadow: 0 0 0px 1000px $white inset;
     transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+.ant-breadcrumb{
+  background: #fff;
+  padding: 10px 40px;
+  box-shadow:0 0px 8px $gray-200;
+
+  a:hover{
+    color: $primary;
+  }
+}
+
+.ant-table{
+  &-thead{
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  &-body{
+
+    tr:hover td{
+      background: rgba($primary, 0.05) !important;
+    }
+
+    td.numbers{
+      font-size: 14px;
+    }
+
+    td{
+      color: #343a40;
+    }
   }
 }

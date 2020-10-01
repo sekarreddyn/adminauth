@@ -1,6 +1,7 @@
 body{
   background: $white;
-  background: linear-gradient(to bottom, $white 20%, $gray-200 100%);
+  background: linear-gradient(to bottom, $gray-200 20%, $white 100% );
+  height: 100%;
 
   #root .ant-layout{
     background: none;
@@ -13,6 +14,12 @@ a{
   @include hover-focus-active{
     color: darken($primary, 5)
   }
+}
+
+.outer-wrapper{
+  margin: 15px 16px 24px;
+  padding: 24px;
+  min-height: 300px;
 }
 
 .main-header{
@@ -152,4 +159,38 @@ a{
       font-size: 14px;
     }
   }
+}
+
+.session-title{
+  margin-bottom: 0;
+
+  span{
+    margin-top: 5px;
+    display: block;
+    font-size: 13px;
+    color: $gray-600;
+    letter-spacing: 0;
+    font-weight: normal;
+  }
+}
+
+.session-count{
+  padding: 4px 5px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+
+.text-danger .session-count{
+  background: $primary;
+}
+
+.text-success .session-count{
+  background: $success;
+}
+
+.text-dark .session-count{
+  background: #fff;
+  border: solid 1px $gray-400;
+  color: #343a40;
 }

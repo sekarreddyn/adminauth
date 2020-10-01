@@ -4411,6 +4411,38 @@ h5 {
   font-size: 14px;
 }
 
+.bg-primary {
+  background: #F40000 !important;
+}
+
+.bg-secondary {
+  background: #FF6720 !important;
+}
+
+.bg-success {
+  background: #86D295 !important;
+}
+
+.bg-info {
+  background: #17a2b8 !important;
+}
+
+.bg-warning {
+  background: #ffc107 !important;
+}
+
+.bg-danger {
+  background: #F40000 !important;
+}
+
+.bg-light {
+  background: #f8f9fa !important;
+}
+
+.bg-dark {
+  background: #343a40 !important;
+}
+
 body .notification-dropdown .ant-dropdown-menu {
   margin-top: 15px;
   position: relative;
@@ -4497,6 +4529,17 @@ body .ant-btn.ant-btn-primary:hover, body .ant-btn.ant-btn-primary:focus, body .
           box-shadow: 0px 10px 10px -10px rgba(244, 0, 0, 0.4);
 }
 
+body .ant-btn.ant-btn-link {
+  border: none;
+  background: none;
+  color: #212529;
+}
+
+body .ant-btn.ant-btn-link:hover, body .ant-btn.ant-btn-link:focus, body .ant-btn.ant-btn-link:active {
+  border: none;
+  background: none;
+}
+
 body .ant-form-item {
   position: relative;
 }
@@ -4534,6 +4577,35 @@ body select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.ant-breadcrumb {
+  background: #fff;
+  padding: 10px 40px;
+  -webkit-box-shadow: 0 0px 8px #e9ecef;
+          box-shadow: 0 0px 8px #e9ecef;
+}
+
+.ant-breadcrumb a:hover {
+  color: #F40000;
+}
+
+.ant-table-thead {
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.ant-table-body tr:hover td {
+  background: rgba(244, 0, 0, 0.05) !important;
+}
+
+.ant-table-body td.numbers {
+  font-size: 14px;
+}
+
+.ant-table-body td {
+  color: #343a40;
 }
 
 body.login {
@@ -4580,8 +4652,9 @@ body.login .poweredby img {
 
 body {
   background: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #fff), to(#e9ecef));
-  background: linear-gradient(to bottom, #fff 20%, #e9ecef 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #e9ecef), to(#fff));
+  background: linear-gradient(to bottom, #e9ecef 20%, #fff 100%);
+  height: 100%;
 }
 
 body #root .ant-layout {
@@ -4594,6 +4667,12 @@ a {
 
 a:hover, a:focus, a:active {
   color: #db0000;
+}
+
+.outer-wrapper {
+  margin: 15px 16px 24px;
+  padding: 24px;
+  min-height: 300px;
 }
 
 .main-header {
@@ -4737,4 +4816,37 @@ a:hover, a:focus, a:active {
 .session-card-meta a {
   font-weight: bold;
   font-size: 14px;
+}
+
+.session-title {
+  margin-bottom: 0;
+}
+
+.session-title span {
+  margin-top: 5px;
+  display: block;
+  font-size: 13px;
+  color: #6c757d;
+  letter-spacing: 0;
+  font-weight: normal;
+}
+
+.session-count {
+  padding: 4px 5px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.text-danger .session-count {
+  background: #F40000;
+}
+
+.text-success .session-count {
+  background: #86D295;
+}
+
+.text-dark .session-count {
+  background: #fff;
+  border: solid 1px #ced4da;
+  color: #343a40;
 }
