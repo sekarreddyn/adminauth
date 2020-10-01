@@ -110,6 +110,14 @@
 
   @each $color, $value in $theme-colors {
     @include text-emphasis-variant(".text-#{$color}", $value);
+
+    .text-#{$color} a {
+      color: $value !important;
+
+      @include hover-focus-active{
+        color: darken($value, 8) !important;
+      }
+    }
   }
 
   .text-body { color: $body-color !important; }
@@ -130,4 +138,26 @@
     .fill-#{$color} {
       fill: $value !important;
     }
+  }
+
+// Headings
+
+  h1{
+    font-size: 30px;
+  }
+
+  h2{
+    font-size: 24px;
+  }
+
+  h3{
+    font-size: 18px;
+  }
+
+  h4{
+    font-size: 16px;
+  }
+
+  h5{
+    font-size: 14px;
   }

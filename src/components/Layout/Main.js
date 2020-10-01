@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Router, Route } from "react-router-dom";
 import Login from "../../components/Login";
 import Dashboard from "../../components/Dashboard";
+import sessionsList from "../sessionsList";
 import Temp from "../../components/Temp";
 import RequestAccess from "../RequestAcess";
 import Organization from "../../components/Organization";
@@ -26,6 +27,7 @@ class RouterApp extends Component {
           <Route exact path="/request-emailsent" component={RequestEmail} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/forgot-emailsent" component={PasswordEmail} />
+          <PrivateRoute exact path="/sessions-list" component={sessionsList} />
 
         </ErrorBoundary>
       </Router>

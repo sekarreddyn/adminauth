@@ -16,25 +16,23 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
               style={{
                 margin: "24px 16px",
                 padding: 24,
-                background: "#fff",
                 minHeight: 280,
               }}
             >
               <Component key={props.match.params.type} {...props} />
             </Content>
-            <Footer style={{ textAlign: "center" }}>Appandgeek ©2018 </Footer>
           </Layout>
         </Layout>
       ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: {
-              from: props.location,
-            },
-          }}
-        />
-      )
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: {
+                from: props.location,
+              },
+            }}
+          />
+        )
     }
   />
 );

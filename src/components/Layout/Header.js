@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, Dropdown } from "antd";
+import { Layout, Menu, Icon, Dropdown, Row, Col, Button, Tooltip } from "antd";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { authActions, dashboardActions } from "../../actions";
+import msLogo from "../../assets/ms-logo.svg";
 
 const { Header } = Layout;
 
@@ -23,38 +25,72 @@ class Navbar extends Component {
     this.props.dispatch(authActions.logout());
   };
 
-  menu = (
-    <Menu style={{ marginRight: "15px" }} onClick={this.handleClick}>
-      <Menu.Item>
-        <Icon type="user" />
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
-
   render() {
     return (
       <div>
-        <Header style={{ background: "#fff", padding: 0 }}>
-          <Menu
-            theme="light"
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            style={{ lineHeight: "64px" }}
-          >
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
-              onClick={this.toggle}
-            />
-            <Dropdown overlay={this.menu} placement="bottomLeft">
-              <Icon
-                className="trigger"
-                style={{ float: "right" }}
-                type="user"
-              />
-            </Dropdown>
-          </Menu>
+        <Header className="main-header">
+          <Row gutter={30} className="d-flex align-items-center">
+
+            <Col span={4}>
+              <img src={msLogo} className="w-90" alt="Media Simulator" />
+            </Col>
+
+            <Menu
+              theme="light"
+              mode="horizontal"
+              defaultSelectedKeys={["2"]}
+              // style={{ lineHeight: "64px" }}
+              className="ml-auto"
+            >
+
+              <Menu.Item>
+
+                <NavLink to="/">Dashboard</NavLink>
+              </Menu.Item>
+              <Menu.Item>
+                <NavLink to="/sessions-list">Sessions</NavLink>
+              </Menu.Item>
+              <Menu.Item>
+                <NavLink to="/">Reports</NavLink>
+              </Menu.Item>
+              <Menu.Item>
+                <Button className="creat-btn">
+                  Create Scenarios
+                </Button>
+              </Menu.Item>
+
+              {/* <Menu.Item className="text-center">
+                <Dropdown
+                  overlay={
+                    <Menu>
+                      <Menu.Item>
+                        New report has been received
+                        <span className="date">1 hr ago</span>
+                      </Menu.Item>
+                      <Menu.Item>Dashboard</Menu.Item>
+                      <Menu.Item>Dashboard</Menu.Item>
+                    </Menu>
+                  }
+                  overlayClassName="notification-dropdown"
+                  placement="bottomCenter"
+                >
+                  <Icon type="bell" className="mx-auto" theme="filled" style={{ fontSize: '18px' }} />
+                </Dropdown>
+              </Menu.Item> */}
+
+              <Menu.Item onClick={this.handleClick} className="text-center">
+                <Tooltip placement="bottom" title="Logout">
+                  <Icon type="poweroff" className="mx-auto" style={{ fontSize: '18px' }} />
+                </Tooltip>
+              </Menu.Item>
+
+              <Menu.Item className="text-center">
+                <Tooltip placement="bottom" title="Help">
+                  <Icon type="question-circle" className="mx-auto" theme="filled" style={{ fontSize: '18px' }} />
+                </Tooltip>
+              </Menu.Item>
+            </Menu>
+          </Row>
         </Header>
       </div>
     );

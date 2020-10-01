@@ -1,17 +1,39 @@
 .ant-btn{
-  display: block;
+  // display: block;
   letter-spacing: 1px;
+  border-radius: 3px;
+  border: solid 1px $gray-400;
 
   @include hover-focus-active{
-    background: darken( $primary, 20 );
+    background: $white;
+    border: solid 1px $primary;
+    color: $primary;
   }
+}
 
-  &.ant-btn-primary{
-    background: $primary;
+.ant-btn-primary{
+  background: $primary;
+  border: solid 1px $primary;
+
+  @include hover-focus-active{
+    border-color: darken( $primary, 5 );
+    background: darken( $primary, 5 );
+  }
+}
+
+
+
+@each $color, $value in $theme-colors {
+
+  .btn-#{$color}-outline{
+    color: $value;
+    border: solid 1px $value;
+    background: #fff;
 
     @include hover-focus-active{
-      border-color: darken( $primary, 20 );
-      background: darken( $primary, 20 );
+      background: $value;
+      border: solid 1px $value;
+      color: #fff;
     }
   }
 }

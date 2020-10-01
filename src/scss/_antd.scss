@@ -7,6 +7,9 @@ body{
     transition: all 0.3s linear;
     backface-visibility: hidden;
     letter-spacing: 0;
+    height: auto;
+    padding: 6px 12px;
+    
 
     &.ant-btn-lg{
       padding: 16px 15px;

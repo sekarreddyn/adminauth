@@ -100,7 +100,7 @@ class Login extends Component {
                     />
                   )}
                 </Form.Item>
-                <p className="text-right mb-5">
+                <p className="text-right text-dark mb-5">
                   <NavLink to="/forgot-password">Forgot Password</NavLink>
                 </p>
                 <Form.Item className="mb-0">
