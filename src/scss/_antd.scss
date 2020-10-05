@@ -85,37 +85,43 @@ body{
     -webkit-box-shadow: 0 0 0px 1000px $white inset;
     transition: background-color 5000s ease-in-out 0s;
   }
-}
 
-.ant-breadcrumb{
-  background: #fff;
-  padding: 10px 40px;
-  box-shadow:0 0px 8px $gray-200;
+  .ant-breadcrumb{
+    background: #fff;
+    padding: 10px 40px;
+    box-shadow:0 0px 8px $gray-200;
 
-  a:hover{
-    color: $primary;
-  }
-}
-
-.ant-table{
-  &-thead{
-    font-weight: bold;
-    font-size: 14px;
-    text-transform: uppercase;
-  }
-
-  &-body{
-
-    tr:hover td{
-      background: rgba($primary, 0.05) !important;
+    a:hover{
+      color: $primary;
     }
+  }
 
-    td.numbers{
+  .ant-table{
+    &-thead{
+      font-weight: bold;
       font-size: 14px;
+      text-transform: uppercase;
     }
 
-    td{
-      color: #343a40;
+    &-body{
+
+      tr:hover td{
+        background: rgba($primary, 0.05) !important;
+      }
+
+      td.numbers{
+        font-size: 14px;
+      }
+
+      td{
+        color: #343a40;
+      }
     }
   }
+
+  .ant-card{
+    border-radius: 6px;
+    box-shadow: 0 2px 8px 0 #E0E0E0;
+  }
 }
+

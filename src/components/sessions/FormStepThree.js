@@ -30,7 +30,7 @@ const StepThree = Form.create({
             {getFieldDecorator('f_one_s_two', {
               rules: [{ required: false, message: 'Cannot be empty!' }],
               initialValue: props.f_one_s_two
-            })(<Input placeholder="Basic usage" size="large" placeholder="Please enter session title" />)}
+            })(<Input size="large" placeholder="Please enter session title" />)}
           </Form.Item>
         </Col>
         <Col span={24}>

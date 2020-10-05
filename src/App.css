@@ -4579,33 +4579,39 @@ body select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.ant-breadcrumb {
+body .ant-breadcrumb {
   background: #fff;
   padding: 10px 40px;
   -webkit-box-shadow: 0 0px 8px #e9ecef;
           box-shadow: 0 0px 8px #e9ecef;
 }
 
-.ant-breadcrumb a:hover {
+body .ant-breadcrumb a:hover {
   color: #F40000;
 }
 
-.ant-table-thead {
+body .ant-table-thead {
   font-weight: bold;
   font-size: 14px;
   text-transform: uppercase;
 }
 
-.ant-table-body tr:hover td {
+body .ant-table-body tr:hover td {
   background: rgba(244, 0, 0, 0.05) !important;
 }
 
-.ant-table-body td.numbers {
+body .ant-table-body td.numbers {
   font-size: 14px;
 }
 
-.ant-table-body td {
+body .ant-table-body td {
   color: #343a40;
+}
+
+body .ant-card {
+  border-radius: 6px;
+  -webkit-box-shadow: 0 2px 8px 0 #E0E0E0;
+          box-shadow: 0 2px 8px 0 #E0E0E0;
 }
 
 body.login {
@@ -4651,10 +4657,7 @@ body.login .poweredby img {
 }
 
 body {
-  background: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #e9ecef), to(#fff));
-  background: linear-gradient(to bottom, #e9ecef 20%, #fff 100%);
-  height: 100%;
+  background: #EEEEEE;
 }
 
 body #root .ant-layout {

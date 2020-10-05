@@ -4,7 +4,7 @@ import { Form, Input, Button, Divider, Row, Col } from 'antd';
 const StepFinal = Form.create({
 	name: 'step_final'
 })(props => {
-	const { getFieldDecorator, validateFields, getFieldsValue } = props.form;
+	const { validateFields, getFieldsValue } = props.form;
 	const validateInput = (e) => {
 		e.preventDefault();
 		validateFields((err, values) => {
