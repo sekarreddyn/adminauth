@@ -7,7 +7,7 @@ import StepFinal from './FormStepFinal';
 
 class FinalForm extends Component {
 	state = {
-		step: 4,
+		step: 1,
 		step_one_fields: {
 			f_one_s_one: '',
 			f_two_s_one: ''
