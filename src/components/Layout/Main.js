@@ -9,6 +9,8 @@ import Organization from "../../components/Organization";
 import ForgotPassword from "../../components/Forgotpassword";
 import PasswordEmail from "../../components/PasswordEmail";
 import RequestEmail from "../../components/RequestEmail";
+import SessionCreation from "../../components/sessions/FinalForm";
+import ScenarioCreation from "../../components/scenarios/FinalForm";
 
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
@@ -28,7 +30,8 @@ class RouterApp extends Component {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/forgot-emailsent" component={PasswordEmail} />
           <PrivateRoute exact path="/sessions-list" component={sessionsList} />
-
+          <PrivateRoute exact path="/create-session" component={SessionCreation} />
+          <PrivateRoute exact path="/create-scenario" component={ScenarioCreation} />
         </ErrorBoundary>
       </Router>
     );

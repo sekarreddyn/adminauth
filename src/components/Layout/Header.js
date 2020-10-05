@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, Row, Col, Button, Tooltip } from "antd";
+import { Layout, Menu, Icon, Row, Col, Tooltip } from "antd";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { authActions, dashboardActions } from "../../actions";
@@ -54,9 +54,7 @@ class Navbar extends Component {
                 <NavLink to="/">Reports</NavLink>
               </Menu.Item>
               <Menu.Item>
-                <Button className="creat-btn">
-                  Create Scenarios
-                </Button>
+                <NavLink to="/create-session" className="creat-btn">Create Session</NavLink>
               </Menu.Item>
 
               {/* <Menu.Item className="text-center">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Icon, Button, Popover, Card, Breadcrumb, Table, Tooltip, Badge } from "antd";
+import { Input, Icon, Button, Popover, Card, Breadcrumb, Table, Tooltip } from "antd";
 import { NavLink } from "react-router-dom";
 
 const text = <span className="text-dark p-2 d-block"><Icon type="info-circle" className="mr-2" /> User Guide</span>;

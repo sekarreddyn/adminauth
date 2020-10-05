@@ -4506,7 +4506,7 @@ body .ant-btn {
 }
 
 body .ant-btn.ant-btn-lg {
-  padding: 16px 15px;
+  padding: 12px 15px;
   font-size: 16px;
   border-radius: 4px;
   line-height: 1;
@@ -4675,12 +4675,18 @@ a:hover, a:focus, a:active {
   min-height: 300px;
 }
 
-.main-header {
+.outer-wrapper.card {
+  border: 1px solid #e8e8e8;
+  background: #fff;
+  border-radius: 5px;
+}
+
+body .main-header {
   background: #F40000;
   padding: 0 40px;
 }
 
-.main-header .ant-menu {
+body .main-header .ant-menu {
   background: transparent;
   border: none;
   display: -webkit-box;
@@ -4691,11 +4697,11 @@ a:hover, a:focus, a:active {
           align-items: center;
 }
 
-.main-header .ant-menu.ant-menu-horizontal > .ant-menu-item {
+body .main-header .ant-menu.ant-menu-horizontal > .ant-menu-item {
   border: none !important;
 }
 
-.main-header .ant-menu li {
+body .main-header .ant-menu li {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 800;
   text-transform: uppercase;
@@ -4705,25 +4711,39 @@ a:hover, a:focus, a:active {
   border: none;
 }
 
-.main-header .ant-menu li a {
+body .main-header .ant-menu li a {
   color: rgba(255, 255, 255, 0.9);
   border: none;
 }
 
-.main-header .ant-menu li a:hover, .main-header .ant-menu li a:focus, .main-header .ant-menu li a:active {
+body .main-header .ant-menu li a:hover, body .main-header .ant-menu li a:focus, body .main-header .ant-menu li a:active {
   color: #fff;
   border: none;
 }
 
-.main-header .creat-btn {
+body .main-header .ant-menu li i {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+body .main-header .ant-menu li:hover i, body .main-header .ant-menu li:focus i, body .main-header .ant-menu li:active i {
+  color: white;
+}
+
+body .main-header .creat-btn {
   background: rgba(255, 255, 255, 0.4);
   border: none;
   color: #fff;
+  padding: 0 15px;
+  line-height: 36px;
+  border-radius: 5px;
+  font-weight: 700;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
 }
 
-.main-header .creat-btn:hover, .main-header .creat-btn:focus, .main-header .creat-btn:active {
+body .main-header .creat-btn:hover, body .main-header .creat-btn:focus, body .main-header .creat-btn:active {
   background: #fff;
-  color: #F40000;
+  color: #F40000 !important;
 }
 
 .notification-dropdown ul {
@@ -4849,4 +4869,12 @@ a:hover, a:focus, a:active {
   background: #fff;
   border: solid 1px #ced4da;
   color: #343a40;
+}
+
+.preview-form input {
+  pointer-events: none;
+  border: none;
+  font-weight: bold;
+  color: #212529;
+  padding: 0;
 }
