@@ -79,7 +79,7 @@ const StepFinal = Form.create({
 
 			<Form.Item className="text-center">
 				<Button size="large" type="default" onClick={storeValues} >Back</Button>
-				<Button size="large" className="ml-3" type="primary" htmlType="submit">Confirm</Button>
+				<Button size="large" className="ml-3" type="primary" htmlType="submit">Save Session</Button>
 			</Form.Item>
 		</Form>
 	);

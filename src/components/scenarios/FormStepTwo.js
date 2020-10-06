@@ -1,47 +1,159 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Button, Row, Col, Divider, Radio, DatePicker, Menu, Icon, Dropdown, Table } from 'antd';
+
+
+const columns = [
+	{
+		title: 'Input Parameters',
+		dataIndex: 'input',
+	},
+	{
+		title: 'Lower Limit',
+		dataIndex: 'low',
+		className: "text-center"
+	},
+	{
+		title: 'Upper Limit',
+		dataIndex: 'upper',
+		className: "text-center"
+	},
+];
+
+const data = [
+	{
+		key: '1',
+		input: "BU Threshold",
+		low: "-10%",
+		upper: "0",
+	},
+	{
+		key: '2',
+		input: "Country Threshold",
+		low: "-10%",
+		upper: "10%",
+	},
+	{
+		key: '3',
+		input: "Brand Threshold",
+		low: "-40%",
+		upper: "40%",
+	},
+
+	{
+		key: '4',
+		input: "Media Tactic",
+		low: "-60%",
+		upper: "60%",
+	},
+	{
+		key: '5',
+		input: "YOY Spend Change",
+		low: "-0%",
+		upper: "0%",
+	},
+];
 
 const StepTwo = Form.create({
-    name:'step_two'})( props => {
-    const { getFieldDecorator, validateFields, getFieldsValue } = props.form;
-    const validateInput = (e) => {
-        e.preventDefault();
-        validateFields((err, values) => {
-            if(!err) {
-                props.submittedValues(values);
-                props.handleNextButton();
-            }
-        });
-    }
-    const storeValues = () => {
-        const values = getFieldsValue();
-        props.submittedValues(values);
-        props.handleBackButton();
-    }
-    return (
-        <Form onSubmit={validateInput}>
-            <Form.Item label="Field One">
-                {getFieldDecorator('f_one_s_two', {
-                    rules: [{ required: true, message: 'Cannot be empty!'}],
-                    initialValue: props.f_one_s_two
-                })(<Input placeholder="Input your value here" />)}
-            </Form.Item>
-            <Form.Item label="Field Two">
-                {getFieldDecorator('f_two_s_two', {
-                    rules: [{ required: true, message: 'Cannot be empty!'}],
-                    initialValue: props.f_two_s_two
-                })(<Input placeholder="Input your value here" />)}
-            </Form.Item>
-            <Form.Item>
-                <Button type="primary" onClick={validateInput}>
-                    Next
-                </Button>
-                <Button type="default" onClick={storeValues} >
-                    Back
-                </Button>
-            </Form.Item>
-        </Form>
-    );
+	name: 'step_two'
+})(props => {
+	const { getFieldDecorator, validateFields, getFieldsValue } = props.form;
+	const validateInput = (e) => {
+		e.preventDefault();
+		validateFields((err, values) => {
+			if (!err) {
+				props.submittedValues(values);
+				props.handleNextButton();
+			}
+		});
+	}
+	const storeValues = () => {
+		const values = getFieldsValue();
+		props.submittedValues(values);
+		props.handleBackButton();
+	}
+	return (
+		<Form onSubmit={validateInput}>
+			<Divider></Divider>
+
+			<Row gutter={30}>
+				<Col span={8}>
+					<Form.Item className="mb-4" label="Media Optimization Objective">
+						<Radio.Group defaultValue="a" size="large">
+							<Radio.Button value="a">Max Volume</Radio.Button>
+							<Radio.Button value="b">Max Profit</Radio.Button>
+						</Radio.Group>
+					</Form.Item>
+				</Col>
+				<Col span={8}>
+					<Form.Item label="Start Date">
+						{getFieldDecorator('f_two_s_two', {
+							rules: [{ required: false, message: 'Cannot be empty!' }],
+							initialValue: props.f_two_s_two
+						})(<DatePicker size="large" style={{ width: "100%" }} />)}
+					</Form.Item>
+				</Col>
+				<Col span={8}>
+					<Form.Item label="End Date">
+						{getFieldDecorator('f_two_s_two', {
+							rules: [{ required: false, message: 'Cannot be empty!' }],
+							initialValue: props.f_two_s_two
+						})(<DatePicker size="large" style={{ width: "100%" }} />)}
+					</Form.Item>
+				</Col>
+			</Row>
+
+			<Divider></Divider>
+
+			<Row gutter={30}>
+				<Col span={24}>
+					<Form.Item className="mb-4" label="Media Optimization Objective">
+						<Radio.Group defaultValue="a" size="large">
+							<Radio.Button value="a">Aggregated</Radio.Button>
+							<Radio.Button value="b">Granular</Radio.Button>
+						</Radio.Group>
+					</Form.Item>
+				</Col>
+			</Row>
+
+			<Row gutter="30" className="d-flex pt-4">
+				<Col span={8}><h3 className="mb-0">Aggregated Data</h3></Col>
+				<Col span={4} className="ml-auto text-right">
+					<Dropdown overlay={
+						<Menu>
+							<Menu.Item className="py-2 border-bottom">
+								<Icon type="edit" style={{ fontSize: 16 }} className="mr-2" /> Edit in UI
+							</Menu.Item>
+							<Menu.Item className="py-2 border-bottom">
+								<Icon type="download" style={{ fontSize: 16 }} className="mr-2" /> Import Data
+							</Menu.Item>
+							<Menu.Item className="py-2">
+								<Icon type="upload" style={{ fontSize: 16 }} className="mr-2" /> Upload Data
+							</Menu.Item>
+						</Menu>
+					} placement="bottomLeft">
+						<Button type="primary" >Edit input data <Icon type="caret-down" /></Button>
+					</Dropdown>
+				</Col>
+			</Row>
+
+			<Row gutter="30" className="d-flex pt-4 mb-4">
+				<Col span={24}>
+					<Table columns={columns} dataSource={data} className="text-center"></Table>
+				</Col>
+			</Row>
+
+			<Divider></Divider>
+
+			<Form.Item className="text-center">
+				<Button type="default" size="large" style={{ width: 160 }} onClick={storeValues} >Back</Button>
+				<Button type="primary" size="large" style={{ width: 160 }} className="ml-3" onClick={validateInput}>Next</Button>
+			</Form.Item>
+
+
+		</Form>
+	);
 });
 
 export default StepTwo;
+
+

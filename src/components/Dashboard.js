@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
                 <Input addonAfter={<Icon type="search" />} defaultValue="Search sessions" />
               </div>
               <div className="mr-3">
-                <Button className="btn-primary-outline">Create new session</Button>
+                <NavLink to="/create-session" className="ant-btn ant-btn-sm btn-primary-outline">Create new session</NavLink>
               </div>
               <div>
 

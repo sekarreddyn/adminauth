@@ -22,7 +22,7 @@ const cardTitle = (
         <Input addonAfter={<Icon type="search" />} defaultValue="Search scenarios" />
       </div>
       <div className="mr-3">
-        <Button className="btn-primary-outline">Create new session</Button>
+        <NavLink to="/create-session" className="ant-btn ant-btn-sm btn-primary-outline">Create new session</NavLink>
       </div>
       <div>
 
@@ -79,7 +79,7 @@ const actionsList = (
       </NavLink>
     </Tooltip>
     <Tooltip placement="bottom" title="Copy Scenario">
-      <NavLink to="/session-copies" className="ant-btn ant-btn-link mr-2 px-2">
+      <NavLink to="/create-scenario" className="ant-btn ant-btn-link mr-2 px-2">
         <Icon type="copy" style={{ fontSize: '18px' }} />
       </NavLink>
     </Tooltip>
@@ -99,7 +99,7 @@ const actionsListMore = (
       </NavLink>
     </Tooltip>
     <Tooltip placement="bottom" title="Copy Scenario">
-      <NavLink to="/session-copies" className="ant-btn ant-btn-link mr-2 px-2">
+      <NavLink to="/create-scenario" className="ant-btn ant-btn-link mr-2 px-2">
         <Icon type="copy" style={{ fontSize: '18px' }} />
       </NavLink>
     </Tooltip>
