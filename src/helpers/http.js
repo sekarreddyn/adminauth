@@ -11,7 +11,7 @@ http.interceptors.request.use(
     let user = JSON.parse(localStorage.getItem("msuser"));
 
     if (user && user.token) {
-      config.headers["Authorization"] = user.token;
+      config.headers["x-jwt-assertion"] = user.token;
     }
 
     return config;

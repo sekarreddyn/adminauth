@@ -14,14 +14,14 @@ function login(data) {
     http
       .post("auth/login", data)
       .then(function (response) {
-        if (response.data) {
+        if (response.status === 200) {
           let user = {
             ...response.data,
-            token: response.data.token,
+            token: response.data.Authorization,
           };
+          history.push("/");
           localStorage.setItem("msuser", JSON.stringify(user));
           dispatch(success(user));
-          history.push("/");
         } else {
           dispatch(failure(response.data.reason));
         }
@@ -54,9 +54,9 @@ function signup(data) {
   return (dispatch) => {
     dispatch(request(authActions));
     http
-      .post("user", data)
+      .post("auth/request-access", data)
       .then(function (response) {
-        if (response.data) {
+        if (response.status === 200) {
           let user = {
             ...response.data,
             token: response.data.token,
@@ -90,7 +90,7 @@ function forgotPassword(data) {
     http
       .post(`forgot-password`, data)
       .then(function (response) {
-        if (response.data) {
+        if (response.status === 200) {
         }
         dispatch(success(response.data));
       })

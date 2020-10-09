@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      localStorage.getItem("user") ? (
+      localStorage.getItem("msuser") ? (
         <Layout style={{ minHeight: "100vh" }}>
           <Layout>
             <Header />
@@ -18,15 +18,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
           </Layout>
         </Layout>
       ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: {
-                from: props.location,
-              },
-            }}
-          />
-        )
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: {
+              from: props.location,
+            },
+          }}
+        />
+      )
     }
   />
 );

@@ -66,7 +66,7 @@ class RequestAccess extends Component {
               }}
             >
               <Form.Item className="mb-3" label="User Name">
-                {getFieldDecorator("username", {
+                {getFieldDecorator("full_name", {
                   rules: [
                     { required: true, message: "Please enter your username" },
                   ],
@@ -99,25 +99,7 @@ class RequestAccess extends Component {
                   />
                 )}
               </Form.Item>
-              <Form.Item className="mb-5" label="Password">
-                {getFieldDecorator("password", {
-                  rules: [
-                    {
-                      required: true,
-                      message: "Please enter your password",
-                    },
-                  ],
-                })(
-                  <Input.Password
-                    prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    type="password"
-                    placeholder="Password"
-                    size="large"
-                  />
-                )}
-              </Form.Item>
+
               <Form.Item className="mb-0">
                 <Button
                   type="primary"
