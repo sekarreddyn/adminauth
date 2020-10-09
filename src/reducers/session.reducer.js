@@ -86,7 +86,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         create_session: {
-          loading: true,
+          loading: false,
         },
       };
     case sessionConstants.UPDATE_SESSION_REQUEST:

@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 import "antd/dist/antd.css";
 import "../index.css";
 import { Form, Icon, Input, Button, Row, Col, Card } from "antd";
-
 import "../App.css";
 import logo from "../assets/login-logo.png";
 import analyticedge from "../assets/analyticedge-logo.png";

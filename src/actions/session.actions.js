@@ -1,5 +1,5 @@
 import { sessionConstants } from "../constants";
-import { http, appConfig } from "../helpers";
+import { http } from "../helpers";
 
 export const sessionActions = {
   getSessions,
@@ -17,7 +17,7 @@ function getSessions(pagable) {
   return (dispatch) => {
     dispatch(request(pagable));
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}sessions/`, {
+      .get(`/core/session`, {
         params: pagable,
       })
       .then(function (response) {
@@ -40,13 +40,15 @@ function getSessions(pagable) {
     return { type: sessionConstants.GET_ALL_SESSIONS_FAILURE, error };
   }
 }
-function createSession() {
+function createSession(data) {
   return (dispatch) => {
     dispatch(request());
+    debugger;
     http
-      .post(`${appConfig.apiEndpoint}${appConfig.apiUrl}session`)
+      .post(`/core/session`, data)
       .then(function (response) {
         if (response.data) {
+          alert("Session created successfully");
           dispatch(success(response.data));
         }
       })
@@ -69,7 +71,7 @@ function updateSession(data, id) {
   return (dispatch) => {
     dispatch(request(data, id));
     http
-      .put(`${appConfig.apiEndpoint}${appConfig.apiUrl}session/${id}`, data)
+      .put(`/core/session/${id}`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));
@@ -94,7 +96,7 @@ function deleteSession(id) {
   return (dispatch) => {
     dispatch(request());
     http
-      .delete(`${appConfig.apiEndpoint}${appConfig.apiUrl}session${id}`)
+      .delete(`/core/session/${id}`)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));
@@ -119,10 +121,10 @@ function getGroups() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}groups`)
+      .get(`/core/base-group`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(response.data.data));
         }
       })
       .catch(function (error) {
@@ -144,10 +146,10 @@ function getBusinessUnits() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}business-units`)
+      .get(`/core/base-business-unit`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(response.data.data));
         }
       })
       .catch(function (error) {
@@ -169,10 +171,10 @@ function getCountries() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}countries`)
+      .get(`/core/base-country`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(response.data.data));
         }
       })
       .catch(function (error) {
@@ -194,10 +196,10 @@ function getBrands() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}brands`)
+      .get(`/core/base-brand`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(response.data.data));
         }
       })
       .catch(function (error) {
@@ -219,10 +221,10 @@ function getMediaTactics() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}media-tactic`)
+      .get(`/core/base-media-tactic`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(response.data.data));
         }
       })
       .catch(function (error) {
