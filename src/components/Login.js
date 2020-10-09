@@ -20,7 +20,6 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true });
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.dispatch(authActions.login(values));
@@ -30,8 +29,8 @@ class Login extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { loading } = this.props.auth;
-
+    const { login } = this.props;
+    const { loading } = login;
     return (
       <div style={{ backgroundImage: "url('./assets/login-bg.jpg')" }}>
         <Row
@@ -58,8 +57,12 @@ class Login extends Component {
 
               <Form onSubmit={this.handleSubmit} className="login-form">
                 <Form.Item className="mb-3" label="Email Address">
-                  {getFieldDecorator("emailOrMobile", {
+                  {getFieldDecorator("email", {
                     rules: [
+                      {
+                        type: "email",
+                        message: "Please enter valid email",
+                      },
                       { required: true, message: "Please enter your email " },
                     ],
                   })(
@@ -70,7 +73,7 @@ class Login extends Component {
                           style={{ color: "rgba(0,0,0,.25)" }}
                         />
                       }
-                      placeholder="email"
+                      placeholder="Email"
                       size="large"
                     />
                   )}
@@ -81,9 +84,6 @@ class Login extends Component {
                       {
                         required: true,
                         message: "Please enter your password",
-                      },
-                      {
-                        validator: this.validateToNextPassword,
                       },
                     ],
                   })(
@@ -135,7 +135,7 @@ class Login extends Component {
 const WrappedLogin = Form.create({ name: "normal_login" })(Login);
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  login: state.auth.login,
 });
 
 export default connect(mapStateToProps)(WrappedLogin);

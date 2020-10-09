@@ -4,8 +4,7 @@ import { authActions } from "../actions";
 import { NavLink } from "react-router-dom";
 import "antd/dist/antd.css";
 import "../index.css";
-import { Form, Icon, Input, Row, Col, Card } from "antd";
-
+import { Form, Icon, Input, Row, Col, Card, Button } from "antd";
 import "../App.css";
 import logo from "../assets/login-logo.png";
 import analyticedge from "../assets/analyticedge-logo.png";
@@ -23,14 +22,15 @@ class Login extends Component {
     this.setState({ loading: true });
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(authActions.login(values));
+        this.props.dispatch(authActions.forgotPassword(values));
       }
     });
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
-
+    const { forget_password } = this.props;
+    const { loading } = forget_password;
     return (
       <Row
         type="flex"
@@ -69,7 +69,7 @@ class Login extends Component {
               <Form.Item className="mb-5" label="Email Address">
                 {getFieldDecorator("email", {
                   rules: [
-                    { required: true, message: "Please input your email!" },
+                    { required: true, message: "Please enter your email" },
                   ],
                 })(
                   <Input
@@ -82,22 +82,15 @@ class Login extends Component {
                 )}
               </Form.Item>
               <Form.Item className="mb-0">
-                {/* <Button
+                <Button
                   type="primary"
                   htmlType="submit"
-                  className="login-form-button"
+                  className="ant-btn ant-btn-primary ant-btn-lg"
                   loading={loading}
                   size="large"
                 >
                   Reset Password
-                </Button> */}
-
-                <NavLink
-                  className="ant-btn ant-btn-primary ant-btn-lg"
-                  to="/forgot-emailsent"
-                >
-                  Reset Password
-                </NavLink>
+                </Button>
 
                 <p className="info-text text-center mb-4">
                   <Icon type="arrow-left" /> Back to{" "}
@@ -121,7 +114,7 @@ class Login extends Component {
 const WrappedLogin = Form.create({ name: "normal_login" })(Login);
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  forget_password: state.auth.forget_password,
 });
 
 export default connect(mapStateToProps)(WrappedLogin);

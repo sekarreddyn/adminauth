@@ -4,13 +4,12 @@ import { authActions } from "../actions";
 import { NavLink } from "react-router-dom";
 import "antd/dist/antd.css";
 import "../index.css";
-import { Form, Icon, Input, Row, Col, Card } from "antd";
-
+import { Form, Icon, Input, Row, Col, Card, Button } from "antd";
 import "../App.css";
 import logo from "../assets/login-logo.png";
 import analyticedge from "../assets/analyticedge-logo.png";
 
-class Login extends Component {
+class RequestAccess extends Component {
   componentDidMount() {
     document.body.classList.add("login");
     return () => {
@@ -20,15 +19,17 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ loading: true });
+
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(authActions.login(values));
+        this.props.dispatch(authActions.signup(values));
       }
     });
   };
 
   render() {
+    const { signup } = this.props;
+    const { loading } = signup;
     const { getFieldDecorator } = this.props.form;
 
     return (
@@ -66,21 +67,27 @@ class Login extends Component {
             >
               <Form.Item className="mb-3" label="User Name">
                 {getFieldDecorator("username", {
-                  rules: [{ required: true, message: "User Name" }],
+                  rules: [
+                    { required: true, message: "Please enter your username" },
+                  ],
                 })(
                   <Input
                     prefix={
                       <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                     }
-                    placeholder="Full Name"
+                    placeholder="User Name"
                     size="large"
                   />
                 )}
               </Form.Item>
-              <Form.Item className="mb-5" label="Email Address">
+              <Form.Item className="mb-3" label="Email Address">
                 {getFieldDecorator("email", {
                   rules: [
-                    { required: true, message: "Please input your email!" },
+                    { required: true, message: "Please enter your email" },
+                    {
+                      type: "email",
+                      message: "Please enter valid email",
+                    },
                   ],
                 })(
                   <Input
@@ -92,8 +99,27 @@ class Login extends Component {
                   />
                 )}
               </Form.Item>
+              <Form.Item className="mb-5" label="Password">
+                {getFieldDecorator("password", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please enter your password",
+                    },
+                  ],
+                })(
+                  <Input.Password
+                    prefix={
+                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    type="password"
+                    placeholder="Password"
+                    size="large"
+                  />
+                )}
+              </Form.Item>
               <Form.Item className="mb-0">
-                {/* <Button
+                <Button
                   type="primary"
                   htmlType="submit"
                   className="login-form-button"
@@ -101,15 +127,7 @@ class Login extends Component {
                   size="large"
                 >
                   Request Access
-                </Button> */}
-
-                <NavLink
-                  className="ant-btn ant-btn-primary ant-btn-lg"
-                  to="/request-emailsent"
-                >
-                  Request Access
-                </NavLink>
-
+                </Button>
                 <p className="info-text text-center mb-4">
                   <Icon type="arrow-left" /> Back to{" "}
                   <NavLink className="font-weight-bold" to="/">
@@ -129,10 +147,12 @@ class Login extends Component {
   }
 }
 
-const WrappedLogin = Form.create({ name: "normal_login" })(Login);
+const WrappedRequestAccess = Form.create({ name: "normal_login" })(
+  RequestAccess
+);
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  signup: state.auth.signup,
 });
 
-export default connect(mapStateToProps)(WrappedLogin);
+export default connect(mapStateToProps)(WrappedRequestAccess);

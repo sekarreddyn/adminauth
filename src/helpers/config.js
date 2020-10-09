@@ -1,14 +1,12 @@
 let config = {};
 
-if (process.env.REACT_APP_API_ENDPOINT) {
+if (process.env.baseURL) {
   config = {
-    apiEndpoint: process.env.REACT_APP_API_ENDPOINT,
-    apiUrl: process.env.REACT_APP_API_VERSION,
+    baseURL: process.env.REACT_APP_BASE_URL,
   };
 } else {
   config = {
-    apiEndpoint: "https://dev2.api.geekassess.com/",
-    apiUrl: "api/v1/",
+    baseURL: "http://23.98.131.109:5000/",
   };
 }
 

@@ -11,9 +11,6 @@ export const authActions = {
 function login(data) {
   return (dispatch) => {
     dispatch(request(authActions));
-    localStorage.setItem("user", JSON.stringify(data));
-    history.push("/");
-
     http
       .post("auth/login", data)
       .then(function (response) {
@@ -22,7 +19,7 @@ function login(data) {
             ...response.data,
             token: response.data.token,
           };
-          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("msuser", JSON.stringify(user));
           dispatch(success(user));
           history.push("/");
         } else {
@@ -56,16 +53,15 @@ function logout() {
 function signup(data) {
   return (dispatch) => {
     dispatch(request(authActions));
-
     http
-      .post("register", data)
+      .post("user", data)
       .then(function (response) {
         if (response.data) {
           let user = {
             ...response.data,
             token: response.data.token,
           };
-          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("msuser", JSON.stringify(user));
           dispatch(success(user));
           history.push("/");
         } else {
