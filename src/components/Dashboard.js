@@ -29,14 +29,34 @@ const content = (
 );
 
 class Dashboard extends React.Component {
-  state = {};
+  state = {
+    list: [],
+  };
   componentDidMount() {
     this.props.dispatch(sessionActions.getSessions());
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.session.get_sessions.data !==
+      this.props.session.get_sessions.data
+    ) {
+      if (this.props.session.get_sessions.data)
+        this.setState({
+          list: this.props.session.get_sessions.data,
+        });
+    }
+  }
+  onSearch = (value) => {
+    this.setState({
+      list: this.props.session.get_sessions.data.filter((item) =>
+        item.session_title ? item.session_title.includes(value) : item
+      ),
+    });
+  };
   render() {
     const { session } = this.props;
     const { get_sessions } = session;
-    const { loading, data } = get_sessions;
+    const { loading } = get_sessions;
 
     return (
       <>
@@ -47,7 +67,8 @@ class Dashboard extends React.Component {
               <div className="mr-3">
                 <Input
                   addonAfter={<Icon type="search" />}
-                  defaultValue="Search sessions"
+                  placeholder="Search sessions"
+                  onChange={(e) => this.onSearch(e.target.value)}
                 />
               </div>
               <div className="mr-3">
@@ -88,7 +109,7 @@ class Dashboard extends React.Component {
           )}
           {loading === false && (
             <Row gutter={30}>
-              {data.map((session, i) => (
+              {this.state.list.map((session, i) => (
                 <Col span={8} className="mb-5" key={i}>
                   <SessionItem {...session} />
                 </Col>

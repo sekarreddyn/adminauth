@@ -59,6 +59,19 @@ export function session(state = initialState, action) {
           loading: true,
         },
       };
+
+    case sessionConstants.SEARCH_SESSION: {
+      const sessions = state.get_sessions.data.filter((item) =>
+        item.session_title ? item.session_title.includes(action.value) : item
+      );
+      return {
+        ...state,
+        get_sessions: {
+          data: sessions,
+          loading: false,
+        },
+      };
+    }
     case sessionConstants.CREATE_SESSION_REQUEST:
       return {
         ...state,

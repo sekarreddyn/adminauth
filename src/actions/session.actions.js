@@ -11,6 +11,7 @@ export const sessionActions = {
   getCountries,
   getBrands,
   getMediaTactics,
+  searchSession,
 };
 
 function getSessions(pagable) {
@@ -39,6 +40,11 @@ function getSessions(pagable) {
   function failure(error) {
     return { type: sessionConstants.GET_ALL_SESSIONS_FAILURE, error };
   }
+}
+
+function searchSession(value) {
+  debugger;
+  return { type: sessionConstants.SEARCH_SESSION, value };
 }
 function createSession(data) {
   return (dispatch) => {
