@@ -11,7 +11,6 @@ import PasswordEmail from "../../components/PasswordEmail";
 import RequestEmail from "../../components/RequestEmail";
 import SessionCreation from "../../components/sessions/FinalForm";
 import ScenarioCreation from "../../components/scenarios/FinalForm";
-
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";

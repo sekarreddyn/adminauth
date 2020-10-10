@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Steps } from "antd";
 import StepOne from "./FormStepOne";
 import StepTwo from "./FormStepTwo";
 import StepThree from "./FormStepThree";
 import StepFinal from "./FormStepFinal";
 import { sessionActions } from "../../actions";
 import { connect } from "react-redux";
+const { Step } = Steps;
 class FinalForm extends Component {
   state = {
-    step: 1,
+    step: 0,
     step_one_fields: {
       bu_list: [],
       group_list: [],
@@ -114,8 +115,7 @@ class FinalForm extends Component {
       },
     });
   };
-
-  render() {
+  renderStepForm = (current) => {
     const {
       step,
       step_one_fields,
@@ -123,83 +123,93 @@ class FinalForm extends Component {
       step_three_fields,
       step_final_fields,
     } = this.state;
-    if (step === 1) {
-      return (
-        <div className="outer-wrapper">
-          <Card>
-            <Row className="d-flex justify-content-center">
-              <Col span={18} className="mx-auto">
-                {<h1> STEP 1 </h1>}
-                <StepOne
-                  {...step_one_fields}
-                  handleNextButton={this.handleNextButton}
-                  submittedValues={this.getStepOneValue}
-                  session={this.props.session}
-                />
-              </Col>
-            </Row>
-          </Card>
+
+    const steps = [
+      {
+        title: "Step 1",
+        description: "Session Setup",
+        content: (
+          <StepOne
+            {...step_one_fields}
+            handleNextButton={this.handleNextButton}
+            submittedValues={this.getStepOneValue}
+            session={this.props.session}
+          />
+        ),
+      },
+      {
+        title: "Step 2",
+        description: "Time Frame",
+        content: (
+          <StepTwo
+            {...step_two_fields}
+            handleNextButton={this.handleNextButton}
+            handleBackButton={this.handleBackButton}
+            submittedValues={this.getStepTwoValue}
+          />
+        ),
+      },
+      {
+        title: "Step 3",
+        description: "Session Title",
+        content: (
+          <StepThree
+            {...step_three_fields}
+            handleNextButton={this.handleNextButton}
+            handleBackButton={this.handleBackButton}
+            submittedValues={this.getStepThreeValue}
+          />
+        ),
+      },
+      {
+        title: "Step 4",
+        description: "Preview && Save",
+        content: (
+          <StepFinal
+            {...step_final_fields}
+            step_one_fields={step_one_fields}
+            step_two_fields={step_two_fields}
+            step_three_fields={step_three_fields}
+            handleConfirmButton={this.handleConfirmButton}
+            handleBackButton={this.handleBackButton}
+            submittedValues={this.getFinalStepValue}
+            session={this.props.session}
+          />
+        ),
+      },
+    ];
+    return (
+      <>
+        <Steps current={step} direction="horizontal">
+          {steps.map((item) => (
+            <Step
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              className="pb-4"
+            />
+          ))}
+        </Steps>
+
+        <div className="steps-content">
+          <div className="steps-content">{steps[step].content}</div>
         </div>
-      );
-    } else if (step === 2) {
-      return (
-        <div className="outer-wrapper">
-          <Card>
-            <Row className="d-flex justify-content-center">
-              <Col span={18} className="mx-auto">
-                {<h1> STEP 2 </h1>}
-                <StepTwo
-                  {...step_two_fields}
-                  handleNextButton={this.handleNextButton}
-                  handleBackButton={this.handleBackButton}
-                  submittedValues={this.getStepTwoValue}
-                />
-              </Col>
-            </Row>
-          </Card>
-        </div>
-      );
-    } else if (step === 3) {
-      return (
-        <div className="outer-wrapper">
-          <Card>
-            <Row className="d-flex justify-content-center">
-              <Col span={18} className="mx-auto">
-                {<h1> STEP 3 </h1>}
-                <StepThree
-                  {...step_three_fields}
-                  handleNextButton={this.handleNextButton}
-                  handleBackButton={this.handleBackButton}
-                  submittedValues={this.getStepThreeValue}
-                />
-              </Col>
-            </Row>
-          </Card>
-        </div>
-      );
-    } else {
-      return (
-        <div className="outer-wrapper">
-          <Card>
-            <Row className="d-flex justify-content-center">
-              <Col span={18}>
-                {<h1> FINAL STEP </h1>}
-                <StepFinal
-                  {...step_final_fields}
-                  step_one_fields={step_one_fields}
-                  step_two_fields={step_two_fields}
-                  step_three_fields={step_three_fields}
-                  handleConfirmButton={this.handleConfirmButton}
-                  handleBackButton={this.handleBackButton}
-                  submittedValues={this.getFinalStepValue}
-                  session={this.props.session}
-                />
-              </Col>
-            </Row>
-          </Card>
-        </div>
-      );
-    }
+      </>
+    );
+  };
+
+  render() {
+    const { step } = this.state;
+
+    return (
+      <div className="outer-wrapper">
+        <Card>
+          <Row className="d-flex justify-content-center">
+            <Col span={18}>{this.renderStepForm(step)}</Col>
+          </Row>
+        </Card>
+      </div>
+    );
   }
 }
 

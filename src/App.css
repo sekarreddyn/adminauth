@@ -4881,3 +4881,13 @@ body .main-header .creat-btn:hover, body .main-header .creat-btn:focus, body .ma
   color: #212529;
   padding: 0;
 }
+
+.steps-content {
+  margin-top: 16px;
+  /* background-color: #fafafa; */
+
+}
+
+.steps-action {
+  margin-top: 24px;
+}
