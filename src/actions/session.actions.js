@@ -1,6 +1,6 @@
 import { sessionConstants } from "../constants";
 import { http } from "../helpers";
-
+import { toast } from "react-toastify";
 export const sessionActions = {
   getSessions,
   createSession,
@@ -48,7 +48,7 @@ function createSession(data) {
       .post(`/core/session`, data)
       .then(function (response) {
         if (response.data) {
-          alert("Session created successfully");
+          toast.success("Session created successfully");
           dispatch(success(response.data));
         }
       })
@@ -75,6 +75,7 @@ function updateSession(data, id) {
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));
+          toast.success("Session updated successfully");
         }
       })
       .catch(function (error) {
@@ -94,27 +95,28 @@ function updateSession(data, id) {
 }
 function deleteSession(id) {
   return (dispatch) => {
-    dispatch(request());
+    dispatch(request(id));
     http
       .delete(`/core/session/${id}`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(id));
+          toast.success("Session deleted successfully");
         }
       })
       .catch(function (error) {
-        dispatch(failure(error));
+        dispatch(failure(id));
       });
   };
 
-  function request() {
-    return { type: sessionConstants.DELETE_SESSION_REQUEST };
+  function request(id) {
+    return { type: sessionConstants.DELETE_SESSION_REQUEST, id };
   }
-  function success(data) {
-    return { type: sessionConstants.DELETE_SESSION_SUCCESS, data };
+  function success(id) {
+    return { type: sessionConstants.DELETE_SESSION_SUCCESS, id };
   }
-  function failure(error) {
-    return { type: sessionConstants.DELETE_SESSION_FAILURE, error };
+  function failure(id) {
+    return { type: sessionConstants.DELETE_SESSION_FAILURE, id };
   }
 }
 function getGroups() {

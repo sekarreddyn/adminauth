@@ -1,12 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { sessionActions } from "../../actions";
+import { Button } from "antd";
 const SessionItem = ({
   session_title,
   start_date,
   end_date,
   modified_on,
   scenario_count,
+  delete_session,
+  dispatch,
+  session_id,
 }) => (
   <div className="session-card">
     <h4 className="session-card-title">{session_title}</h4>
@@ -29,13 +34,26 @@ const SessionItem = ({
     <div className="session-card-meta d-flex align-items-center">
       <span>{modified_on}</span>
       <span className="ml-auto">
-        <NavLink to="/sessions-list" className="mr-2">
+        <Button
+          className="mr-2"
+          onClick={() => dispatch(sessionActions.deleteSession(session_id))}
+          loading={delete_session.loading && delete_session.id === session_id}
+          type="danger"
+        >
           Delete
+          {delete_session.id === session_id}
+        </Button>
+
+        <NavLink type="primary" to="/sessions-list">
+          View Session
         </NavLink>
-        <NavLink to="/sessions-list">View Session</NavLink>
       </span>
     </div>
   </div>
 );
 
-export default SessionItem;
+const mapStateToProps = (state) => ({
+  delete_session: state.session.delete_session,
+});
+
+export default connect(mapStateToProps)(SessionItem);

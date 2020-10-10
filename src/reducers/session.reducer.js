@@ -1,17 +1,7 @@
 import { sessionConstants } from "../constants";
 const initialState = {
   get_sessions: {
-    data: {
-      content: [],
-      number: 0,
-      numberOfElements: 0,
-      size: 0,
-      totalElements: 0,
-      totalPages: 0,
-      current: 0,
-      total: 0,
-      pageSize: 0,
-    },
+    data: [],
     loading: null,
   },
   create_session: {
@@ -22,6 +12,7 @@ const initialState = {
   },
   delete_session: {
     loading: null,
+    id: null,
   },
   groups: {
     loading: null,
@@ -116,13 +107,21 @@ export function session(state = initialState, action) {
         ...state,
         delete_session: {
           loading: true,
+          id: action.id,
         },
       };
     case sessionConstants.DELETE_SESSION_SUCCESS:
       return {
         ...state,
+        get_sessions: {
+          data: state.get_sessions.data.filter(
+            ({ session_id }) => session_id !== action.id
+          ),
+          loading: false,
+        },
         delete_session: {
           loading: false,
+          id: null,
         },
       };
     case sessionConstants.DELETE_SESSION_FAILURE:
@@ -130,6 +129,7 @@ export function session(state = initialState, action) {
         ...state,
         delete_session: {
           loading: true,
+          id: null,
         },
       };
 

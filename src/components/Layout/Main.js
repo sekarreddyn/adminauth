@@ -15,6 +15,9 @@ import ScenarioCreation from "../../components/scenarios/FinalForm";
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 class RouterApp extends Component {
   render() {
@@ -30,9 +33,28 @@ class RouterApp extends Component {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/forgot-emailsent" component={PasswordEmail} />
           <PrivateRoute exact path="/sessions-list" component={sessionsList} />
-          <PrivateRoute exact path="/create-session" component={SessionCreation} />
-          <PrivateRoute exact path="/create-scenario" component={ScenarioCreation} />
+          <PrivateRoute
+            exact
+            path="/create-session"
+            component={SessionCreation}
+          />
+          <PrivateRoute
+            exact
+            path="/create-scenario"
+            component={ScenarioCreation}
+          />
         </ErrorBoundary>
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Router>
     );
   }
