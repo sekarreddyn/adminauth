@@ -12,6 +12,7 @@ export const sessionActions = {
   getBrands,
   getMediaTactics,
   searchSession,
+  getSession,
 };
 
 function getSessions(pagable) {
@@ -43,13 +44,12 @@ function getSessions(pagable) {
 }
 
 function searchSession(value) {
-  debugger;
   return { type: sessionConstants.SEARCH_SESSION, value };
 }
 function createSession(data) {
   return (dispatch) => {
     dispatch(request());
-    debugger;
+
     http
       .post(`/core/session`, data)
       .then(function (response) {
@@ -73,7 +73,8 @@ function createSession(data) {
     return { type: sessionConstants.CREATE_SESSION_FAILURE, error };
   }
 }
-function updateSession(data, id) {
+function updateSession(id, data) {
+  debugger;
   return (dispatch) => {
     dispatch(request(data, id));
     http
@@ -248,5 +249,30 @@ function getMediaTactics() {
   }
   function failure(error) {
     return { type: sessionConstants.GET_MEDIA_TACTICS_FAILURE, error };
+  }
+}
+function getSession(id) {
+  return (dispatch) => {
+    dispatch(request(id));
+    http
+      .get(`/core/session/${id}`)
+      .then(function (response) {
+        if (response.data) {
+          dispatch(success(response.data));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+      });
+  };
+
+  function request(pagable) {
+    return { type: sessionConstants.GET_SESSION_REQUEST, pagable };
+  }
+  function success(data) {
+    return { type: sessionConstants.GET_SESSION_SUCCESS, data };
+  }
+  function failure(error) {
+    return { type: sessionConstants.GET_SESSION_FAILURE, error };
   }
 }

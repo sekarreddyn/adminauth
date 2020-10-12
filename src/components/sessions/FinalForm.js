@@ -40,13 +40,71 @@ class FinalForm extends Component {
   };
 
   componentDidMount() {
+    console.log("Props", this.getSessionId());
     const { dispatch } = this.props;
+    if (this.getSessionId()) {
+      this.getSession();
+    }
     dispatch(sessionActions.getBrands());
     dispatch(sessionActions.getBusinessUnits());
     dispatch(sessionActions.getCountries());
     dispatch(sessionActions.getGroups());
     dispatch(sessionActions.getMediaTactics());
   }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.session.get_session.data !== prevProps.session.get_session.data
+    ) {
+      if (this.props.session.get_session.data) {
+        var myDate = "26-02-2012";
+        myDate = myDate.split("");
+        var newDate = new Date(myDate[2], myDate[1] - 1, myDate[0]);
+        console.log(newDate.getTime());
+
+        this.setState({
+          step_one_fields: {
+            bu_list: this.props.session.get_session.data.business_unit,
+            group_list: this.props.session.get_session.data.group,
+            country_list: this.props.session.get_session.data.country,
+            mt_list: this.props.session.get_session.data.media_tactic,
+            brand_list: this.props.session.get_session.data.brand,
+          },
+          // step_two_fields: {
+          //   start_date: this.toTimestamp(
+          //     this.props.session.get_session.data.start_date
+          //   ),
+          //   end_date: this.toTimestamp(
+          //     this.props.session.get_session.data.end_date
+          //   ),
+          // },
+          step_three_fields: {
+            session_title: this.props.session.get_session.data.session_title,
+            session_description: this.props.session.get_session.data
+              .session_title,
+          },
+        });
+      }
+
+      // this.setState({
+      //   step_three_fields: {
+      //     bu_list: this.props.session.get_session.data.business_unit,
+      //     group_list: this.props.session.get_session.data.group,
+      //     country_list: this.props.session.get_session.data.country,
+      //     mt_list: this.props.session.get_session.data.media_tactic,
+      //     brand_list: this.props.session.get_session.data.brand,
+      //   },
+      // });
+    }
+  }
+  toTimestamp = (strDate) => {
+    var datum = Date.parse(strDate);
+    return datum / 1000;
+  };
+  getSession = () => {
+    const { dispatch } = this.props;
+    dispatch(sessionActions.getSession(this.getSessionId()));
+  };
   handleNextButton = () => {
     const { step } = this.state;
     this.setState({ step: step + 1 });
@@ -57,6 +115,10 @@ class FinalForm extends Component {
     this.setState({ step: step - 1 });
   };
 
+  getSessionId = () => {
+    if (this.props.match.params.sessionId)
+      return this.props.match.params.sessionId;
+  };
   handleConfirmButton = (values) => {
     const { step_final_fields } = this.state;
     this.setState(
@@ -68,13 +130,20 @@ class FinalForm extends Component {
       },
       () =>
         this.setState({ show_final_values: true }, () =>
-          this.createSession(this.state.step_final_fields)
+          this.getSessionId()
+            ? this.updateSession(this.state.step_final_fields)
+            : this.createSession(this.state.step_final_fields)
         )
     );
   };
+
   createSession = (data) => {
     const { dispatch } = this.props;
     dispatch(sessionActions.createSession(data));
+  };
+  updateSession = (data) => {
+    const { dispatch } = this.props;
+    dispatch(sessionActions.updateSession(this.getSessionId(), data));
   };
   getFinalStepValue = (values) => {
     const { step_final_fields } = this.state;
@@ -87,6 +156,7 @@ class FinalForm extends Component {
   };
 
   getStepOneValue = (values) => {
+    debugger;
     const { step_one_fields } = this.state;
     console.log(values);
     this.setState({
@@ -199,6 +269,7 @@ class FinalForm extends Component {
   };
 
   render() {
+    console.log("this.state", this.state);
     const { step } = this.state;
 
     return (

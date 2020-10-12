@@ -39,6 +39,12 @@ class RouterApp extends Component {
           />
           <PrivateRoute
             exact
+            path="/edit-session/:sessionId"
+            component={SessionCreation}
+          />
+
+          <PrivateRoute
+            exact
             path="/create-scenario"
             component={ScenarioCreation}
           />

@@ -4,6 +4,20 @@ const initialState = {
     data: [],
     loading: null,
   },
+  get_session: {
+    data: {
+      bu_list: [],
+      group_list: [],
+      country_list: [],
+      mt_list: [],
+      brand_list: [],
+      start_date: undefined,
+      end_date: undefined,
+      session_title: undefined,
+      session_description: undefined,
+    },
+    loading: null,
+  },
   create_session: {
     loading: null,
   },
@@ -256,6 +270,31 @@ export function session(state = initialState, action) {
       return {
         ...state,
         media_tactics: {
+          loading: true,
+        },
+      };
+
+    case sessionConstants.GET_SESSION_REQUEST:
+      return {
+        ...state,
+        get_session: {
+          ...state.get_session,
+          loading: true,
+        },
+      };
+    case sessionConstants.GET_SESSION_SUCCESS:
+      return {
+        ...state,
+        get_session: {
+          data: action.data,
+          loading: false,
+        },
+      };
+    case sessionConstants.GET_SESSION_FAILURE:
+      return {
+        ...state,
+        get_session: {
+          ...state.get_session,
           loading: true,
         },
       };
