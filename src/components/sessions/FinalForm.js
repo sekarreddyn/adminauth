@@ -6,7 +6,9 @@ import StepThree from "./FormStepThree";
 import StepFinal from "./FormStepFinal";
 import { sessionActions } from "../../actions";
 import { connect } from "react-redux";
+import moment from "moment";
 const { Step } = Steps;
+const dateFormat = "DD-MM-YYYY";
 class FinalForm extends Component {
   state = {
     step: 0,
@@ -31,8 +33,8 @@ class FinalForm extends Component {
       country_list: [],
       mt_list: [],
       brand_list: [],
-      start_date: undefined,
-      end_date: undefined,
+      start_date: null,
+      end_date: null,
       session_title: undefined,
       session_description: undefined,
     },
@@ -40,7 +42,8 @@ class FinalForm extends Component {
   };
 
   componentDidMount() {
-    console.log("Props", this.getSessionId());
+    document.body.classList.remove("login");
+
     const { dispatch } = this.props;
     if (this.getSessionId()) {
       this.getSession();
@@ -57,11 +60,6 @@ class FinalForm extends Component {
       this.props.session.get_session.data !== prevProps.session.get_session.data
     ) {
       if (this.props.session.get_session.data) {
-        var myDate = "26-02-2012";
-        myDate = myDate.split("");
-        var newDate = new Date(myDate[2], myDate[1] - 1, myDate[0]);
-        console.log(newDate.getTime());
-
         this.setState({
           step_one_fields: {
             bu_list: this.props.session.get_session.data.business_unit,
@@ -70,14 +68,17 @@ class FinalForm extends Component {
             mt_list: this.props.session.get_session.data.media_tactic,
             brand_list: this.props.session.get_session.data.brand,
           },
-          // step_two_fields: {
-          //   start_date: this.toTimestamp(
-          //     this.props.session.get_session.data.start_date
-          //   ),
-          //   end_date: this.toTimestamp(
-          //     this.props.session.get_session.data.end_date
-          //   ),
-          // },
+
+          step_two_fields: {
+            start_date: moment(
+              this.props.session.get_session.data.start_date,
+              dateFormat
+            ),
+            end_date: moment(
+              this.props.session.get_session.data.end_date,
+              dateFormat
+            ),
+          },
           step_three_fields: {
             session_title: this.props.session.get_session.data.session_title,
             session_description: this.props.session.get_session.data
@@ -85,21 +86,13 @@ class FinalForm extends Component {
           },
         });
       }
-
-      // this.setState({
-      //   step_three_fields: {
-      //     bu_list: this.props.session.get_session.data.business_unit,
-      //     group_list: this.props.session.get_session.data.group,
-      //     country_list: this.props.session.get_session.data.country,
-      //     mt_list: this.props.session.get_session.data.media_tactic,
-      //     brand_list: this.props.session.get_session.data.brand,
-      //   },
-      // });
     }
   }
   toTimestamp = (strDate) => {
-    var datum = Date.parse(strDate);
-    return datum / 1000;
+    var d = new Date(strDate);
+    var n = d.getTime();
+
+    return n;
   };
   getSession = () => {
     const { dispatch } = this.props;
@@ -156,7 +149,6 @@ class FinalForm extends Component {
   };
 
   getStepOneValue = (values) => {
-    debugger;
     const { step_one_fields } = this.state;
     console.log(values);
     this.setState({
@@ -233,7 +225,7 @@ class FinalForm extends Component {
       },
       {
         title: "Step 4",
-        description: "Preview && Save",
+        description: "Preview & Save",
         content: (
           <StepFinal
             {...step_final_fields}
@@ -271,7 +263,6 @@ class FinalForm extends Component {
   render() {
     console.log("this.state", this.state);
     const { step } = this.state;
-
     return (
       <div className="outer-wrapper">
         <Card>

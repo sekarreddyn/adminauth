@@ -45,7 +45,7 @@ class RouterApp extends Component {
 
           <PrivateRoute
             exact
-            path="/create-scenario"
+            path="/create-scenario/:sessionId"
             component={ScenarioCreation}
           />
         </ErrorBoundary>

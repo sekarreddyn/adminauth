@@ -286,7 +286,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         get_session: {
-          data: action.data,
+          data: { ...action.data, data: new Date() },
           loading: false,
         },
       };

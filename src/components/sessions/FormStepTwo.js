@@ -37,8 +37,9 @@ const StepTwo = Form.create({
             })(
               <DatePicker
                 size="large"
-                format="YYYY-MM-DD"
+                format="DD-MM-YYYY"
                 disabledDate={disabledDate}
+                style={{ width: "100%" }}
               />
             )}
           </Form.Item>
@@ -52,7 +53,7 @@ const StepTwo = Form.create({
               <DatePicker
                 size="large"
                 style={{ width: "100%" }}
-                format="YYYY-MM-DD"
+                format="DD-MM-YYYY"
                 disabledDate={disabledDate}
               />
             )}

@@ -44,9 +44,17 @@ const SessionItem = ({
           {delete_session.id === session_id}
         </Button>
 
-        <NavLink type="primary" to={"edit-session/" + session_id}>
-          View Session
-        </NavLink>
+        <Button className="mr-2" type="primary">
+          <NavLink type="primary" to={"edit-session/" + session_id}>
+            Edit
+          </NavLink>
+        </Button>
+
+        <Button className="mr-2" type="primary">
+          <NavLink type="primary" to={"create-scenario/" + session_id}>
+            View
+          </NavLink>
+        </Button>
       </span>
     </div>
   </div>

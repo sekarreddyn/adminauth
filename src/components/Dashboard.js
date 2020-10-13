@@ -32,7 +32,10 @@ class Dashboard extends React.Component {
   state = {
     list: [],
   };
+
   componentDidMount() {
+    document.body.classList.remove("login");
+
     this.props.dispatch(sessionActions.getSessions());
   }
   componentDidUpdate(prevProps, prevState) {
