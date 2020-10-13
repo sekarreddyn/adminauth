@@ -236,6 +236,7 @@ class FinalForm extends Component {
             handleBackButton={this.handleBackButton}
             submittedValues={this.getFinalStepValue}
             session={this.props.session}
+            id={this.getSessionId()}
           />
         ),
       },

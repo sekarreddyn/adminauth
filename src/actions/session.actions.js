@@ -1,5 +1,5 @@
 import { sessionConstants } from "../constants";
-import { http } from "../helpers";
+import { http, history } from "../helpers";
 import { toast } from "react-toastify";
 export const sessionActions = {
   getSessions,
@@ -56,6 +56,7 @@ function createSession(data) {
         if (response.data) {
           toast.success("Session created successfully");
           dispatch(success(response.data));
+          history.push("/");
         }
       })
       .catch(function (error) {
@@ -83,6 +84,7 @@ function updateSession(id, data) {
         if (response.data) {
           dispatch(success(response.data));
           toast.success("Session updated successfully");
+          history.push("/");
         }
       })
       .catch(function (error) {

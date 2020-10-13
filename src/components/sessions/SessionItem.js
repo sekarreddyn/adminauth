@@ -3,6 +3,23 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { sessionActions } from "../../actions";
 import { Button } from "antd";
+import swal from "sweetalert";
+
+const DeleteSession = (session_id, dispatch) => {
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover this imaginary file!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      dispatch(sessionActions.deleteSession(session_id));
+    } else {
+      // swal("Your imaginary file is safe!");
+    }
+  });
+};
 const SessionItem = ({
   session_title,
   start_date,
@@ -36,7 +53,7 @@ const SessionItem = ({
       <span className="ml-auto">
         <Button
           className="mr-2"
-          onClick={() => dispatch(sessionActions.deleteSession(session_id))}
+          onClick={() => DeleteSession(session_id, dispatch)}
           loading={delete_session.loading && delete_session.id === session_id}
           type="danger"
         >

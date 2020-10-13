@@ -130,12 +130,15 @@ const StepFinal = Form.create({
           type="primary"
           htmlType="submit"
           loading={
-            props.session &&
-            props.session.create_session &&
-            props.session.create_session.loading
+            (props.session &&
+              props.session.create_session &&
+              props.session.create_session.loading) ||
+            (props.session &&
+              props.session.update_session &&
+              props.session.update_session.loading)
           }
         >
-          Save Session
+          {props.id ? " Update Session " : "Save Session"}
         </Button>
       </Form.Item>
     </Form>
