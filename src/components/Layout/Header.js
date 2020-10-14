@@ -9,19 +9,19 @@ const { Header } = Layout;
 
 class Navbar extends Component {
   state = {
-    collapsed: false
+    collapsed: false,
   };
 
   toggle = () => {
     this.setState({
-      collapsed: !this.state.collapsed
+      collapsed: !this.state.collapsed,
     });
     this.props.dispatch(
       dashboardActions.openCloseSidemenu(!this.state.collapsed)
     );
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     this.props.dispatch(authActions.logout());
   };
 
@@ -30,9 +30,11 @@ class Navbar extends Component {
       <div>
         <Header className="main-header">
           <Row gutter={30} className="d-flex align-items-center">
-
             <Col span={4}>
-              <img src={msLogo} className="w-90" alt="Media Simulator" />
+              <NavLink to="/">
+                {" "}
+                <img src={msLogo} className="w-90" alt="Media Simulator" />
+              </NavLink>
             </Col>
 
             <Menu
@@ -42,19 +44,16 @@ class Navbar extends Component {
               // style={{ lineHeight: "64px" }}
               className="ml-auto"
             >
-
               <Menu.Item>
-
-                <NavLink to="/">Dashboard</NavLink>
-              </Menu.Item>
-              <Menu.Item>
-                <NavLink to="/sessions-list">Sessions</NavLink>
+                <NavLink to="/">Home</NavLink>
               </Menu.Item>
               <Menu.Item>
                 <NavLink to="/">Reports</NavLink>
               </Menu.Item>
               <Menu.Item>
-                <NavLink to="/create-session" className="creat-btn">Create Session</NavLink>
+                <NavLink to="/create-session" className="creat-btn">
+                  Create Session
+                </NavLink>
               </Menu.Item>
 
               {/* <Menu.Item className="text-center">
@@ -78,13 +77,22 @@ class Navbar extends Component {
 
               <Menu.Item onClick={this.handleClick} className="text-center">
                 <Tooltip placement="bottom" title="Logout">
-                  <Icon type="poweroff" className="mx-auto" style={{ fontSize: '18px' }} />
+                  <Icon
+                    type="poweroff"
+                    className="mx-auto"
+                    style={{ fontSize: "18px" }}
+                  />
                 </Tooltip>
               </Menu.Item>
 
               <Menu.Item className="text-center">
                 <Tooltip placement="bottom" title="Help">
-                  <Icon type="question-circle" className="mx-auto" theme="filled" style={{ fontSize: '18px' }} />
+                  <Icon
+                    type="question-circle"
+                    className="mx-auto"
+                    theme="filled"
+                    style={{ fontSize: "18px" }}
+                  />
                 </Tooltip>
               </Menu.Item>
             </Menu>
@@ -95,8 +103,8 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Navbar);

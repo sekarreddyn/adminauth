@@ -5,6 +5,8 @@ import { sessionActions } from "../actions";
 import { connect } from "react-redux";
 import Loading from "./Loading/SessionItem";
 import SessionItem from "./sessions/SessionItem";
+import swal from "sweetalert";
+
 const text = (
   <span className="text-dark p-2 d-block">
     <Icon type="info-circle" className="mr-2" /> User Guide
@@ -34,9 +36,11 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount() {
-    document.body.classList.remove("login");
-
     this.props.dispatch(sessionActions.getSessions());
+    document.body.classList.remove("login");
+    return () => {
+      document.body.classList.add("login");
+    };
   }
   componentDidUpdate(prevProps, prevState) {
     if (

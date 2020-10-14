@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { Card, Row, Col, Steps } from "antd";
+import { Card, Row, Col, Steps, Breadcrumb } from "antd";
 import StepOne from "./FormStepOne";
 import StepTwo from "./FormStepTwo";
 import StepThree from "./FormStepThree";
 import StepFinal from "./FormStepFinal";
-import { sessionActions } from "../../actions";
+import { sessionActions, scenarioActions } from "../../actions";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import swal from "sweetalert";
+
 const { Step } = Steps;
 const dateFormat = "DD-MM-YYYY";
 class FinalForm extends Component {
@@ -45,15 +47,12 @@ class FinalForm extends Component {
   componentDidMount() {
     document.body.classList.remove("login");
 
-    const { dispatch } = this.props;
     if (this.getSessionId()) {
       this.getSession();
+
+      this.getSessionKpi(this.getSessionId());
+      this.getBaseScenario(this.getSessionId());
     }
-    dispatch(sessionActions.getBrands());
-    dispatch(sessionActions.getBusinessUnits());
-    dispatch(sessionActions.getCountries());
-    dispatch(sessionActions.getGroups());
-    dispatch(sessionActions.getMediaTactics());
   }
 
   componentDidUpdate(prevProps) {
@@ -61,31 +60,6 @@ class FinalForm extends Component {
       this.props.session.get_session.data !== prevProps.session.get_session.data
     ) {
       if (this.props.session.get_session.data) {
-        this.setState({
-          step_one_fields: {
-            bu_list: this.props.session.get_session.data.business_unit,
-            group_list: this.props.session.get_session.data.group,
-            country_list: this.props.session.get_session.data.country,
-            mt_list: this.props.session.get_session.data.media_tactic,
-            brand_list: this.props.session.get_session.data.brand,
-          },
-
-          step_two_fields: {
-            start_date: moment(
-              this.props.session.get_session.data.start_date,
-              dateFormat
-            ),
-            end_date: moment(
-              this.props.session.get_session.data.end_date,
-              dateFormat
-            ),
-          },
-          step_three_fields: {
-            session_title: this.props.session.get_session.data.session_title,
-            session_description: this.props.session.get_session.data
-              .session_title,
-          },
-        });
       }
     }
   }
@@ -99,6 +73,16 @@ class FinalForm extends Component {
     const { dispatch } = this.props;
     dispatch(sessionActions.getSession(this.getSessionId()));
   };
+  getSessionKpi = () => {
+    const { dispatch } = this.props;
+    dispatch(sessionActions.getSessionKpi(this.getSessionId()));
+  };
+
+  getBaseScenario = () => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.getBaseScenario(this.getSessionId()));
+  };
+
   handleNextButton = () => {
     const { step } = this.state;
     this.setState({ step: step + 1 });
@@ -190,7 +174,7 @@ class FinalForm extends Component {
     const steps = [
       {
         title: "Step 1",
-        description: "Session Setup",
+        description: "Scenario Data",
         content: (
           <StepOne
             {...step_one_fields}
@@ -212,9 +196,10 @@ class FinalForm extends Component {
           />
         ),
       },
+
       {
         title: "Step 3",
-        description: "Session Title",
+        description: "Scenario Setup",
         content: (
           <StepThree
             {...step_three_fields}
@@ -224,23 +209,23 @@ class FinalForm extends Component {
           />
         ),
       },
-      {
-        title: "Step 4",
-        description: "Preview & Save",
-        content: (
-          <StepFinal
-            {...step_final_fields}
-            step_one_fields={step_one_fields}
-            step_two_fields={step_two_fields}
-            step_three_fields={step_three_fields}
-            handleConfirmButton={this.handleConfirmButton}
-            handleBackButton={this.handleBackButton}
-            submittedValues={this.getFinalStepValue}
-            session={this.props.session}
-            id={this.getSessionId()}
-          />
-        ),
-      },
+      // {
+      //   title: "Step 3",
+      //   description: "Scenario Title",
+      //   content: (
+      //     <StepFinal
+      //       {...step_final_fields}
+      //       step_one_fields={step_one_fields}
+      //       step_two_fields={step_two_fields}
+      //       step_three_fields={step_three_fields}
+      //       handleConfirmButton={this.handleConfirmButton}
+      //       handleBackButton={this.handleBackButton}
+      //       submittedValues={this.getFinalStepValue}
+      //       session={this.props.session}
+      //       id={this.getSessionId()}
+      //     />
+      //   ),
+      // },
     ];
     return (
       <>
@@ -267,6 +252,14 @@ class FinalForm extends Component {
     const { step } = this.state;
     return (
       <div className="outer-wrapper">
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Item>
+
+          <Breadcrumb.Item>Scenario Detail</Breadcrumb.Item>
+        </Breadcrumb>
+        ,
         <Card>
           <Row className="d-flex justify-content-center">
             <Col span={18}>{this.renderStepForm(step)}</Col>

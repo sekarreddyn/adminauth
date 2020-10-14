@@ -9,6 +9,10 @@ const initialState = {
   delete_scenario: {
     loading: null,
   },
+  base_scenario: {
+    data: [],
+    loading: null,
+  },
 };
 export function scenario(state = initialState, action) {
   switch (action.type) {
@@ -76,7 +80,28 @@ export function scenario(state = initialState, action) {
           loading: true,
         },
       };
-
+    case scenarioConstants.GET_BASE_SCENARIO_REQUEST:
+      return {
+        ...state,
+        base_scenario: {
+          loading: true,
+        },
+      };
+    case scenarioConstants.GET_BASE_SCENARIO_SUCCESS:
+      return {
+        ...state,
+        base_scenario: {
+          data: action.data,
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_BASE_SCENARIO_FAILURE:
+      return {
+        ...state,
+        base_scenario: {
+          loading: true,
+        },
+      };
     default:
       return state;
   }

@@ -18,6 +18,15 @@ const initialState = {
     },
     loading: null,
   },
+  get_session_kpi: {
+    data: {
+      media_spend: 0,
+      media_shipments: 0,
+      media_gross_profit: 0,
+      media_volume: 0,
+    },
+    loading: null,
+  },
   create_session: {
     loading: null,
   },
@@ -295,6 +304,30 @@ export function session(state = initialState, action) {
         ...state,
         get_session: {
           ...state.get_session,
+          loading: true,
+        },
+      };
+    case sessionConstants.GET_SESSION_KPI_REQUEST:
+      return {
+        ...state,
+        get_session_kpi: {
+          ...state.get_session_kpi,
+          loading: true,
+        },
+      };
+    case sessionConstants.GET_SESSION_KPI_SUCCESS:
+      return {
+        ...state,
+        get_session_kpi: {
+          data: { ...action.data, date: new Date() },
+          loading: false,
+        },
+      };
+    case sessionConstants.GET_SESSION_KPI_FAILURE:
+      return {
+        ...state,
+        get_session_kpi: {
+          ...state.get_session_kpi,
           loading: true,
         },
       };

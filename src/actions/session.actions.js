@@ -1,6 +1,8 @@
 import { sessionConstants } from "../constants";
 import { http, history } from "../helpers";
 import { toast } from "react-toastify";
+import swal from "sweetalert";
+
 export const sessionActions = {
   getSessions,
   createSession,
@@ -13,6 +15,7 @@ export const sessionActions = {
   getMediaTactics,
   searchSession,
   getSession,
+  getSessionKpi,
 };
 
 function getSessions(pagable) {
@@ -54,9 +57,22 @@ function createSession(data) {
       .post(`/core/session`, data)
       .then(function (response) {
         if (response.data) {
-          toast.success("Session created successfully");
           dispatch(success(response.data));
-          history.push("/");
+
+          swal({
+            title: "Session created successfully",
+            text:
+              "Session has been created successfully would you like to create scenarios for this session?",
+            icon: "success",
+            buttons: ["Cancel", "Create Scenarios"],
+            dangerMode: true,
+          }).then((ok) => {
+            if (ok) {
+              history.push(`/create-scenario/${response.data.session_id}`);
+            } else {
+              history.push(`/`);
+            }
+          });
         }
       })
       .catch(function (error) {
@@ -276,5 +292,31 @@ function getSession(id) {
   }
   function failure(error) {
     return { type: sessionConstants.GET_SESSION_FAILURE, error };
+  }
+}
+
+function getSessionKpi(id) {
+  return (dispatch) => {
+    dispatch(request(id));
+    http
+      .get(`/core/session-kpi/${id}`)
+      .then(function (response) {
+        if (response.data) {
+          dispatch(success(response.data));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+      });
+  };
+
+  function request(pagable) {
+    return { type: sessionConstants.GET_SESSION_KPI_REQUEST, pagable };
+  }
+  function success(data) {
+    return { type: sessionConstants.GET_SESSION_KPI_SUCCESS, data };
+  }
+  function failure(error) {
+    return { type: sessionConstants.GET_SESSION_KPI_FAILURE, error };
   }
 }
