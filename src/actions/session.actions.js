@@ -2,7 +2,7 @@ import { sessionConstants } from "../constants";
 import { http, history } from "../helpers";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-
+import { errorHandlerActions } from "../actions";
 export const sessionActions = {
   getSessions,
   createSession,
@@ -32,6 +32,7 @@ function getSessions(pagable) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -77,6 +78,7 @@ function createSession(data) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -91,7 +93,6 @@ function createSession(data) {
   }
 }
 function updateSession(id, data) {
-  debugger;
   return (dispatch) => {
     dispatch(request(data, id));
     http
@@ -105,6 +106,7 @@ function updateSession(id, data) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -131,6 +133,8 @@ function deleteSession(id) {
       })
       .catch(function (error) {
         dispatch(failure(id));
+
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -156,6 +160,7 @@ function getGroups() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -181,6 +186,7 @@ function getBusinessUnits() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -206,6 +212,7 @@ function getCountries() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -231,6 +238,7 @@ function getBrands() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -256,6 +264,7 @@ function getMediaTactics() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -281,6 +290,7 @@ function getSession(id) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -307,6 +317,7 @@ function getSessionKpi(id) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 

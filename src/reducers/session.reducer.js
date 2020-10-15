@@ -79,7 +79,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         get_sessions: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -134,7 +134,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         update_session: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -188,7 +188,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         groups: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -211,7 +211,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         business_units: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -234,7 +234,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         countries: {
-          loading: true,
+          loading: false,
         },
       };
     case sessionConstants.GET_BRANDS_REQUEST:
@@ -256,7 +256,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         brands: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -279,7 +279,7 @@ export function session(state = initialState, action) {
       return {
         ...state,
         media_tactics: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -304,7 +304,7 @@ export function session(state = initialState, action) {
         ...state,
         get_session: {
           ...state.get_session,
-          loading: true,
+          loading: false,
         },
       };
     case sessionConstants.GET_SESSION_KPI_REQUEST:
@@ -328,7 +328,7 @@ export function session(state = initialState, action) {
         ...state,
         get_session_kpi: {
           ...state.get_session_kpi,
-          loading: true,
+          loading: false,
         },
       };
     default:

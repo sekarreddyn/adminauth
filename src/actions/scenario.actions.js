@@ -1,6 +1,6 @@
 import { scenarioConstants } from "../constants";
 import { http, appConfig } from "../helpers";
-
+import { errorHandlerActions } from "../actions";
 export const scenarioActions = {
   createScenario,
   updateScenario,
@@ -20,6 +20,7 @@ function createScenario() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -45,6 +46,7 @@ function updateScenario(id) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -70,6 +72,7 @@ function deleteScenario() {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -96,6 +99,7 @@ function getBaseScenario(session_id) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 

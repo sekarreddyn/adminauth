@@ -1,6 +1,6 @@
 import { authConstants } from "../constants";
 import { http, history } from "../helpers";
-
+import { errorHandlerActions } from "../actions";
 export const authActions = {
   login,
   logout,
@@ -28,6 +28,7 @@ function login(data) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -70,6 +71,7 @@ function signup(data) {
       })
       .catch(function (error) {
         dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
@@ -102,7 +104,8 @@ function forgotPassword(data) {
         ) {
           dispatch(failure(error.response.data.reason));
         } else {
-          dispatch(failure("error"));
+          dispatch(failure(error));
+          dispatch(errorHandlerActions.handleHTTPError(error.response));
         }
       });
   };

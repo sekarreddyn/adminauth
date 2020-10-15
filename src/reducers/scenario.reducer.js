@@ -34,7 +34,7 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         create_scenario: {
-          loading: true,
+          loading: false,
         },
       };
     case scenarioConstants.UPDATE_SCENARIO_REQUEST:
@@ -55,7 +55,7 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         update_scenario: {
-          loading: true,
+          loading: false,
         },
       };
 
@@ -77,7 +77,7 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         delete_scenario: {
-          loading: true,
+          loading: false,
         },
       };
     case scenarioConstants.GET_BASE_SCENARIO_REQUEST:
@@ -99,7 +99,7 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         base_scenario: {
-          loading: true,
+          loading: false,
         },
       };
     default:

@@ -51,9 +51,9 @@ class Navbar extends Component {
                 <NavLink to="/">Reports</NavLink>
               </Menu.Item>
               <Menu.Item>
-                <NavLink to="/create-session" className="creat-btn">
+                {/* <NavLink to="/create-session" className="creat-btn">
                   Create Session
-                </NavLink>
+                </NavLink> */}
               </Menu.Item>
 
               {/* <Menu.Item className="text-center">
