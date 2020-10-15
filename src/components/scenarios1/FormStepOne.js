@@ -52,6 +52,7 @@ class FormStepOne extends Component {
       />
     );
   }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { get_session_kpi, get_session } = this.props.session;
@@ -63,8 +64,6 @@ class FormStepOne extends Component {
       media_volume,
     } = data;
     const { session_title, start_date, end_date } = get_session.data;
-
-    console.log("session", this.props.scenario.base_scenario.data);
 
     return (
       <div>
@@ -89,7 +88,7 @@ class FormStepOne extends Component {
             </Col>
             <Col span={4}>
               <h4 className="session-title">
-                MEDIO VOLUME
+                MEDIA VOLUME
                 <span>
                   <strong className="text-center"> {media_volume}</strong>
                 </span>
@@ -97,7 +96,7 @@ class FormStepOne extends Component {
             </Col>
             <Col span={6}>
               <h4 className="session-title">
-                MEDIO GROSS PROFIT
+                MEDIA GROSS PROFIT
                 <span>
                   <strong className="text-center">{media_gross_profit}</strong>
                 </span>
@@ -121,67 +120,80 @@ class FormStepOne extends Component {
                   Header: "Group",
                   accessor: "group",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "Bussiness unit",
                   accessor: "business_unit",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "Country",
                   accessor: "country",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "Brand",
                   accessor: "brand",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "Media Tactics",
                   accessor: "media_tactic",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "GRP's",
                   accessor: "grp",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "Spend",
                   accessor: "spend",
                   Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "CPP",
                   accessor: "cost_per_point",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "Shipments",
                   accessor: "shipments",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "GPUC",
                   accessor: "gp_uc",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
                 {
                   Header: "CPP",
                   accessor: "cost_per_point",
+                  className: "text-center",
                   // Cell: this.renderEditable,
                 },
                 {
                   Header: "GP",
                   accessor: "gp",
                   // Cell: this.renderEditable,
+                  className: "text-center",
                 },
               ]}
-              // defaultPageSize={10}
+              defaultPageSize={10}
               className="-striped -highlight"
               showPagination={false}
               loading={this.props.scenario.base_scenario.loading}
+              pageSize={this.state.data.length}
             />
           </Col>
           <Form onSubmit={this.handleSubmit}>

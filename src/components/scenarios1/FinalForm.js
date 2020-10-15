@@ -262,7 +262,7 @@ class FinalForm extends Component {
         ,
         <Card>
           <Row className="d-flex justify-content-center">
-            <Col span={18}>{this.renderStepForm(step)}</Col>
+            <Col span={24}>{this.renderStepForm(step)}</Col>
           </Row>
         </Card>
       </div>
