@@ -267,29 +267,28 @@ class FinalForm extends Component {
   };
 
   render() {
-    console.log("this.state", this.state);
     const { step } = this.state;
     return (
-      <div className="outer-wrapper">
+      <>
         <Breadcrumb>
           <Breadcrumb.Item>
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <NavLink to={`/scenarios-list/${this.getSessionId()}`}>
-              {" "}
               Scenarios
             </NavLink>
           </Breadcrumb.Item>
           <Breadcrumb.Item>Scenario Detail</Breadcrumb.Item>
         </Breadcrumb>
-        ,
-        <Card>
-          <Row className="d-flex justify-content-center">
-            <Col span={24}>{this.renderStepForm(step)}</Col>
-          </Row>
-        </Card>
-      </div>
+        <div className="outer-wrapper">
+          <Card>
+            <Row className="d-flex justify-content-center">
+              <Col span={24}>{this.renderStepForm(step)}</Col>
+            </Row>
+          </Card>
+        </div>
+      </>
     );
   }
 }
