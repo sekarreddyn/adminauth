@@ -18,6 +18,12 @@ export const sessionActions = {
   getSessionKpi,
 };
 
+let payload = {
+  bu_list: ["ASEAN"],
+  group_list: ["Asia Pacific"],
+  country_list: ["Indonesia"],
+  mt_list: ["TV"],
+};
 function getSessions(pagable) {
   return (dispatch) => {
     dispatch(request(pagable));
@@ -133,7 +139,6 @@ function deleteSession(id) {
       })
       .catch(function (error) {
         dispatch(failure(id));
-
         dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
@@ -152,7 +157,7 @@ function getGroups() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`/core/base-group`)
+      .post(`/core/base-group`, payload)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -178,7 +183,7 @@ function getBusinessUnits() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`/core/base-business-unit`)
+      .post(`/core/base-business-unit`, payload)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -204,7 +209,7 @@ function getCountries() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`/core/base-country`)
+      .post(`/core/base-country`, payload)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -230,7 +235,7 @@ function getBrands() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`/core/base-brand`)
+      .post(`/core/base-brand`, payload)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -256,7 +261,7 @@ function getMediaTactics() {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`/core/base-media-tactic`)
+      .post(`/core/base-media-tactic`, payload)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
