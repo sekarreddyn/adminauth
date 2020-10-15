@@ -68,7 +68,7 @@ const SessionItem = ({
         </Button>
 
         <Button className="mr-2" type="primary">
-          <NavLink type="primary" to={"create-scenario/" + session_id}>
+          <NavLink type="primary" to={"/scenarios-list/" + session_id}>
             View
           </NavLink>
         </Button>

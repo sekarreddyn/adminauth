@@ -6,7 +6,7 @@ import StepThree from "./FormStepThree";
 import StepFinal from "./FormStepFinal";
 import { sessionActions, scenarioActions } from "../../actions";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import moment from "moment";
 import swal from "sweetalert";
 
@@ -62,7 +62,26 @@ class FinalForm extends Component {
       if (this.props.session.get_session.data) {
       }
     }
+    if (
+      this.props.session.get_session.data !== prevProps.session.get_session.data
+    ) {
+      if (this.props.session.get_session.data) {
+        this.setState({
+          step_two_fields: {
+            start_date: moment(
+              this.props.session.get_session.data.start_date,
+              dateFormat
+            ),
+            end_date: moment(
+              this.props.session.get_session.data.end_date,
+              dateFormat
+            ),
+          },
+        });
+      }
+    }
   }
+
   toTimestamp = (strDate) => {
     var d = new Date(strDate);
     var n = d.getTime();
@@ -256,7 +275,12 @@ class FinalForm extends Component {
           <Breadcrumb.Item>
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
-
+          <Breadcrumb.Item>
+            <NavLink to={`/scenarios-list/${this.getSessionId()}`}>
+              {" "}
+              Scenarios
+            </NavLink>
+          </Breadcrumb.Item>
           <Breadcrumb.Item>Scenario Detail</Breadcrumb.Item>
         </Breadcrumb>
         ,

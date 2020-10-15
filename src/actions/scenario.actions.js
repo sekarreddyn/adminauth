@@ -6,6 +6,7 @@ export const scenarioActions = {
   updateScenario,
   deleteScenario,
   getBaseScenario,
+  getScenarios,
 };
 
 function createScenario() {
@@ -111,5 +112,32 @@ function getBaseScenario(session_id) {
   }
   function failure(error) {
     return { type: scenarioConstants.GET_BASE_SCENARIO_FAILURE, error };
+  }
+}
+
+function getScenarios(session_id) {
+  return (dispatch) => {
+    dispatch(request());
+    http
+      .get(`/core/scenario/${session_id}`)
+      .then(function (response) {
+        if (response.data) {
+          dispatch(success(response.data));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
+      });
+  };
+
+  function request() {
+    return { type: scenarioConstants.GET_SCENARIOS_REQUEST };
+  }
+  function success(data) {
+    return { type: scenarioConstants.GET_SCENARIOS_SUCCESS, data };
+  }
+  function failure(error) {
+    return { type: scenarioConstants.GET_SCENARIOS_FAILURE, error };
   }
 }

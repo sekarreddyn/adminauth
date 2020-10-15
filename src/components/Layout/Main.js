@@ -32,7 +32,11 @@ class RouterApp extends Component {
           <Route exact path="/request-emailsent" component={RequestEmail} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/forgot-emailsent" component={PasswordEmail} />
-          <PrivateRoute exact path="/sessions-list" component={sessionsList} />
+          <PrivateRoute
+            exact
+            path="/scenarios-list/:sessionId"
+            component={sessionsList}
+          />
           <PrivateRoute
             exact
             path="/create-session"

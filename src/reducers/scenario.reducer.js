@@ -13,6 +13,10 @@ const initialState = {
     data: [],
     loading: null,
   },
+  scenarios: {
+    data: [],
+    loading: false,
+  },
 };
 export function scenario(state = initialState, action) {
   switch (action.type) {
@@ -99,6 +103,28 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         base_scenario: {
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_SCENARIOS_REQUEST:
+      return {
+        ...state,
+        scenarios: {
+          loading: true,
+        },
+      };
+    case scenarioConstants.GET_SCENARIOS_SUCCESS:
+      return {
+        ...state,
+        scenarios: {
+          data: action.data,
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_SCENARIOS_FAILURE:
+      return {
+        ...state,
+        scenarios: {
           loading: false,
         },
       };

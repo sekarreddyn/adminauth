@@ -24,27 +24,27 @@ class FormStepOne extends Component {
       aggregated_data: [
         {
           name: "BU Threshold",
-          lower_limit: 10,
-          upper_limit: 40,
+          lower_limit: -10,
+          upper_limit: 10,
         },
         {
           name: "Country Threshold",
-          lower_limit: 13,
+          lower_limit: -10,
           upper_limit: 30,
         },
         {
           name: "Brand Threshold",
-          lower_limit: 10,
-          upper_limit: 40,
+          lower_limit: -10,
+          upper_limit: 10,
         },
         {
           name: "Media Tactic",
-          lower_limit: 10,
-          upper_limit: 12,
+          lower_limit: -10,
+          upper_limit: 10,
         },
         {
           name: "YOY Spend Change",
-          lower_limit: 23,
+          lower_limit: -10,
           upper_limit: 10,
         },
       ],
@@ -98,6 +98,16 @@ class FormStepOne extends Component {
       />
     );
   }
+  storeValues = () => {
+    const {
+      getFieldDecorator,
+      validateFields,
+      getFieldsValue,
+    } = this.props.form;
+    const values = getFieldsValue();
+    this.props.submittedValues(values);
+    this.props.handleBackButton();
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
     const { get_session_kpi, get_session } = this.props.session;
@@ -110,7 +120,7 @@ class FormStepOne extends Component {
     } = data;
     const { session_title, start_date, end_date } = get_session.data;
 
-    console.log("session", this.props.scenario.base_scenario.data);
+    console.log("session", start_date, end_date);
 
     return (
       <div>
@@ -132,16 +142,30 @@ class FormStepOne extends Component {
                 <Form.Item label="Start Date">
                   {getFieldDecorator("f_two_s_two", {
                     rules: [{ required: false, message: "Cannot be empty!" }],
-                    initialValue: this.props.f_two_s_two,
-                  })(<DatePicker size="large" style={{ width: "100%" }} />)}
+                    initialValue: this.props.start_date,
+                  })(
+                    <DatePicker
+                      size="large"
+                      style={{ width: "100%" }}
+                      format="DD-MM-YYYY"
+                      disabled
+                    />
+                  )}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="End Date">
                   {getFieldDecorator("f_two_s_two", {
                     rules: [{ required: false, message: "Cannot be empty!" }],
-                    initialValue: this.props.f_two_s_two,
-                  })(<DatePicker size="large" style={{ width: "100%" }} />)}
+                    initialValue: this.props.end_date,
+                  })(
+                    <DatePicker
+                      size="large"
+                      style={{ width: "100%" }}
+                      format="DD-MM-YYYY"
+                      disabled
+                    />
+                  )}
                 </Form.Item>
               </Col>
             </Row>
@@ -210,7 +234,7 @@ class FormStepOne extends Component {
                   data={this.state.aggregated_data}
                   columns={[
                     {
-                      Header: "INPUT PARAMETERS",
+                      Header: "Group Threshold",
                       accessor: "name",
                       // Cell: this.renderEditable,
                     },
@@ -225,7 +249,7 @@ class FormStepOne extends Component {
                       Cell: this.renderEditable,
                     },
                   ]}
-                  // defaultPageSize={10}
+                  defaultPageSize={5}
                   className="-striped -highlight"
                   showPagination={false}
                   loading={this.props.scenario.base_scenario.loading}
