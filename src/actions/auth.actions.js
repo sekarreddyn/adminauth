@@ -1,6 +1,7 @@
 import { authConstants } from "../constants";
 import { http, history } from "../helpers";
 import { errorHandlerActions } from "../actions";
+import swal from "sweetalert";
 export const authActions = {
   login,
   logout,
@@ -64,7 +65,20 @@ function signup(data) {
           };
           localStorage.setItem("msuser", JSON.stringify(user));
           dispatch(success(user));
-          history.push("/");
+          swal({
+            title: "Request Received",
+            text:
+              "Thank you! We have recived the your request to access Media Simulator, we will respond to your request at the earliest.",
+            icon: "success",
+            buttons: ["Cancel", "Go to login"],
+            dangerMode: true,
+          }).then((ok) => {
+            if (ok) {
+              history.push(`/login`);
+            } else {
+              history.push(`/request-access`);
+            }
+          });
         } else {
           dispatch(failure(response.data.reason));
         }
@@ -90,9 +104,23 @@ function forgotPassword(data) {
   return (dispatch) => {
     dispatch(request({ data }));
     http
-      .post(`forgot-password`, data)
+      .post(`auth/forgot-password`, data)
       .then(function (response) {
         if (response.status === 200) {
+          swal({
+            title: "Email Sent",
+            text:
+              "n Email sent to your email address.In a few moments, you will receive an email that contains a link to reset your password.",
+            icon: "success",
+            buttons: ["Cancel", "Back to login"],
+            dangerMode: true,
+          }).then((ok) => {
+            if (ok) {
+              history.push(`/login`);
+            } else {
+              history.push(`/forgot-password`);
+            }
+          });
         }
         dispatch(success(response.data));
       })

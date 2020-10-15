@@ -15,8 +15,8 @@ export function errorhandler(state = initialState, action) {
         ...state,
       };
     case errorhandlerConstants.HTTP_401_ERROR:
-      localStorage.removeItem("user");
-      history.push("/web/login");
+      toast.error("401 Unauthorised");
+      localStorage.removeItem("msuser");
       return {
         ...state,
       };
