@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Row, Col, Steps } from "antd";
+import { Card, Row, Col, Steps, Breadcrumb } from "antd";
 import StepOne from "./FormStepOne";
 import StepTwo from "./FormStepTwo";
 import StepThree from "./FormStepThree";
@@ -7,6 +7,7 @@ import StepFinal from "./FormStepFinal";
 import { sessionActions } from "../../actions";
 import { connect } from "react-redux";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
 const { Step } = Steps;
 const dateFormat = "DD-MM-YYYY";
@@ -112,6 +113,13 @@ class FinalForm extends Component {
   getSessionId = () => {
     if (this.props.match.params.sessionId)
       return this.props.match.params.sessionId;
+  };
+  getLabel = () => {
+    if (this.props.match.params.sessionId) {
+      return "Edit session";
+    } else {
+      return "Create session";
+    }
   };
   handleConfirmButton = (values) => {
     const { step_final_fields } = this.state;
@@ -263,16 +271,23 @@ class FinalForm extends Component {
   };
 
   render() {
-    console.log("this.state", this.state);
     const { step } = this.state;
     return (
-      <div className="outer-wrapper">
-        <Card>
-          <Row className="d-flex justify-content-center">
-            <Col span={18}>{this.renderStepForm(step)}</Col>
-          </Row>
-        </Card>
-      </div>
+      <>
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <NavLink to="/">Home</NavLink>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{this.getLabel()}</Breadcrumb.Item>
+        </Breadcrumb>
+        <div className="outer-wrapper">
+          <Card>
+            <Row className="d-flex justify-content-center">
+              <Col span={18}>{this.renderStepForm(step)}</Col>
+            </Row>
+          </Card>
+        </div>
+      </>
     );
   }
 }
