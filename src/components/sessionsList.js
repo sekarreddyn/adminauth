@@ -76,145 +76,6 @@ const actionsListMore = (
   </div>
 );
 
-const data = [
-  {
-    key: "1",
-    scenario: (
-      <h4 className="session-title">
-        Base Scenario <span>Oct 2019 - Oct 2020</span>
-      </h4>
-    ),
-    mediaspend: <b>107, 165, 670</b>,
-    mediavolume: <b>107, 165, 670</b>,
-    mediagrossprofit: <b>107, 165, 670</b>,
-    shipments: <b>107, 165, 670</b>,
-    actions: actionsList,
-  },
-  {
-    key: "2",
-    scenario: (
-      <h4 className="session-title">
-        Scenario 1<span>Jan 2019 - Jan 2020</span>
-      </h4>
-    ),
-    mediaspend: (
-      <b className="text-success">
-        107, 165, 670{" "}
-        <span className="session-count bg-success">
-          <Icon type="caret-up" /> 10%
-        </span>
-      </b>
-    ),
-    mediavolume: (
-      <b className="text-danger">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="caret-down" /> 10%
-        </span>
-      </b>
-    ),
-    mediagrossprofit: (
-      <b className="text-dark">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="line" /> 0%
-        </span>
-      </b>
-    ),
-    shipments: (
-      <b className="text-dark">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="line" /> 0%
-        </span>
-      </b>
-    ),
-    actions: actionsListMore,
-  },
-  {
-    key: "3",
-    scenario: (
-      <h4 className="session-title">
-        Scenario 2<span>Feb 2019 - Feb 2020</span>
-      </h4>
-    ),
-    mediaspend: (
-      <b className="text-success">
-        107, 165, 670{" "}
-        <span className="session-count bg-success">
-          <Icon type="caret-up" /> 10%
-        </span>
-      </b>
-    ),
-    mediavolume: (
-      <b className="text-danger">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="caret-down" /> 10%
-        </span>
-      </b>
-    ),
-    mediagrossprofit: (
-      <b className="text-dark">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="line" /> 0%
-        </span>
-      </b>
-    ),
-    shipments: (
-      <b className="text-dark">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="line" /> 0%
-        </span>
-      </b>
-    ),
-    actions: actionsListMore,
-  },
-  {
-    key: "4",
-    scenario: (
-      <h4 className="session-title">
-        Scenario 3<span>Mar 2019 - Mar 2020</span>
-      </h4>
-    ),
-    mediaspend: (
-      <b className="text-success">
-        107, 165, 670{" "}
-        <span className="session-count bg-success">
-          <Icon type="caret-up" /> 10%
-        </span>
-      </b>
-    ),
-    mediavolume: (
-      <b className="text-danger">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="caret-down" /> 10%
-        </span>
-      </b>
-    ),
-    mediagrossprofit: (
-      <b className="text-dark">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="line" /> 0%
-        </span>
-      </b>
-    ),
-    shipments: (
-      <b className="text-dark">
-        107, 165, 670{" "}
-        <span className="session-count">
-          <Icon type="line" /> 0%
-        </span>
-      </b>
-    ),
-    actions: actionsListMore,
-  },
-];
-
 class sessionsList extends React.Component {
   state = {
     list: [],
@@ -224,6 +85,7 @@ class sessionsList extends React.Component {
     if (this.getSessionId()) {
       this.getSession();
       this.getSessionKpi();
+      this.getScenarios(this.getSessionId());
     }
   }
   componentDidUpdate(prevProps) {
@@ -256,6 +118,11 @@ class sessionsList extends React.Component {
     const { dispatch } = this.props;
     dispatch(sessionActions.getSessionKpi(this.getSessionId()));
   };
+  getScenarios = () => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.getScenarios(this.getSessionId()));
+  };
+
   cardTitle = (
     <div className="d-flex align-items-center">
       <h3 className="text-dark mb-0">Scenarios</h3>
@@ -305,9 +172,9 @@ class sessionsList extends React.Component {
     const columns = [
       {
         title: "Scenario",
-        dataIndex: "title",
-        key: "title",
+
         width: "20%",
+        render: (item) => <div className="text-center">Base Scenario</div>,
       },
       {
         title: "Media Spend",
@@ -342,7 +209,7 @@ class sessionsList extends React.Component {
           <div className="text-center">
             <Tooltip placement="bottom" title="Run Scenario">
               <NavLink
-                to="/run-scenario"
+                to={`/run-scenario/${this.getSessionId()}`}
                 className="ant-btn ant-btn-link px-2 text-primary"
               >
                 <Icon type="play-circle" style={{ fontSize: "18px" }} />

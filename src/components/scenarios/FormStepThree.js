@@ -11,7 +11,7 @@ const StepThree = Form.create({
     e.preventDefault();
     validateFields((err, values) => {
       if (!err) {
-        props.submittedValues(values);
+        props.handleConfirmButton(values);
         props.handleNextButton();
       }
     });
@@ -27,24 +27,24 @@ const StepThree = Form.create({
       <Row gutter={30}>
         <Col span={24}>
           <Form.Item label="Scenario Title" className="mb-4">
-            {getFieldDecorator("session_title", {
+            {getFieldDecorator("scenario_title", {
               rules: [
                 { required: true, message: "Please enter scenario title" },
               ],
-              initialValue: props.session_title,
+              initialValue: props.scenario_title,
             })(<Input size="large" placeholder="Scenario title" />)}
           </Form.Item>
         </Col>
         <Col span={24}>
           <Form.Item label="Scenario Description" className="mb-4">
-            {getFieldDecorator("session_description", {
+            {getFieldDecorator("scenario_description", {
               rules: [
                 {
                   required: false,
                   message: "Please enter scenario description",
                 },
               ],
-              initialValue: props.session_description,
+              initialValue: props.scenario_description,
             })(
               <TextArea
                 rows={6}

@@ -19,10 +19,10 @@ export const sessionActions = {
 };
 
 let payload = {
-  bu_list: ["ASEAN"],
   group_list: ["Asia Pacific"],
   country_list: ["Indonesia"],
   mt_list: ["TV"],
+  brand_list: ["Coca-Cola"],
 };
 function getSessions(pagable) {
   return (dispatch) => {

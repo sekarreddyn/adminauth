@@ -1,10 +1,8 @@
 import React from "react";
 
-import Content from "../Layouts/Content";
-
 const Notfound = () => {
   return (
-    <Content>
+    <>
       <div className="content-header row">
         <div className="content-header-left col-md-4 col-12 mb-2">
           <h3 className="content-header-title">Page Not found</h3>
@@ -29,7 +27,7 @@ const Notfound = () => {
           </div>
         </div>
       </div>
-    </Content>
+    </>
   );
 };
 

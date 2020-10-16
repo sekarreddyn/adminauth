@@ -119,7 +119,7 @@ function getScenarios(session_id) {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`/core/scenario/${session_id}`)
+      .get(`/core/scenario`)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));

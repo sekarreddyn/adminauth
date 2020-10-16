@@ -11,7 +11,8 @@ import PasswordEmail from "../../components/PasswordEmail";
 import RequestEmail from "../../components/RequestEmail";
 import SessionCreation from "../../components/sessions/FinalForm";
 import ScenarioCreation from "../../components/scenarios/FinalForm";
-import ScenarioCreation1 from "../../components/scenarios1/FinalForm";
+import NotFound from "../Pages/Notfound";
+import RunScenario from "../../components/RunScenario";
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";
@@ -51,13 +52,15 @@ class RouterApp extends Component {
           <PrivateRoute
             exact
             path="/create-scenario/:sessionId"
-            component={ScenarioCreation1}
-          />
-          <PrivateRoute
-            exact
-            path="/create-scenario1/:sessionId"
             component={ScenarioCreation}
           />
+
+          <PrivateRoute
+            exact
+            path="/run-scenario/:sessionId"
+            component={RunScenario}
+          />
+          <PrivateRoute component={NotFound} />
         </ErrorBoundary>
         <ToastContainer
           position="top-center"
