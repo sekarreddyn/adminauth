@@ -60,19 +60,20 @@ class RouterApp extends Component {
             path="/run-scenario/:sessionId"
             component={RunScenario}
           />
-          <PrivateRoute component={NotFound} />
+          {/* <PrivateRoute component={NotFound} /> */}
+
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </ErrorBoundary>
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
       </Router>
     );
   }

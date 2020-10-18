@@ -24,6 +24,13 @@ let payload = {
   mt_list: ["TV"],
   brand_list: ["Coca-Cola"],
 };
+let payload1 = {
+  bu_list: ["ASEAN"],
+  country_list: ["Indonesia"],
+  mt_list: ["TV"],
+  brand_list: ["Coca-Cola"],
+};
+
 function getSessions(pagable) {
   return (dispatch) => {
     dispatch(request(pagable));
@@ -157,7 +164,7 @@ function getGroups() {
   return (dispatch) => {
     dispatch(request());
     http
-      .post(`/core/base-group`, payload)
+      .post(`/core/base-group`, payload1)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
