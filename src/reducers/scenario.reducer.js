@@ -17,6 +17,15 @@ const initialState = {
     data: [],
     loading: false,
   },
+  granular_data: {
+    data: [],
+    loading: null,
+  },
+  run_scenario: {
+    data: [],
+    loading: false,
+    status: [],
+  },
 };
 export function scenario(state = initialState, action) {
   switch (action.type) {
@@ -126,6 +135,53 @@ export function scenario(state = initialState, action) {
         ...state,
         scenarios: {
           loading: false,
+        },
+      };
+    case scenarioConstants.GET_GRANULAR_DATA_REQUEST:
+      return {
+        ...state,
+        granular_data: {
+          loading: true,
+        },
+      };
+    case scenarioConstants.GET_GRANULAR_DATA_SUCCESS:
+      return {
+        ...state,
+        granular_data: {
+          data: action.data,
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_GRANULAR_DATA_FAILURE:
+      return {
+        ...state,
+        granular_data: {
+          loading: false,
+        },
+      };
+    case scenarioConstants.RUN_SCENARIO_REQUEST:
+      return {
+        ...state,
+        run_scenario: {
+          loading: true,
+          status: "started",
+        },
+      };
+    case scenarioConstants.RUN_SCENARIO_SUCCESS:
+      return {
+        ...state,
+        run_scenario: {
+          data: action.data,
+          loading: false,
+          status: "completed",
+        },
+      };
+    case scenarioConstants.RUN_SCENARIO_FAILURE:
+      return {
+        ...state,
+        run_scenario: {
+          loading: false,
+          status: "failed",
         },
       };
     default:

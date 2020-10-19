@@ -5,7 +5,6 @@ import {
   Button,
   Row,
   Col,
-  Select,
   Divider,
   Icon,
   Radio,
@@ -16,7 +15,7 @@ import {
 } from "antd";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-const { Option } = Select;
+import { scenarioActions } from "../../actions";
 
 class FormStepTwo extends Component {
   constructor() {
@@ -24,8 +23,10 @@ class FormStepTwo extends Component {
     this.state = {
       aggregated_data: [],
       granular_data: [],
+      is_agg_constraint: true,
     };
-    this.renderEditable = this.renderEditable.bind(this);
+    this.renderEditable1 = this.renderEditable1.bind(this);
+    this.renderEditable2 = this.renderEditable2.bind(this);
   }
 
   componentDidMount() {
@@ -71,7 +72,12 @@ class FormStepTwo extends Component {
             (x) => x.id === "grp_threshold"
           ).upper_limit,
         };
-        this.props.submittedValues(values, data, this.state.aggregated_data);
+        this.props.submittedValues(
+          values,
+          data,
+          this.state.aggregated_data,
+          this.state.granular_data
+        );
         this.props.handleNextButton();
       }
     });
@@ -113,12 +119,16 @@ class FormStepTwo extends Component {
 
     const { getFieldsValue } = this.props.form;
     const values = getFieldsValue();
-    this.props.submittedValues(values, data, this.state.aggregated_data);
+    this.props.submittedValues(
+      values,
+      data,
+      this.state.aggregated_data,
+      this.state.granular_data
+    );
     this.props.handleBackButton();
   };
 
   componentDidUpdate(prevProps) {
-    debugger;
     if (this.props.aggregatedData !== this.state.aggregated_data) {
       if (this.props.aggregatedData) {
         this.setState({
@@ -126,17 +136,38 @@ class FormStepTwo extends Component {
         });
       }
     }
+    if (
+      this.props.scenario.granular_data.data !==
+      prevProps.scenario.granular_data.data
+    ) {
+      if (this.props.scenario.granular_data.data) {
+        this.setState({
+          granular_data: this.props.scenario.granular_data.data.map(
+            (item, index) => {
+              return {
+                ...item,
+                spend_lower_limit: 0,
+                spend_upper_limit: 0,
+              };
+            }
+          ),
+        });
+      }
+    }
   }
-  renderEditable(cellInfo) {
+
+  renderEditable1(cellInfo) {
     return (
       <div
         style={{ backgroundColor: "#fafafa" }}
         contentEditable
         suppressContentEditableWarning
         onBlur={(e) => {
-          const data = [...this.state.aggregated_data];
-          data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
-          this.setState({ data });
+          const aggregated_data = [...this.state.aggregated_data];
+          aggregated_data[cellInfo.index][cellInfo.column.id] = parseInt(
+            e.target.innerHTML
+          );
+          this.setState({ aggregated_data });
         }}
         dangerouslySetInnerHTML={{
           __html: this.state.aggregated_data[cellInfo.index][
@@ -146,19 +177,38 @@ class FormStepTwo extends Component {
       />
     );
   }
+  renderEditable2(cellInfo) {
+    return (
+      <div
+        style={{ backgroundColor: "#fafafa" }}
+        contentEditable
+        suppressContentEditableWarning
+        onBlur={(e) => {
+          const granular_data = [...this.state.granular_data];
+          granular_data[cellInfo.index][cellInfo.column.id] = parseInt(
+            e.target.innerHTML
+          );
+          this.setState({ granular_data });
+        }}
+        dangerouslySetInnerHTML={{
+          __html: this.state.granular_data[cellInfo.index][cellInfo.column.id],
+        }}
+      />
+    );
+  }
+  onBudgetConstChange = (e) => {
+    this.setState({
+      is_agg_constraint: e.target.value,
+    });
+    if (!e.target.value) this.getGranularData(this.props.baseScenario);
+  };
 
+  getGranularData = (data) => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.getGranularData({ mod_base_table: data }));
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { get_session_kpi, get_session } = this.props.session;
-    const { data } = get_session_kpi;
-    const {
-      media_gross_profit,
-      media_shipments,
-      media_spend,
-      media_volume,
-    } = data;
-    const { session_title, start_date, end_date } = get_session.data;
-
     return (
       <div>
         <>
@@ -184,12 +234,12 @@ class FormStepTwo extends Component {
                 <Form.Item label="Start Date">
                   {getFieldDecorator("scenario_ed", {
                     rules: [{ required: false, message: "Cannot be empty!" }],
-                    initialValue: this.props.scenario_ed,
+                    initialValue: this.props.scenario_sd,
                   })(
                     <DatePicker
                       size="large"
                       style={{ width: "100%" }}
-                      format="DD-MM-YYYY"
+                      format="YYYY-MM-DD"
                       disabled
                     />
                   )}
@@ -204,7 +254,7 @@ class FormStepTwo extends Component {
                     <DatePicker
                       size="large"
                       style={{ width: "100%" }}
-                      format="DD-MM-YYYY"
+                      format="YYYY-MM-DD"
                       disabled
                     />
                   )}
@@ -216,15 +266,15 @@ class FormStepTwo extends Component {
 
             <Row gutter={30}>
               <Col span={24}>
-                <Form.Item
-                  className="mb-4"
-                  label="Media Optimization Objective"
-                >
+                <Form.Item className="mb-4" label="Input Budget Constraints">
                   {getFieldDecorator("is_agg_constraint", {
                     rules: [{ required: false, message: "Cannot be empty!" }],
                     initialValue: this.props.is_agg_constraint,
                   })(
-                    <Radio.Group size="large">
+                    <Radio.Group
+                      size="large"
+                      onChange={this.onBudgetConstChange}
+                    >
                       <Radio.Button value={true}>Aggregated</Radio.Button>
                       <Radio.Button value={false}>Granular</Radio.Button>
                     </Radio.Group>
@@ -232,7 +282,7 @@ class FormStepTwo extends Component {
                 </Form.Item>
               </Col>
             </Row>
-            {this.props.form.getFieldValue("is_agg_constraint") === true && (
+            {this.state.is_agg_constraint === true && (
               <>
                 <Row gutter={[16, 16]} className="d-flex pt-4">
                   <Col span={12}>
@@ -289,12 +339,12 @@ class FormStepTwo extends Component {
                         {
                           Header: "LOWER LIMIT",
                           accessor: "lower_limit",
-                          Cell: this.renderEditable,
+                          Cell: this.renderEditable1,
                         },
                         {
                           Header: "UPPER LIMIT",
                           accessor: "upper_limit",
-                          Cell: this.renderEditable,
+                          Cell: this.renderEditable1,
                         },
                       ]}
                       defaultPageSize={5}
@@ -327,7 +377,7 @@ class FormStepTwo extends Component {
                 </Row>
               </>
             )}
-            {this.props.form.getFieldValue("is_agg_constraint") === false && (
+            {this.state.is_agg_constraint === false && (
               <>
                 <Row gutter={[16, 16]} className="d-flex pt-4">
                   <Col span={12}>
@@ -377,25 +427,66 @@ class FormStepTwo extends Component {
                       data={this.state.granular_data}
                       columns={[
                         {
-                          Header: "Group Threshold",
-                          accessor: "name",
-                          // Cell: this.renderEditable,
+                          Header: "Group",
+                          accessor: "group",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
                         },
                         {
-                          Header: "LOWER LIMIT",
-                          accessor: "lower_limit",
-                          Cell: this.renderEditable,
+                          Header: "Bussiness unit",
+                          accessor: "business_unit",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
                         },
                         {
-                          Header: "UPPER LIMIT",
-                          accessor: "upper_limit",
-                          Cell: this.renderEditable,
+                          Header: "Country",
+                          accessor: "country",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+                        {
+                          Header: "Brand",
+                          accessor: "brand",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+                        {
+                          Header: "Media Tactics",
+                          accessor: "media_tactic",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+                        {
+                          Header: "GRP's",
+                          accessor: "grp",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+                        {
+                          Header: "Spend",
+                          accessor: "spend",
+                          Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+
+                        {
+                          Header: "Spend Lower Limit",
+                          accessor: "spend_lower_limit",
+                          Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+                        {
+                          Header: "Spend Upper Limit",
+                          accessor: "spend_upper_limit",
+                          Cell: this.renderEditable2,
+                          className: "text-center",
                         },
                       ]}
-                      defaultPageSize={5}
+                      defaultPageSize={10}
                       className="-striped -highlight"
                       showPagination={false}
-                      loading={this.props.scenario.base_scenario.loading}
+                      loading={this.props.scenario.granular_data.loading}
+                      pageSize={this.state.granular_data.length}
                     />
                   </Col>
                 </Row>
@@ -422,22 +513,6 @@ class FormStepTwo extends Component {
               </Button>
             </Form.Item>
           </Form>
-
-          {/* <Form onSubmit={this.handleSubmit}>
-            <Divider></Divider>
-
-            <Divider></Divider>
-            <Form.Item className="text-center">
-              <Button
-                type="primary"
-                size="large"
-                htmlType="submit"
-                style={{ width: 160 }}
-              >
-                Next
-              </Button>
-            </Form.Item>
-          </Form> */}
         </>
       </div>
     );

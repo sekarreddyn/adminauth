@@ -35,47 +35,6 @@ const content = (
   </div>
 );
 
-const actionsList = (
-  <div className="text-center">
-    <Tooltip placement="bottom" title="Run Scenario">
-      <NavLink
-        to="/run-scenario"
-        className="ant-btn ant-btn-link px-2 text-primary"
-      >
-        <Icon type="play-circle" style={{ fontSize: "18px" }} />
-      </NavLink>
-    </Tooltip>
-    <Tooltip placement="bottom" title="Copy Scenario">
-      <NavLink to="/create-scenario" className="ant-btn ant-btn-link mr-2 px-2">
-        <Icon type="copy" style={{ fontSize: "18px" }} />
-      </NavLink>
-    </Tooltip>
-  </div>
-);
-
-const actionsListMore = (
-  <div className="text-center">
-    <Tooltip placement="bottom" title="Run Scenario">
-      <NavLink
-        to="/run-scenario"
-        className="ant-btn ant-btn-link px-2 text-primary"
-      >
-        <Icon type="play-circle" style={{ fontSize: "18px" }} />
-      </NavLink>
-    </Tooltip>
-    <Tooltip placement="bottom" title="Edit Scenario">
-      <NavLink to="/run-scenario" className="ant-btn ant-btn-link px-2">
-        <Icon type="edit" style={{ fontSize: "18px" }} />
-      </NavLink>
-    </Tooltip>
-    <Tooltip placement="bottom" title="Copy Scenario">
-      <NavLink to="/create-scenario" className="ant-btn ant-btn-link mr-2 px-2">
-        <Icon type="copy" style={{ fontSize: "18px" }} />
-      </NavLink>
-    </Tooltip>
-  </div>
-);
-
 class sessionsList extends React.Component {
   state = {
     list: [],
@@ -98,9 +57,18 @@ class sessionsList extends React.Component {
           list: [
             {
               ...this.props.session.get_session_kpi.data,
-              title: "Base Scenario",
+              scenario_title: "Base Scenario",
             },
           ],
+        });
+      }
+    }
+    if (
+      this.props.scenario.scenarios.data !== prevProps.scenario.scenarios.data
+    ) {
+      if (this.props.scenario.scenarios.data) {
+        this.setState({
+          list: [...this.state.list, ...this.props.scenario.scenarios.data],
         });
       }
     }
@@ -157,24 +125,31 @@ class sessionsList extends React.Component {
     </div>
   );
   render() {
-    console.log(this.state);
     const { get_session_kpi, get_session } = this.props.session;
-    const { data } = get_session_kpi;
-    const {
-      media_gross_profit,
-      media_shipments,
-      media_spend,
-      media_volume,
-    } = data;
-    const { session_title, start_date, end_date } = get_session.data;
-    console.log(this.getSessionId());
-
+    const { scenario } = this.props;
+    const { scenarios } = scenario;
+    const { session_title } = get_session.data;
     const columns = [
       {
         title: "Scenario",
-
         width: "20%",
-        render: (item) => <div className="text-center">Base Scenario</div>,
+        render: (item) => (
+          <>
+            {item.session_id ? (
+              <div className="text-center">
+                <strong>{item.scenario_title}</strong>
+                <br />
+                <span>
+                  {item.scenario_sd} - {item.scenario_ed}
+                </span>
+              </div>
+            ) : (
+              <div className="text-center">
+                <strong>{item.scenario_title}</strong>
+              </div>
+            )}
+          </>
+        ),
       },
       {
         title: "Media Spend",
@@ -205,30 +180,46 @@ class sessionsList extends React.Component {
       {
         title: "Actions",
         className: "text-center",
-        render: (tags) => (
-          <div className="text-center">
-            <Tooltip placement="bottom" title="Run Scenario">
-              <NavLink
-                to={`/run-scenario/${this.getSessionId()}`}
-                className="ant-btn ant-btn-link px-2 text-primary"
-              >
-                <Icon type="play-circle" style={{ fontSize: "18px" }} />
-              </NavLink>
-            </Tooltip>
-            <Tooltip placement="bottom" title="Edit Scenario">
-              <NavLink to="/run-scenario" className="ant-btn ant-btn-link px-2">
-                <Icon type="edit" style={{ fontSize: "18px" }} />
-              </NavLink>
-            </Tooltip>
-            <Tooltip placement="bottom" title="Copy Scenario">
-              <NavLink
-                to={`/create-scenario/${this.getSessionId()}`}
-                className="ant-btn ant-btn-link mr-2 px-2"
-              >
-                <Icon type="copy" style={{ fontSize: "18px" }} />
-              </NavLink>
-            </Tooltip>
-          </div>
+
+        render: (item) => (
+          <>
+            {item.session_id ? (
+              <div className="text-center">
+                <Tooltip placement="bottom" title="Run Scenario">
+                  <NavLink
+                    to={`/run-scenario/${this.getSessionId()}/${
+                      item.scenario_id
+                    }`}
+                    className="ant-btn ant-btn-link px-2 text-primary"
+                  >
+                    <Icon type="play-circle" style={{ fontSize: "18px" }} />
+                  </NavLink>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Edit Scenario">
+                  <NavLink
+                    to={`/edit-scenario/${this.getSessionId()}/${
+                      item.scenario_id
+                    }`}
+                    className="ant-btn ant-btn-link px-2"
+                  >
+                    <Icon type="edit" style={{ fontSize: "18px" }} />
+                  </NavLink>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Copy Scenario">
+                  <NavLink
+                    to={`/create-scenario/${this.getSessionId()}`}
+                    className="ant-btn ant-btn-link mr-2 px-2"
+                  >
+                    <Icon type="copy" style={{ fontSize: "18px" }} />
+                  </NavLink>
+                </Tooltip>
+              </div>
+            ) : (
+              <div className="text-center">
+                <strong></strong>
+              </div>
+            )}
+          </>
         ),
       },
     ];
@@ -246,6 +237,7 @@ class sessionsList extends React.Component {
               columns={columns}
               dataSource={this.state.list}
               pagination={false}
+              loading={get_session_kpi.loading || scenarios.loading}
             ></Table>
           </Card>
         </div>

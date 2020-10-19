@@ -3,15 +3,12 @@ import { Card, Row, Col, Steps, Breadcrumb } from "antd";
 import StepOne from "./FormStepOne";
 import StepTwo from "./FormStepTwo";
 import StepThree from "./FormStepThree";
-import StepFinal from "./FormStepFinal";
 import { sessionActions, scenarioActions } from "../../actions";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import moment from "moment";
-import swal from "sweetalert";
-
 const { Step } = Steps;
-const dateFormat = "DD-MM-YYYY";
+const dateFormat = "YYYY-MM-DD";
 class FinalForm extends Component {
   state = {
     step: 0,
@@ -23,11 +20,7 @@ class FinalForm extends Component {
       brand_list: [],
     },
     step_two_fields: {
-      start_date: null,
-      end_date: null,
-      session_id: "string",
-      scenario_title: "Some Title",
-      scenario_description: "Some description",
+      session_id: null,
       scenario_sd: null,
       scenario_ed: null,
       is_max_vol: true,
@@ -45,20 +38,10 @@ class FinalForm extends Component {
       yoy_change: 10,
     },
     step_three_fields: {
-      session_title: undefined,
-      session_description: undefined,
+      scenario_title: undefined,
+      scenario_description: undefined,
     },
-    step_final_fields: {
-      bu_list: [],
-      group_list: [],
-      country_list: [],
-      mt_list: [],
-      brand_list: [],
-      start_date: null,
-      end_date: null,
-      session_title: undefined,
-      session_description: undefined,
-    },
+    step_final_fields: {},
     show_final_values: false,
     baseScenario: [],
     aggregatedData: [
@@ -93,6 +76,7 @@ class FinalForm extends Component {
         upper_limit: 10,
       },
     ],
+    granularData: [],
   };
 
   componentDidMount() {
@@ -164,6 +148,11 @@ class FinalForm extends Component {
     dispatch(scenarioActions.getBaseScenario(this.getSessionId()));
   };
 
+  createScenario = (data) => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.createScenario(data));
+  };
+
   handleNextButton = () => {
     const { step } = this.state;
     this.setState({ step: step + 1 });
@@ -179,20 +168,29 @@ class FinalForm extends Component {
       return this.props.match.params.sessionId;
   };
   handleConfirmButton = (values) => {
-    const { step_final_fields } = this.state;
+    const {
+      step_three_fields,
+      step_two_fields,
+      baseScenario,
+      granularData,
+    } = this.state;
     this.setState(
       {
-        step_final_fields: {
-          ...step_final_fields,
+        step_three_fields: {
+          ...step_three_fields,
           ...values,
         },
+        step_final_fields: {
+          scenario_data: baseScenario,
+          ...values,
+          ...step_two_fields,
+          scenario_sd: moment(step_two_fields.scenario_sd).format(dateFormat),
+          scenario_ed: moment(step_two_fields.scenario_ed).format(dateFormat),
+          granular_bounds: granularData,
+        },
       },
-      () =>
-        this.setState({ show_final_values: true }, () =>
-          this.getSessionId()
-            ? this.updateSession(this.state.step_final_fields)
-            : this.createSession(this.state.step_final_fields)
-        )
+
+      () => this.createScenario(this.state.step_final_fields)
     );
   };
 
@@ -204,15 +202,6 @@ class FinalForm extends Component {
     const { dispatch } = this.props;
     dispatch(sessionActions.updateSession(this.getSessionId(), data));
   };
-  getFinalStepValue = (values) => {
-    const { step_final_fields } = this.state;
-    this.setState({
-      step_final_fields: {
-        ...step_final_fields,
-        ...values,
-      },
-    });
-  };
 
   getStepOneValue = (values) => {
     this.setState({
@@ -220,9 +209,13 @@ class FinalForm extends Component {
     });
   };
 
-  getStepTwoValue = (values, aggregated_values, aggregatedData) => {
+  getStepTwoValue = (
+    values,
+    aggregated_values,
+    aggregatedData,
+    granularData
+  ) => {
     const { step_two_fields } = this.state;
-
     this.setState({
       ...this.state,
       step_two_fields: {
@@ -231,6 +224,7 @@ class FinalForm extends Component {
         ...aggregated_values,
       },
       aggregatedData,
+      granularData,
     });
   };
   getStepThreeValue = (values) => {
@@ -248,7 +242,6 @@ class FinalForm extends Component {
       step_one_fields,
       step_two_fields,
       step_three_fields,
-      step_final_fields,
       baseScenario,
       aggregatedData,
     } = this.state;
@@ -277,6 +270,7 @@ class FinalForm extends Component {
             handleBackButton={this.handleBackButton}
             submittedValues={this.getStepTwoValue}
             aggregatedData={aggregatedData}
+            baseScenario={baseScenario}
           />
         ),
       },
@@ -290,26 +284,10 @@ class FinalForm extends Component {
             handleNextButton={this.handleNextButton}
             handleBackButton={this.handleBackButton}
             submittedValues={this.getStepThreeValue}
+            handleConfirmButton={this.handleConfirmButton}
           />
         ),
       },
-      // {
-      //   title: "Step 3",
-      //   description: "Scenario Title",
-      //   content: (
-      //     <StepFinal
-      //       {...step_final_fields}
-      //       step_one_fields={step_one_fields}
-      //       step_two_fields={step_two_fields}
-      //       step_three_fields={step_three_fields}
-      //       handleConfirmButton={this.handleConfirmButton}
-      //       handleBackButton={this.handleBackButton}
-      //       submittedValues={this.getFinalStepValue}
-      //       session={this.props.session}
-      //       id={this.getSessionId()}
-      //     />
-      //   ),
-      // },
     ];
     return (
       <>
@@ -332,14 +310,7 @@ class FinalForm extends Component {
   };
 
   render() {
-    const allLanguages = [{ id: 1, lang: "EN" }];
-    const usedLanguages = [{ id: 1, lang: "EN" }];
-
-    var result = allLanguages.filter((e) =>
-      usedLanguages.find((a) => e.lang === a.lang)
-    );
     const { step } = this.state;
-    console.log("Form", result);
     return (
       <>
         <Breadcrumb>

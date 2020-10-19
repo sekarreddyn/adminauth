@@ -60,7 +60,6 @@ class FormStepOne extends Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
     const { get_session_kpi, get_session } = this.props.session;
     const { data } = get_session_kpi;
     const {
