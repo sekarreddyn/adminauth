@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Button, Row, Col, Select, Divider, Icon } from "antd";
+import { Form, Button, Row, Col, Divider } from "antd";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-const { Option } = Select;
 
 class FormStepOne extends Component {
   constructor() {

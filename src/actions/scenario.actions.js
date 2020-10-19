@@ -195,13 +195,18 @@ function runScenario(scenario_id) {
     http
       .post(`/core/run-scenario`, { scenario_id })
       .then(function (response) {
-        if (response.data) {
+        if (response.status === 200) {
           dispatch(success(response.data));
         }
       })
       .catch(function (error) {
-        dispatch(failure(error));
-        dispatch(errorHandlerActions.handleHTTPError(error.response));
+        if (error && error.response && error.response.status === 409) {
+          toast.success(error.response.data.message);
+          dispatch(success([]));
+        } else {
+          dispatch(failure(error));
+          dispatch(errorHandlerActions.handleHTTPError(error.response));
+        }
       });
   };
 

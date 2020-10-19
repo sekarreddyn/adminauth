@@ -26,7 +26,7 @@ const initialState = {
   run_scenario: {
     data: [],
     loading: false,
-    status: [],
+    status: "",
     start_date: null,
     end_date: null,
   },
