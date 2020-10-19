@@ -231,7 +231,7 @@ class FormStepTwo extends Component {
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item label="Start Date" className="mb-3">
+                <Form.Item label="Start Date">
                   {getFieldDecorator("scenario_ed", {
                     rules: [{ required: false, message: "Cannot be empty!" }],
                     initialValue: this.props.scenario_sd,
@@ -265,8 +265,8 @@ class FormStepTwo extends Component {
             <Divider></Divider>
 
             <Row gutter={30}>
-              <Col span={8}>
-                <Form.Item className="mb-3 custom-radio ibc" label="Input Budget Constraints">
+              <Col span={24}>
+                <Form.Item className="mb-4" label="Input Budget Constraints">
                   {getFieldDecorator("is_agg_constraint", {
                     rules: [{ required: false, message: "Cannot be empty!" }],
                     initialValue: this.props.is_agg_constraint,
@@ -284,9 +284,9 @@ class FormStepTwo extends Component {
             </Row>
             {this.state.is_agg_constraint === true && (
               <>
-                <Row gutter={[16, 16]} className="d-flex align-items-center w-100">
+                <Row gutter={[16, 16]} className="d-flex pt-4">
                   <Col span={12}>
-                    <h3 className="mb-0 text-dark">Aggregated Data</h3>
+                    <h3 className="mb-0">Aggregated Data</h3>
                   </Col>
                   <Col span={12} className="ml-auto text-right">
                     <Dropdown
@@ -326,7 +326,7 @@ class FormStepTwo extends Component {
                     </Dropdown>
                   </Col>
                 </Row>
-                <Row gutter={[16, 16]} className="d-flex pt-2">
+                <Row gutter={[16, 16]} className="d-flex pt-4">
                   <Col span={24} className="mt-3 ">
                     <ReactTable
                       data={this.state.aggregated_data}
@@ -340,13 +340,11 @@ class FormStepTwo extends Component {
                           Header: "LOWER LIMIT",
                           accessor: "lower_limit",
                           Cell: this.renderEditable1,
-                          className: "text-center"
                         },
                         {
                           Header: "UPPER LIMIT",
                           accessor: "upper_limit",
                           Cell: this.renderEditable1,
-                          className: "text-center"
                         },
                       ]}
                       defaultPageSize={5}
@@ -357,8 +355,8 @@ class FormStepTwo extends Component {
                   </Col>
                 </Row>
                 <Row gutter={[16, 16]}>
-                  <Col span={8}>
-                    <Form.Item label="YOY Spend Change" className="mb-3">
+                  <Col span={24}>
+                    <Form.Item label="YOY Spend Change" className="mb-4">
                       {getFieldDecorator("yoy_change", {
                         rules: [
                           {
@@ -369,7 +367,7 @@ class FormStepTwo extends Component {
                         initialValue: this.props.yoy_change,
                       })(
                         <InputNumber
-                          size="large"
+                          size="medium"
                           placeholder="YOY Spend "
                           style={{ width: "100%" }}
                         />

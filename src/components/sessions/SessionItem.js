@@ -49,7 +49,7 @@ const SessionItem = ({
         </div>
       </div>
       <div className="session-card-meta d-flex align-items-center">
-        <span>Last modified on : {modified_on}</span>
+        <span>{modified_on}</span>
         <span className="ml-auto">
 
           <Button className="mr-2" type="primary">
