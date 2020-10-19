@@ -63,6 +63,7 @@ class sessionsList extends React.Component {
         });
       }
     }
+
     if (
       this.props.scenario.scenarios.data !== prevProps.scenario.scenarios.data
     ) {
@@ -89,6 +90,11 @@ class sessionsList extends React.Component {
   getScenarios = () => {
     const { dispatch } = this.props;
     dispatch(scenarioActions.getScenarios(this.getSessionId()));
+  };
+
+  deleteScenario = (scenario_id) => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.deleteScenario(scenario_id));
   };
 
   cardTitle = (
@@ -212,6 +218,18 @@ class sessionsList extends React.Component {
                   >
                     <Icon type="copy" style={{ fontSize: "18px" }} />
                   </NavLink>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Delete">
+                  <Button
+                    onClick={() => this.deleteScenario(item.scenario_id)}
+                    className="ant-btn ant-btn-link px-2 text-primary"
+                    loading={
+                      scenario.delete_scenario.id === item.scenario_id &&
+                      scenario.delete_scenario.loading
+                    }
+                  >
+                    <Icon type="delete" style={{ fontSize: "18px" }} />
+                  </Button>
                 </Tooltip>
               </div>
             ) : (
