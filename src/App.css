@@ -4595,6 +4595,14 @@ body .ant-table-thead {
   text-transform: uppercase;
 }
 
+body .ant-table-thead tr > th {
+  padding: 10px 16px;
+  font-weight: 500 !important;
+  font-size: 14px;
+  color: #212121;
+  text-align: center;
+}
+
 body .ant-table-body tr:hover td {
   background: rgba(244, 0, 0, 0.05) !important;
 }
@@ -4604,7 +4612,74 @@ body .ant-table-body td.numbers {
 }
 
 body .ant-table-body td {
-  color: #343a40;
+  color: #495057;
+  padding: 20px 16px;
+}
+
+body .ReactTable {
+  border: none;
+}
+
+body .ReactTable.-striped .rt-tr.-odd {
+  background: #fff;
+}
+
+body .ReactTable .rt-thead.-header {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+body .ReactTable .rt-thead .rt-th, body .ReactTable .rt-thead .rt-td {
+  background: #fafafa;
+  border-bottom: 1px solid #e8e8e8;
+  border-right: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding: 10px 5px;
+  font-weight: 500 !important;
+}
+
+body .ReactTable .rt-td {
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+body .ReactTable .rt-tbody .rt-tr-group {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+body .ReactTable .rt-tbody .rt-tr-group:last-child .rt-td {
+  border-bottom: none;
+}
+
+body .ReactTable .rt-tbody .rt-tr-group .rt-td {
+  border-right: none;
+}
+
+body .ReactTable .rt-tbody .rt-tr-group .rt-tr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .ReactTable div[contenteditable="true"] {
+  background: #fff !important;
+  border-radius: 4px;
+  border: solid 1px #fff;
+  margin: 0 5px;
+  padding: 5px 0;
+}
+
+body .ReactTable div[contenteditable="true"]:focus {
+  outline: none;
+  border: solid 1px #17a2b8;
+}
+
+body .ReactTable.-highlight .rt-tbody .rt-tr:not(.-padRow):hover {
+  background: rgba(244, 0, 0, 0.05) !important;
 }
 
 body .ant-card {
@@ -4993,4 +5068,16 @@ pre {
   color: #212121;
   letter-spacing: 0;
   line-height: 1.8;
+}
+
+.bg-white {
+  background: #fff !important;
+}
+
+.custom-radio .ant-radio-group {
+  width: 100%;
+}
+
+.custom-radio .ant-radio-group .ant-radio-button-wrapper {
+  width: 50%;
 }

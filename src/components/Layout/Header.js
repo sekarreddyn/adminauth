@@ -50,11 +50,11 @@ class Navbar extends Component {
               <Menu.Item>
                 <NavLink to="/">Reports</NavLink>
               </Menu.Item>
-              <Menu.Item>
-                {/* <NavLink to="/create-session" className="creat-btn">
+              {/* <Menu.Item>
+                <NavLink to="/create-session" className="creat-btn">
                   Create Session
-                </NavLink> */}
-              </Menu.Item>
+                </NavLink> 
+              </Menu.Item> */}
 
               {/* <Menu.Item className="text-center">
                 <Dropdown

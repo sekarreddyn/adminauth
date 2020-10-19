@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Row, Col, Steps, Breadcrumb } from "antd";
+import { Card, Row, Col, Steps, Breadcrumb, Divider } from "antd";
 import StepOne from "./FormStepOne";
 import StepTwo from "./FormStepTwo";
 import StepThree from "./FormStepThree";
@@ -11,7 +11,7 @@ const { Step } = Steps;
 const dateFormat = "YYYY-MM-DD";
 class FinalForm extends Component {
   state = {
-    step: 0,
+    step: 1,
     step_one_fields: {
       bu_list: [],
       group_list: [],
@@ -297,10 +297,12 @@ class FinalForm extends Component {
               key={item.title}
               title={item.title}
               description={item.description}
-              className="pb-4"
+              className="pb-4 mt-4"
             />
           ))}
         </Steps>
+
+        <Divider></Divider>
 
         <div className="steps-content">
           <div className="steps-content">{steps[step].content}</div>
@@ -325,7 +327,7 @@ class FinalForm extends Component {
           <Breadcrumb.Item>Scenario Detail</Breadcrumb.Item>
         </Breadcrumb>
         <div className="outer-wrapper">
-          <Card>
+          <Card title="Edit Scenario">
             <Row className="d-flex justify-content-center">
               <Col span={24}>{this.renderStepForm(step)}</Col>
             </Row>

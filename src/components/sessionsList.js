@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Input,
-  Icon,
-  Button,
-  Popover,
-  Card,
-  Breadcrumb,
-  Table,
-  Tooltip,
-} from "antd";
+import { Input, Icon, Button, Popover, Card, Breadcrumb, Table, Tooltip, Dropdown, Menu } from "antd";
 import { NavLink } from "react-router-dom";
 import { sessionActions, scenarioActions } from "../actions";
 import { connect } from "react-redux";
@@ -157,7 +148,7 @@ class sessionsList extends React.Component {
         render: (item) => (
           <>
             {item.session_id ? (
-              <div className="text-center">
+              <div >
                 <strong>{item.scenario_title}</strong>
                 <br />
                 <span>
@@ -165,36 +156,36 @@ class sessionsList extends React.Component {
                 </span>
               </div>
             ) : (
-              <div className="text-center">
-                <strong>{item.scenario_title}</strong>
-              </div>
-            )}
+                <div>
+                  <strong>{item.scenario_title}</strong>
+                </div>
+              )}
           </>
         ),
       },
       {
         title: "Media Spend",
         dataIndex: "media_spend",
-        className: "text-center numbers",
+        className: "text-center numbers font-weight-bold",
         key: "media_spend",
       },
       {
         title: "MEDIA VOLUME",
         dataIndex: "media_volume",
-        className: "text-center numbers",
+        className: "text-center numbers font-weight-bold",
         key: "media_volume",
       },
       {
         title: "MEDIA GROSS PROFIT",
         dataIndex: "media_gross_profit",
-        className: "text-center numbers",
+        className: "text-center numbers font-weight-bold",
         key: "media_gross_profit",
       },
 
       {
         title: "SHIPMENTS",
         dataIndex: "media_shipments",
-        className: "text-center numbers",
+        className: "text-center numbers font-weight-bold",
         key: "media_shipments",
       },
 
@@ -206,52 +197,61 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div className="text-center">
-                <Tooltip placement="bottom" title="Run Scenario">
+                <Tooltip placement="top" title="Run Scenario">
                   <NavLink
-                    to={`/run-scenario/${this.getSessionId()}/${
-                      item.scenario_id
-                    }`}
+                    to={`/run-scenario/${this.getSessionId()}/${item.scenario_id
+                      }`}
                     className="ant-btn ant-btn-link px-2 text-primary"
                   >
                     <Icon type="play-circle" style={{ fontSize: "18px" }} />
                   </NavLink>
                 </Tooltip>
-                <Tooltip placement="bottom" title="Edit Scenario">
+                <Tooltip placement="top" title="Edit Scenario">
                   <NavLink
-                    to={`/edit-scenario/${this.getSessionId()}/${
-                      item.scenario_id
-                    }`}
-                    className="ant-btn ant-btn-link px-2"
+                    to={`/edit-scenario/${this.getSessionId()}/${item.scenario_id
+                      }`}
+                    className="ant-btn ant-btn-link px-2 mr-2"
                   >
                     <Icon type="edit" style={{ fontSize: "18px" }} />
                   </NavLink>
                 </Tooltip>
-                <Tooltip placement="bottom" title="Copy Scenario">
-                  <NavLink
-                    to={`/create-scenario/${this.getSessionId()}`}
-                    className="ant-btn ant-btn-link mr-2 px-2"
-                  >
-                    <Icon type="copy" style={{ fontSize: "18px" }} />
-                  </NavLink>
+
+                <Tooltip placement="top" title="More Actions">
+                  <Dropdown overlay={
+                    <Menu>
+                      <Menu.Item>
+                        <Button className="px-0" type="link" size="small">
+                          <NavLink
+                            to={`/create-scenario/${this.getSessionId()}`}
+                          >
+                            <Icon type="copy" className="mr-1" /> Copy Session
+                          </NavLink>
+                        </Button>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <Button
+                          onClick={() => this.deleteScenario(item.scenario_id)}
+                          className="px-0" type="link" size="small"
+                          loading={
+                            scenario.delete_scenario.id === item.scenario_id &&
+                            scenario.delete_scenario.loading
+                          }
+                        >
+                          <Icon type="delete" /> Delete
+                        </Button>
+                      </Menu.Item>
+                    </Menu>
+                  } placement="bottomRight">
+                    <Button type="link" className="border px-2 bg-white"><Icon type="more" style={{ fontSize: "18px" }} /></Button>
+                  </Dropdown>
                 </Tooltip>
-                <Tooltip placement="bottom" title="Delete">
-                  <Button
-                    onClick={() => this.deleteScenario(item.scenario_id)}
-                    className="ant-btn ant-btn-link px-2 text-primary"
-                    loading={
-                      scenario.delete_scenario.id === item.scenario_id &&
-                      scenario.delete_scenario.loading
-                    }
-                  >
-                    <Icon type="delete" style={{ fontSize: "18px" }} />
-                  </Button>
-                </Tooltip>
+
               </div>
             ) : (
-              <div className="text-center">
-                <strong></strong>
-              </div>
-            )}
+                <div className="text-center">
+                  <strong></strong>
+                </div>
+              )}
           </>
         ),
       },

@@ -216,7 +216,7 @@ class FormStepTwo extends Component {
             <Row gutter={30}>
               <Col span={8}>
                 <Form.Item
-                  className="mb-4"
+                  className="mb-3 custom-radio moo"
                   label="Media Optimization Objective"
                 >
                   {getFieldDecorator("is_max_vol", {

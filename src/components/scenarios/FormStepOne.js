@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, Button, Row, Col, Divider } from "antd";
+import { Form, Button, Row, Col, Divider, Icon } from "antd";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
@@ -72,51 +72,46 @@ class FormStepOne extends Component {
     return (
       <div>
         <>
-          <Row gutter={[16, 16]}>
-            <Col span={6}>
+          <Row gutter={[16, 16]} className="d-flex align-items-center">
+            <Col span={8}>
               <h4 className="session-title">
                 {session_title}
-                <span>
+                <span className="mt-2">
                   {start_date} - {end_date}
                 </span>
               </h4>
             </Col>
 
-            <Col span={4}>
-              <h4 className="session-title">
-                MEDIA SPEND
-                <span>
-                  <strong className="text-center">{media_spend}</strong>
-                </span>
-              </h4>
+            <Col span={4} className="text-center border-right">
+              <h5 className="text-muted mb-3">MEDIA SPEND</h5>
+              <b className="text-dark">{media_spend}
+                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
+              </b>
             </Col>
-            <Col span={4}>
-              <h4 className="session-title">
-                MEDIA VOLUME
-                <span>
-                  <strong className="text-center"> {media_volume}</strong>
-                </span>
-              </h4>
+            <Col span={4} className="text-center border-right">
+              <h5 className="text-muted mb-3">MEDIA VOLUME</h5>
+              <b className="text-dark">{media_volume}
+                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
+              </b>
             </Col>
-            <Col span={6}>
-              <h4 className="session-title">
-                MEDIA GROSS PROFIT
-                <span>
-                  <strong className="text-center">{media_gross_profit}</strong>
-                </span>
-              </h4>
+            <Col span={4} className="text-center border-right">
+              <h5 className="text-muted mb-3">MEDIA GROSS PROFIT</h5>
+              <b className="text-dark">{media_gross_profit}
+                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
+              </b>
             </Col>
-            <Col span={4}>
-              <h4 className="session-title">
-                SHIPMENTS
-                <span>
-                  <strong className="text-center">{media_shipments}</strong>
-                </span>
-              </h4>
+            <Col span={4} className="text-center">
+              <h5 className="text-muted mb-3">SHIPMENTS</h5>
+              <b className="text-dark">{media_shipments}
+                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
+              </b>
             </Col>
           </Row>
+
+          <Divider></Divider>
+
           <Col span={24} className="mt-3 ">
-            <h4 className="session-title mb-5">Scenario Data</h4>
+            <h4 className="session-title text-dark mb-4">Scenario Data</h4>
             <ReactTable
               data={this.state.data}
               columns={[
@@ -200,11 +195,10 @@ class FormStepOne extends Component {
               pageSize={this.state.data.length}
             />
           </Col>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} className="text-center mb-0">
             <Divider></Divider>
 
-            <Divider></Divider>
-            <Form.Item className="text-center">
+            <Form.Item className="text-center mb-0">
               <Button
                 type="primary"
                 size="large"
