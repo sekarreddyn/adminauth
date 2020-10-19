@@ -53,7 +53,7 @@ class RunScenario extends React.Component {
           <Breadcrumb.Item>
             <NavLink to="/">Home</NavLink>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>{"session_title"}</Breadcrumb.Item>
+          <Breadcrumb.Item></Breadcrumb.Item>
         </Breadcrumb>
         <div className="outer-wrapper">
           <Card title={this.cardTitle}>
@@ -76,12 +76,14 @@ class RunScenario extends React.Component {
               )}
               {status === "completed" && (
                 <pre>
-                  <output>Run Scenario successfull }</output>
+                  <output className="text-success">
+                    Run Scenario successfull }
+                  </output>
                 </pre>
               )}
               {status === "failed" && (
                 <pre>
-                  <output>Run Scenario Failed </output>
+                  <output className="text-danger">Run Scenario Failed </output>
                 </pre>
               )}
             </div>
