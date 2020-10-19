@@ -20,16 +20,20 @@ const text = (
 
 const content = (
   <div className="help-text">
-    <h4 className="my-3">What is a session?</h4>
+    <h4 className="my-3">What is a scenarios ?</h4>
     <ul>
       <li>
-        A session is where user defines the scope where one selects the time
-        period and the underlying Country-brand-media tactics required for the
-        media simulations/optimizations.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula
+        lectus, consectetur quis elit id, rutrum ullamcorper nunc. Pellentesque
+        interdum augue sapien, non euismod nunc tincidunt eu. Praesent tempus ut
+        metus a pretium. Orci varius natoque penatibus et magnis dis parturient
+        montes, nascetur ridiculus mus. Maecenas sed auctor turpis, sit amet
+        pellentesque orci. Fusce id convallis enim. Sed nec accumsan lorem.
+        Donec aliquet ipsum quam, nec cursus lacus consectetur vitae.
       </li>
       <li>
-        User can create a new session, which is a default option provided in
-        case there are no saved sessions
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula
+        lectus, consectetur quis elit id, rutrum ullamcorper nunc. Pellentesque
       </li>
     </ul>
   </div>
