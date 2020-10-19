@@ -22,21 +22,11 @@ const text = (
 
 const content = (
   <div className="help-text">
-    <h4 className="my-3">What is a scenarios ?</h4>
+    <h4 className="my-3">What is a scenario?</h4>
     <ul>
-      <li>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula
-        lectus, consectetur quis elit id, rutrum ullamcorper nunc. Pellentesque
-        interdum augue sapien, non euismod nunc tincidunt eu. Praesent tempus ut
-        metus a pretium. Orci varius natoque penatibus et magnis dis parturient
-        montes, nascetur ridiculus mus. Maecenas sed auctor turpis, sit amet
-        pellentesque orci. Fusce id convallis enim. Sed nec accumsan lorem.
-        Donec aliquet ipsum quam, nec cursus lacus consectetur vitae.
-      </li>
-      <li>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ligula
-        lectus, consectetur quis elit id, rutrum ullamcorper nunc. Pellentesque
-      </li>
+      <li>Scenario section in the application enables the User to run optimizations</li>
+      <li>Session defines the scope while Scenario is where user provides all data inputs and assumptions required for optimization. </li>
+      <li>One session can have multiple scenarios with different inputs and assumptions.</li>
     </ul>
   </div>
 );
@@ -176,17 +166,16 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div>
-                <strong>{item.scenario_title}</strong>
-                <br />
-                <span>
+                <strong className="d-block mb-1">{item.scenario_title}</strong>
+                <span className="text-muted">
                   {item.scenario_sd} - {item.scenario_ed}
                 </span>
               </div>
             ) : (
-              <div>
-                <strong>{item.scenario_title}</strong>
-              </div>
-            )}
+                <div>
+                  <strong>{item.scenario_title}</strong>
+                </div>
+              )}
           </>
         ),
       },
@@ -224,21 +213,21 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div className="text-center">
+
                 <Tooltip placement="top" title="Run Scenario">
                   <NavLink
-                    to={`/run-scenario/${this.getSessionId()}/${
-                      item.scenario_id
-                    }`}
+                    to={`/run-scenario/${this.getSessionId()}/${item.scenario_id
+                      }`}
                     className="ant-btn ant-btn-link px-2 text-primary"
                   >
                     <Icon type="play-circle" style={{ fontSize: "18px" }} />
                   </NavLink>
                 </Tooltip>
+
                 <Tooltip placement="top" title="Edit Scenario">
                   <NavLink
-                    to={`/edit-scenario/${this.getSessionId()}/${
-                      item.scenario_id
-                    }`}
+                    to={`/edit-scenario/${this.getSessionId()}/${item.scenario_id
+                      }`}
                     className="ant-btn ant-btn-link px-2 mr-2"
                   >
                     <Icon type="edit" style={{ fontSize: "18px" }} />
@@ -254,7 +243,7 @@ class sessionsList extends React.Component {
                             <NavLink
                               to={`/create-scenario/${this.getSessionId()}`}
                             >
-                              <Icon type="copy" className="mr-1" /> Copy Session
+                              <Icon type="copy" className="mr-1" /> Copy Scenario
                             </NavLink>
                           </Button>
                         </Menu.Item>
@@ -268,11 +257,11 @@ class sessionsList extends React.Component {
                             size="small"
                             loading={
                               scenario.delete_scenario.id ===
-                                item.scenario_id &&
+                              item.scenario_id &&
                               scenario.delete_scenario.loading
                             }
                           >
-                            <Icon type="delete" /> Delete
+                            <Icon type="delete" /> Delete Scenario
                           </Button>
                         </Menu.Item>
                       </Menu>
@@ -286,10 +275,10 @@ class sessionsList extends React.Component {
                 </Tooltip>
               </div>
             ) : (
-              <div className="text-center">
-                <strong></strong>
-              </div>
-            )}
+                <div className="text-center">
+                  <strong></strong>
+                </div>
+              )}
           </>
         ),
       },
