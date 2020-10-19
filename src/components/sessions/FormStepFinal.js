@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button, Divider, Row, Col } from "antd";
 import moment from "moment";
+const dateFormat = "YYYY-MM-DD";
 const StepFinal = Form.create({
   name: "step_final",
 })((props) => {
@@ -11,11 +12,9 @@ const StepFinal = Form.create({
       if (!err) {
         let formatDate = {
           start_date: moment(props.step_two_fields.start_date).format(
-            "DD-MM-YYYY"
+            dateFormat
           ),
-          end_date: moment(props.step_two_fields.start_date).format(
-            "DD-MM-YYYY"
-          ),
+          end_date: moment(props.step_two_fields.start_date).format(dateFormat),
         };
 
         props.handleConfirmButton({

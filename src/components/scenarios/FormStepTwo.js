@@ -146,8 +146,8 @@ class FormStepTwo extends Component {
             (item, index) => {
               return {
                 ...item,
-                spend_lower_limit: 0,
-                spend_upper_limit: 0,
+                spend_lower_limit: null,
+                spend_upper_limit: null,
               };
             }
           ),

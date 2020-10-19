@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button, DatePicker, Row, Col, Divider } from "antd";
+const dateFormat = "YYYY-MM-DD";
 const StepTwo = Form.create({
   name: "step_two",
 })((props) => {
@@ -33,7 +34,7 @@ const StepTwo = Form.create({
             })(
               <DatePicker
                 size="large"
-                format="DD-MM-YYYY"
+                format={dateFormat}
                 style={{ width: "100%" }}
               />
             )}
@@ -48,7 +49,7 @@ const StepTwo = Form.create({
               <DatePicker
                 size="large"
                 style={{ width: "100%" }}
-                format="DD-MM-YYYY"
+                format={dateFormat}
               />
             )}
           </Form.Item>

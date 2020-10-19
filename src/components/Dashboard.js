@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
             </div>
           </div>
 
-          {loading === true && (
+          {(loading === true || this.props.delete_session.loading === true) && (
             <React.Fragment>
               <Row gutter={30}>
                 {Array(6)
@@ -113,7 +113,8 @@ class Dashboard extends React.Component {
               </Row>
             </React.Fragment>
           )}
-          {loading === false && (
+          {(loading === false ||
+            this.props.delete_session.loading === false) && (
             <Row gutter={30}>
               {this.state.list.map((session, i) => (
                 <Col span={8} className="mb-5" key={i}>
@@ -130,6 +131,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => ({
   session: state.session,
+  delete_session: state.session.delete_session,
 });
 
 export default connect(mapStateToProps)(Dashboard);
