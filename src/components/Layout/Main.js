@@ -16,7 +16,6 @@ import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";
 import { ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 
 class RouterApp extends Component {
@@ -55,7 +54,7 @@ class RouterApp extends Component {
           />
           <PrivateRoute
             exact
-            path="/edit-scenario/:sessionId"
+            path="/edit-scenario/:sessionId/:scenarioId"
             component={ScenarioCreation}
           />
 

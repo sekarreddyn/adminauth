@@ -116,7 +116,10 @@ class sessionsList extends React.Component {
       }
     });
   };
-
+  getPercentageChange = (oldNumber, newNumber) => {
+    var decreaseValue = oldNumber - newNumber;
+    return ((decreaseValue / oldNumber) * 100).toFixed(1);
+  };
   cardTitle = (
     <div className="d-flex align-items-center">
       <h3 className="text-dark mb-0">Scenarios</h3>
@@ -155,6 +158,14 @@ class sessionsList extends React.Component {
     const { scenario } = this.props;
     const { scenarios } = scenario;
     const { session_title } = get_session.data;
+    const { data } = get_session_kpi;
+
+    const {
+      media_gross_profit,
+      media_shipments,
+      media_spend,
+      media_volume,
+    } = data;
     const columns = [
       {
         title: "Scenario",
@@ -178,28 +189,100 @@ class sessionsList extends React.Component {
       },
       {
         title: "Media Spend",
-        dataIndex: "media_spend",
         className: "text-center numbers font-weight-bold",
-        key: "media_spend",
+        render: (item) => (
+          <>
+            {item.session_id ? (
+              <div>
+                <strong>{item.media_spend}</strong>
+                <br />
+                <span>
+                  {this.getPercentageChange(item.media_spend, media_spend)}
+                </span>
+              </div>
+            ) : (
+              <div>
+                <strong>{item.media_spend}</strong>
+              </div>
+            )}
+          </>
+        ),
       },
       {
         title: "MEDIA VOLUME",
-        dataIndex: "media_volume",
+
         className: "text-center numbers font-weight-bold",
         key: "media_volume",
+
+        render: (item) => (
+          <>
+            {item.session_id ? (
+              <div>
+                <strong>{item.media_volume}</strong>
+                <br />
+                <span>
+                  {this.getPercentageChange(item.media_volume, media_volume)}
+                </span>
+              </div>
+            ) : (
+              <div>
+                <strong>{item.media_volume}</strong>
+              </div>
+            )}
+          </>
+        ),
       },
       {
         title: "MEDIA GROSS PROFIT",
-        dataIndex: "media_gross_profit",
+
         className: "text-center numbers font-weight-bold",
         key: "media_gross_profit",
+        render: (item) => (
+          <>
+            {item.session_id ? (
+              <div>
+                <strong>{item.media_gross_profit}</strong>
+                <br />
+                <span>
+                  {this.getPercentageChange(
+                    item.media_gross_profit,
+                    media_gross_profit
+                  )}
+                </span>
+              </div>
+            ) : (
+              <div>
+                <strong>{item.media_gross_profit}</strong>
+              </div>
+            )}
+          </>
+        ),
       },
 
       {
         title: "SHIPMENTS",
-        dataIndex: "media_shipments",
         className: "text-center numbers font-weight-bold",
         key: "media_shipments",
+        render: (item) => (
+          <>
+            {item.session_id ? (
+              <div>
+                <strong>{item.media_shipments}</strong>
+                <br />
+                <span>
+                  {this.getPercentageChange(
+                    item.media_shipments,
+                    media_shipments
+                  )}
+                </span>
+              </div>
+            ) : (
+              <div>
+                <strong>{item.media_shipments}</strong>
+              </div>
+            )}
+          </>
+        ),
       },
 
       {

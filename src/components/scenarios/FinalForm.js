@@ -81,11 +81,14 @@ class FinalForm extends Component {
 
   componentDidMount() {
     document.body.classList.remove("login");
-
-    if (this.getSessionId()) {
+    if (this.getSessionId() && !this.getScenarioId()) {
       this.getSession();
       this.getSessionKpi(this.getSessionId());
       this.getBaseScenario(this.getSessionId());
+    }
+    if (this.getScenarioId() && this.getSessionId()) {
+      console.log(this.getScenarioId());
+      console.log(this.getSessionId());
     }
   }
 
@@ -166,6 +169,10 @@ class FinalForm extends Component {
   getSessionId = () => {
     if (this.props.match.params.sessionId)
       return this.props.match.params.sessionId;
+  };
+  getScenarioId = () => {
+    if (this.props.match.params.scenarioId)
+      return this.props.match.params.scenarioId;
   };
   handleConfirmButton = (values) => {
     const {
