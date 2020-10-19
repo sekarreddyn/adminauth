@@ -1,11 +1,10 @@
 import React from "react";
-import { Input, Icon, Button, Popover, Row, Col, Dropdown, Menu } from "antd";
+import { Input, Icon, Button, Popover, Row, Col } from "antd";
 import { NavLink } from "react-router-dom";
 import { sessionActions } from "../actions";
 import { connect } from "react-redux";
 import Loading from "./Loading/SessionItem";
 import SessionItem from "./sessions/SessionItem";
-import swal from "sweetalert";
 
 const text = (
   <span className="text-dark p-2 d-block">

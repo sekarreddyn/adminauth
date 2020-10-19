@@ -1,5 +1,16 @@
 import React from "react";
-import { Input, Icon, Button, Popover, Card, Breadcrumb, Table, Tooltip, Dropdown, Menu } from "antd";
+import {
+  Input,
+  Icon,
+  Button,
+  Popover,
+  Card,
+  Breadcrumb,
+  Table,
+  Tooltip,
+  Dropdown,
+  Menu,
+} from "antd";
 import { NavLink } from "react-router-dom";
 import { sessionActions, scenarioActions } from "../actions";
 import { connect } from "react-redux";
@@ -66,6 +77,22 @@ class sessionsList extends React.Component {
         this.props.scenario.scenarios.data ||
         this.props.scenario.scenarios.data.date
       ) {
+        const {
+          media_gross_profit,
+          media_shipments,
+          media_spend,
+          media_volume,
+        } = this.props.session.get_session_kpi.data;
+        let data = this.props.scenario.scenarios.data.map((item, index) => {
+          return {
+            ...item,
+            media_gross_profit,
+            media_shipments,
+            media_spend,
+            media_volume,
+          };
+        });
+
         this.setState({
           list: [
             ...[
@@ -74,7 +101,7 @@ class sessionsList extends React.Component {
                 scenario_title: "Base Scenario",
               },
             ],
-            ...this.props.scenario.scenarios.data,
+            ...data,
           ],
         });
       }
@@ -148,7 +175,7 @@ class sessionsList extends React.Component {
         render: (item) => (
           <>
             {item.session_id ? (
-              <div >
+              <div>
                 <strong>{item.scenario_title}</strong>
                 <br />
                 <span>
@@ -156,10 +183,10 @@ class sessionsList extends React.Component {
                 </span>
               </div>
             ) : (
-                <div>
-                  <strong>{item.scenario_title}</strong>
-                </div>
-              )}
+              <div>
+                <strong>{item.scenario_title}</strong>
+              </div>
+            )}
           </>
         ),
       },
@@ -199,8 +226,9 @@ class sessionsList extends React.Component {
               <div className="text-center">
                 <Tooltip placement="top" title="Run Scenario">
                   <NavLink
-                    to={`/run-scenario/${this.getSessionId()}/${item.scenario_id
-                      }`}
+                    to={`/run-scenario/${this.getSessionId()}/${
+                      item.scenario_id
+                    }`}
                     className="ant-btn ant-btn-link px-2 text-primary"
                   >
                     <Icon type="play-circle" style={{ fontSize: "18px" }} />
@@ -208,8 +236,9 @@ class sessionsList extends React.Component {
                 </Tooltip>
                 <Tooltip placement="top" title="Edit Scenario">
                   <NavLink
-                    to={`/edit-scenario/${this.getSessionId()}/${item.scenario_id
-                      }`}
+                    to={`/edit-scenario/${this.getSessionId()}/${
+                      item.scenario_id
+                    }`}
                     className="ant-btn ant-btn-link px-2 mr-2"
                   >
                     <Icon type="edit" style={{ fontSize: "18px" }} />
@@ -217,41 +246,50 @@ class sessionsList extends React.Component {
                 </Tooltip>
 
                 <Tooltip placement="top" title="More Actions">
-                  <Dropdown overlay={
-                    <Menu>
-                      <Menu.Item>
-                        <Button className="px-0" type="link" size="small">
-                          <NavLink
-                            to={`/create-scenario/${this.getSessionId()}`}
+                  <Dropdown
+                    overlay={
+                      <Menu>
+                        <Menu.Item>
+                          <Button className="px-0" type="link" size="small">
+                            <NavLink
+                              to={`/create-scenario/${this.getSessionId()}`}
+                            >
+                              <Icon type="copy" className="mr-1" /> Copy Session
+                            </NavLink>
+                          </Button>
+                        </Menu.Item>
+                        <Menu.Item>
+                          <Button
+                            onClick={() =>
+                              this.deleteScenario(item.scenario_id)
+                            }
+                            className="px-0"
+                            type="link"
+                            size="small"
+                            loading={
+                              scenario.delete_scenario.id ===
+                                item.scenario_id &&
+                              scenario.delete_scenario.loading
+                            }
                           >
-                            <Icon type="copy" className="mr-1" /> Copy Session
-                          </NavLink>
-                        </Button>
-                      </Menu.Item>
-                      <Menu.Item>
-                        <Button
-                          onClick={() => this.deleteScenario(item.scenario_id)}
-                          className="px-0" type="link" size="small"
-                          loading={
-                            scenario.delete_scenario.id === item.scenario_id &&
-                            scenario.delete_scenario.loading
-                          }
-                        >
-                          <Icon type="delete" /> Delete
-                        </Button>
-                      </Menu.Item>
-                    </Menu>
-                  } placement="bottomRight">
-                    <Button type="link" className="border px-2 bg-white"><Icon type="more" style={{ fontSize: "18px" }} /></Button>
+                            <Icon type="delete" /> Delete
+                          </Button>
+                        </Menu.Item>
+                      </Menu>
+                    }
+                    placement="bottomRight"
+                  >
+                    <Button type="link" className="border px-2 bg-white">
+                      <Icon type="more" style={{ fontSize: "18px" }} />
+                    </Button>
                   </Dropdown>
                 </Tooltip>
-
               </div>
             ) : (
-                <div className="text-center">
-                  <strong></strong>
-                </div>
-              )}
+              <div className="text-center">
+                <strong></strong>
+              </div>
+            )}
           </>
         ),
       },

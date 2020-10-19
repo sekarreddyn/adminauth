@@ -1,7 +1,5 @@
 import React from "react";
 import { Form, Button, DatePicker, Row, Col, Divider } from "antd";
-import moment from "moment";
-
 const StepTwo = Form.create({
   name: "step_two",
 })((props) => {
@@ -22,9 +20,7 @@ const StepTwo = Form.create({
     props.submittedValues(values);
     props.handleBackButton();
   };
-  const disabledDate = (current) => {
-    return current < moment().add(0, "day").endOf("day");
-  };
+
   return (
     <Form onSubmit={validateInput}>
       <Divider></Divider>

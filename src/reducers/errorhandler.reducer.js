@@ -1,5 +1,4 @@
 import { errorhandlerConstants } from "../constants";
-import { history } from "../helpers";
 import { toast } from "react-toastify";
 const initialState = {
   error: {},

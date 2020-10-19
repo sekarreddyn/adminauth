@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Divider, Row, Col } from "antd";
+import { Form, Button, Divider, Row, Col } from "antd";
 import moment from "moment";
 const StepFinal = Form.create({
   name: "step_final",
@@ -42,33 +42,43 @@ const StepFinal = Form.create({
         <Col span={8}>
           <div className="preview">
             <span className="title">Group</span>
-            <span className="value">{props.step_one_fields.group_list.toString()}</span>
+            <span className="value">
+              {props.step_one_fields.group_list.toString()}
+            </span>
           </div>
         </Col>
         <Col span={8}>
           <div className="preview">
             <span className="title">Business Unit</span>
-            <span className="value">{props.step_one_fields.bu_list.toString()}</span>
+            <span className="value">
+              {props.step_one_fields.bu_list.toString()}
+            </span>
           </div>
         </Col>
         <Col span={8}>
           <div className="preview">
             <span className="title">Country</span>
-            <span className="value">{props.step_one_fields.country_list.toString()}</span>
+            <span className="value">
+              {props.step_one_fields.country_list.toString()}
+            </span>
           </div>
         </Col>
       </Row>
-      <Row gutter={30} >
+      <Row gutter={30}>
         <Col span={8}>
           <div className="preview">
             <span className="title">Brand</span>
-            <span className="value">{props.step_one_fields.brand_list.toString()}</span>
+            <span className="value">
+              {props.step_one_fields.brand_list.toString()}
+            </span>
           </div>
         </Col>
         <Col span={8}>
           <div className="preview">
             <span className="title">Media Tactic</span>
-            <span className="value">{props.step_one_fields.mt_list.toString()}</span>
+            <span className="value">
+              {props.step_one_fields.mt_list.toString()}
+            </span>
           </div>
         </Col>
       </Row>
@@ -80,13 +90,17 @@ const StepFinal = Form.create({
         <Col span={8}>
           <div className="preview">
             <span className="title">Start Date</span>
-            <span className="value">{moment(props.step_two_fields.start_date).format("DD-MM-YYYY")}</span>
+            <span className="value">
+              {moment(props.step_two_fields.start_date).format("DD-MM-YYYY")}
+            </span>
           </div>
         </Col>
         <Col span={8}>
           <div className="preview">
             <span className="title">End Date</span>
-            <span className="value">{moment(props.step_two_fields.end_date).format("DD-MM-YYYY")}</span>
+            <span className="value">
+              {moment(props.step_two_fields.end_date).format("DD-MM-YYYY")}
+            </span>
           </div>
         </Col>
       </Row>
