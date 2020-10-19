@@ -82,9 +82,11 @@ body{
   select:-webkit-autofill:focus {
     border: solid 1px $gray-400;
     -webkit-text-fill-color: $black;
-    -webkit-box-shadow: 0 0 0px 1000px $white inset;
+    // -webkit-box-shadow: 0 0 0px 1000px $white inset;
     transition: background-color 5000s ease-in-out 0s;
   }
+
+  // Ant Breadcrumbs
 
   .ant-breadcrumb{
     background: #fff;
@@ -95,6 +97,8 @@ body{
       color: $primary;
     }
   }
+
+  // Ant Table
 
   .ant-table{
     &-thead{
@@ -119,9 +123,62 @@ body{
     }
   }
 
+  // React Table
+
+  // Ant Card
+
   .ant-card{
     border-radius: 6px;
     box-shadow: 0 2px 8px 0 #E0E0E0;
   }
+
+  // Ant Steps
+
+  .ant-steps{
+    max-width: 80%;
+    margin: 0 auto;
+
+    &-item{
+      position: relative;
+
+      &-icon{
+        display: none;
+      }
+
+      &-content{
+        text-align: center;
+        position: relative;
+      }
+
+      &-title{
+        font-size: 14px;
+        color: #616161;
+        position: unset;
+
+        &:after{
+          left: 110%;
+          top: 0; bottom: 0;
+          margin: auto;
+        }
+      }
+
+      &-description{
+        font-weight: bold;
+        font-size: 18px;
+        color: #212121;
+        text-align: center;
+      }
+    }
+
+    .ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description{
+      color: $gray-700;
+    }
+
+    .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description{
+      color: $primary;
+    }
+  }
+
+
 }
 

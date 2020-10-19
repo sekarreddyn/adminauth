@@ -30,16 +30,6 @@ class RunScenario extends React.Component {
   cardTitle = (
     <div className="d-flex align-items-center">
       <h3 className="text-dark mb-0">Run Scenario</h3>
-      <div className="ml-auto d-flex align-items-center">
-        <div className="mr-3">
-          {/* <NavLink
-            to={`/create-scenario/${this.getSessionId()}`}
-            className="ant-btn ant-btn-sm btn-primary-outline"
-          >
-            Create new scenario
-          </NavLink> */}
-        </div>
-      </div>
     </div>
   );
   render() {
@@ -86,6 +76,10 @@ class RunScenario extends React.Component {
                   <output className="text-danger">Run Scenario Failed </output>
                 </pre>
               )}
+
+              <pre>
+                <output className="text-danger">Run Scenario Failed </output>
+              </pre>
             </div>
           </Card>
         </div>
