@@ -25,6 +25,8 @@ const initialState = {
     data: [],
     loading: false,
     status: [],
+    start_date: null,
+    end_date: null,
   },
 };
 export function scenario(state = initialState, action) {
@@ -163,25 +165,32 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         run_scenario: {
+          data: [],
           loading: true,
           status: "started",
+          start_date: new Date().toLocaleString(),
         },
       };
     case scenarioConstants.RUN_SCENARIO_SUCCESS:
       return {
         ...state,
         run_scenario: {
+          ...state.run_scenario,
           data: action.data,
           loading: false,
           status: "completed",
+          end_date: new Date().toLocaleString(),
         },
       };
     case scenarioConstants.RUN_SCENARIO_FAILURE:
       return {
         ...state,
         run_scenario: {
+          ...state.run_scenario,
+          data: [],
           loading: false,
           status: "failed",
+          end_date: new Date().toLocaleString(),
         },
       };
     default:

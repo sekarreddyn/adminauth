@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Breadcrumb } from "antd";
 import { NavLink } from "react-router-dom";
-import { sessionActions, scenarioActions } from "../actions";
+import { scenarioActions } from "../actions";
 import { connect } from "react-redux";
 import "./runscenario.css";
 class RunScenario extends React.Component {
@@ -44,6 +44,9 @@ class RunScenario extends React.Component {
   );
   render() {
     const { run_scenario } = this.props.scenario;
+
+    const { status, start_date, end_date } = run_scenario;
+
     return (
       <div>
         <Breadcrumb>
@@ -53,14 +56,34 @@ class RunScenario extends React.Component {
           <Breadcrumb.Item>{"session_title"}</Breadcrumb.Item>
         </Breadcrumb>
         <div className="outer-wrapper">
-          <Card className="mb-4" title={this.cardTitle}>
+          <Card title={this.cardTitle}>
             <div className="terminal">
-              <pre>
-                <output>webpack: [built]</output>
-              </pre>
-              <pre>
-                <output>webpack: [built]</output>
-              </pre>
+              {start_date && (
+                <pre>
+                  <output>Starting scenario at {start_date}</output>
+                </pre>
+              )}
+
+              {status === "completed" && (
+                <pre>
+                  <output>Scenario completed in {end_date}</output>
+                </pre>
+              )}
+              {status === "failed" && (
+                <pre>
+                  <output>Scenario completed in {end_date}</output>
+                </pre>
+              )}
+              {status === "completed" && (
+                <pre>
+                  <output>Run Scenario successfull }</output>
+                </pre>
+              )}
+              {status === "failed" && (
+                <pre>
+                  <output>Run Scenario Failed </output>
+                </pre>
+              )}
             </div>
           </Card>
         </div>
