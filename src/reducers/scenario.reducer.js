@@ -17,6 +17,7 @@ const initialState = {
   scenarios: {
     data: [],
     loading: false,
+    date: null,
   },
   granular_data: {
     data: [],
@@ -133,6 +134,8 @@ export function scenario(state = initialState, action) {
         ...state,
         scenarios: {
           loading: true,
+          data: [],
+          date: null,
         },
       };
     case scenarioConstants.GET_SCENARIOS_SUCCESS:
@@ -141,13 +144,16 @@ export function scenario(state = initialState, action) {
         scenarios: {
           data: action.data,
           loading: false,
+          date: null,
         },
       };
     case scenarioConstants.GET_SCENARIOS_FAILURE:
       return {
         ...state,
         scenarios: {
+          ...state.scenarios,
           loading: false,
+          date: null,
         },
       };
     case scenarioConstants.GET_GRANULAR_DATA_REQUEST:

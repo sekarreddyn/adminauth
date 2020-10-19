@@ -67,9 +67,20 @@ class sessionsList extends React.Component {
     if (
       this.props.scenario.scenarios.data !== prevProps.scenario.scenarios.data
     ) {
-      if (this.props.scenario.scenarios.data) {
+      if (
+        this.props.scenario.scenarios.data ||
+        this.props.scenario.scenarios.data.date
+      ) {
         this.setState({
-          list: [...this.state.list, ...this.props.scenario.scenarios.data],
+          list: [
+            ...[
+              {
+                ...this.props.session.get_session_kpi.data,
+                scenario_title: "Base Scenario",
+              },
+            ],
+            ...this.props.scenario.scenarios.data,
+          ],
         });
       }
     }
