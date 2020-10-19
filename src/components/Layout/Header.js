@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, Row, Col, Tooltip } from "antd";
+import { Layout, Menu, Icon, Row, Col, Tooltip, Button } from "antd";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { authActions, dashboardActions } from "../../actions";
@@ -51,20 +51,15 @@ class Navbar extends Component {
                 <NavLink to="/">Reports</NavLink>
               </Menu.Item>
 
-              <Menu.Item onClick={this.handleClick}>
-                <NavLink to="/login">Logout</NavLink>
-              </Menu.Item>
-
-              {/* <Menu.Item className="text-center">
-                <Tooltip placement="bottom" title="Help">
+              <Menu.Item onClick={this.handleClick} className="text-center">
+                <Tooltip placement="bottom" title="Logout">
                   <Icon
-                    type="question-circle"
+                    type="poweroff"
                     className="mx-auto"
-                    theme="filled"
                     style={{ fontSize: "18px" }}
                   />
                 </Tooltip>
-              </Menu.Item> */}
+              </Menu.Item>
             </Menu>
           </Row>
         </Header>

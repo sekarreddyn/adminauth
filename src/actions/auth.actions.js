@@ -46,7 +46,7 @@ function login(data) {
 
 function logout() {
   return (dispatch) => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("msuser");
     dispatch({ type: authConstants.LOGOUT });
     history.push("/login");
   };
