@@ -167,7 +167,6 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         granular_data: {
-          data: action.data,
           loading: false,
         },
       };

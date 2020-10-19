@@ -56,11 +56,11 @@ function createScenario(data) {
     return { type: scenarioConstants.CREATE_SCENARIO_FAILURE, error };
   }
 }
-function updateScenario(id) {
+function updateScenario(data) {
   return (dispatch) => {
-    dispatch(request(id));
+    dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}/scenario/${id}`)
+      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}/scenario/`)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));

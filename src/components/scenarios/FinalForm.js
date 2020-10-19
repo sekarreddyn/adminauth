@@ -76,7 +76,6 @@ class FinalForm extends Component {
         upper_limit: 10,
       },
     ],
-    granularData: [],
   };
 
   componentDidMount() {
@@ -87,8 +86,9 @@ class FinalForm extends Component {
       this.getBaseScenario(this.getSessionId());
     }
     if (this.getScenarioId() && this.getSessionId()) {
-      console.log(this.getScenarioId());
-      console.log(this.getSessionId());
+      this.getSession();
+      this.getSessionKpi(this.getSessionId());
+      this.getBaseScenario(this.getSessionId());
     }
   }
 
@@ -134,7 +134,6 @@ class FinalForm extends Component {
   toTimestamp = (strDate) => {
     var d = new Date(strDate);
     var n = d.getTime();
-
     return n;
   };
   getSession = () => {
@@ -154,6 +153,11 @@ class FinalForm extends Component {
   createScenario = (data) => {
     const { dispatch } = this.props;
     dispatch(scenarioActions.createScenario(data));
+  };
+
+  updateScenario = (data) => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.updateScenario(data));
   };
 
   handleNextButton = () => {
@@ -197,7 +201,10 @@ class FinalForm extends Component {
         },
       },
 
-      () => this.createScenario(this.state.step_final_fields)
+      () =>
+        this.getScenarioId()
+          ? this.updateScenario(this.state.step_final_fields)
+          : this.createScenario(this.state.step_final_fields)
     );
   };
 
