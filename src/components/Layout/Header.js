@@ -50,42 +50,12 @@ class Navbar extends Component {
               <Menu.Item>
                 <NavLink to="/">Reports</NavLink>
               </Menu.Item>
-              {/* <Menu.Item>
-                <NavLink to="/create-session" className="creat-btn">
-                  Create Session
-                </NavLink> 
-              </Menu.Item> */}
 
-              {/* <Menu.Item className="text-center">
-                <Dropdown
-                  overlay={
-                    <Menu>
-                      <Menu.Item>
-                        New report has been received
-                        <span className="date">1 hr ago</span>
-                      </Menu.Item>
-                      <Menu.Item>Dashboard</Menu.Item>
-                      <Menu.Item>Dashboard</Menu.Item>
-                    </Menu>
-                  }
-                  overlayClassName="notification-dropdown"
-                  placement="bottomCenter"
-                >
-                  <Icon type="bell" className="mx-auto" theme="filled" style={{ fontSize: '18px' }} />
-                </Dropdown>
-              </Menu.Item> */}
-
-              <Menu.Item onClick={this.handleClick} className="text-center">
-                <Tooltip placement="bottom" title="Logout">
-                  <Icon
-                    type="poweroff"
-                    className="mx-auto"
-                    style={{ fontSize: "18px" }}
-                  />
-                </Tooltip>
+              <Menu.Item onClick={this.handleClick}>
+                <NavLink to="/login">Logout</NavLink>
               </Menu.Item>
 
-              <Menu.Item className="text-center">
+              {/* <Menu.Item className="text-center">
                 <Tooltip placement="bottom" title="Help">
                   <Icon
                     type="question-circle"
@@ -94,7 +64,7 @@ class Navbar extends Component {
                     style={{ fontSize: "18px" }}
                   />
                 </Tooltip>
-              </Menu.Item>
+              </Menu.Item> */}
             </Menu>
           </Row>
         </Header>

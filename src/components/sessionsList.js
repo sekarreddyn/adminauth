@@ -127,7 +127,43 @@ class sessionsList extends React.Component {
   };
   getPercentageChange = (oldNumber, newNumber) => {
     var decreaseValue = oldNumber - newNumber;
-    return ((decreaseValue / oldNumber) * 100).toFixed(1);
+
+    let val = ((decreaseValue / oldNumber) * 100).toFixed(1);
+
+    if (val > 0) {
+      return (
+        <>
+          {oldNumber}
+          <b className="text-success ml-2">
+            <span className="session-count bg-success">
+              <Icon type="caret-up" /> {val}%
+            </span>
+          </b>
+        </>
+      );
+    } else if (val < 0) {
+      return (
+        <>
+          {oldNumber}
+          <b className="text-danger  ml-2">
+            <span className="session-count bg-danger">
+              <Icon type="caret-down" /> {val}%
+            </span>
+          </b>
+        </>
+      );
+    } else {
+      return (
+        <>
+          {oldNumber}
+          <b className="text-dark  ml-2">
+            <span className="session-count">
+              <Icon type="line" /> {val}%
+            </span>
+          </b>
+        </>
+      );
+    }
   };
   cardTitle = (
     <div className="d-flex align-items-center">
@@ -203,11 +239,7 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div>
-                <strong>{item.media_spend}</strong>
-                <br />
-                <span>
-                  {this.getPercentageChange(item.media_spend, media_spend)}
-                </span>
+                {this.getPercentageChange(item.media_spend, media_spend)}
               </div>
             ) : (
               <div>
@@ -227,11 +259,7 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div>
-                <strong>{item.media_volume}</strong>
-                <br />
-                <span>
-                  {this.getPercentageChange(item.media_volume, media_volume)}
-                </span>
+                {this.getPercentageChange(item.media_volume, media_volume)}
               </div>
             ) : (
               <div>
@@ -250,14 +278,10 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div>
-                <strong>{item.media_gross_profit}</strong>
-                <br />
-                <span>
-                  {this.getPercentageChange(
-                    item.media_gross_profit,
-                    media_gross_profit
-                  )}
-                </span>
+                {this.getPercentageChange(
+                  item.media_gross_profit,
+                  media_gross_profit
+                )}
               </div>
             ) : (
               <div>
@@ -276,14 +300,10 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div>
-                <strong>{item.media_shipments}</strong>
-                <br />
-                <span>
-                  {this.getPercentageChange(
-                    item.media_shipments,
-                    media_shipments
-                  )}
-                </span>
+                {this.getPercentageChange(
+                  item.media_shipments,
+                  media_shipments
+                )}
               </div>
             ) : (
               <div>
