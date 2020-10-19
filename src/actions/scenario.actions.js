@@ -1,6 +1,7 @@
 import { scenarioConstants } from "../constants";
 import { http, appConfig, history } from "../helpers";
 import { errorHandlerActions } from "../actions";
+import { toast } from "react-toastify";
 import swal from "sweetalert";
 export const scenarioActions = {
   createScenario,
@@ -30,7 +31,9 @@ function createScenario(data) {
             dangerMode: true,
           }).then((ok) => {
             if (ok) {
-              history.push(`/run-scenario/${response.data.scenario_id}`);
+              history.push(
+                `/run-scenario/${data.session_id}/${response.data.scenario_id}`
+              );
             } else {
               history.push(`/scenarios-list/${data.session_id}`);
             }
@@ -79,30 +82,31 @@ function updateScenario(id) {
     return { type: scenarioConstants.UPDATE_SCENARIO_FAILURE, error };
   }
 }
-function deleteScenario() {
+function deleteScenario(scenario_id) {
   return (dispatch) => {
-    dispatch(request());
+    dispatch(request(scenario_id));
     http
-      .delete(`${appConfig.apiEndpoint}${appConfig.apiUrl}/scenario`)
+      .delete(`/core/scenario/${scenario_id}`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success(scenario_id));
+          toast.success("Scenario deleted successfully");
         }
       })
       .catch(function (error) {
-        dispatch(failure(error));
+        dispatch(failure(scenario_id));
         dispatch(errorHandlerActions.handleHTTPError(error.response));
       });
   };
 
-  function request() {
-    return { type: scenarioConstants.DELETE_SCENARIO_REQUEST };
+  function request(scenario_id) {
+    return { type: scenarioConstants.DELETE_SCENARIO_REQUEST, scenario_id };
   }
-  function success(data) {
-    return { type: scenarioConstants.DELETE_SCENARIO_SUCCESS, data };
+  function success(scenario_id) {
+    return { type: scenarioConstants.DELETE_SCENARIO_SUCCESS, scenario_id };
   }
-  function failure(error) {
-    return { type: scenarioConstants.DELETE_SCENARIO_FAILURE, error };
+  function failure(scenario_id) {
+    return { type: scenarioConstants.DELETE_SCENARIO_FAILURE, scenario_id };
   }
 }
 

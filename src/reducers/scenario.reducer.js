@@ -8,6 +8,7 @@ const initialState = {
   },
   delete_scenario: {
     loading: null,
+    id: null,
   },
   base_scenario: {
     data: [],
@@ -79,12 +80,21 @@ export function scenario(state = initialState, action) {
         ...state,
         delete_scenario: {
           loading: true,
+          id: action.scenario_id,
         },
       };
     case scenarioConstants.DELETE_SCENARIO_SUCCESS:
       return {
         ...state,
         delete_scenario: {
+          loading: false,
+          id: null,
+        },
+        scenarios: {
+          data: state.scenarios.data.filter(
+            ({ scenario_id }) => scenario_id !== action.scenario_id
+          ),
+          date: new Date(),
           loading: false,
         },
       };
@@ -93,6 +103,7 @@ export function scenario(state = initialState, action) {
         ...state,
         delete_scenario: {
           loading: false,
+          id: null,
         },
       };
     case scenarioConstants.GET_BASE_SCENARIO_REQUEST:
