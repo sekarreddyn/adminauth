@@ -26,7 +26,7 @@ const StepThree = Form.create({
       <Divider></Divider>
       <Row gutter={30}>
         <Col span={24}>
-          <Form.Item label="Session Title" className="mb-4">
+          <Form.Item label="Session Title" className="mb-3">
             {getFieldDecorator("session_title", {
               rules: [
                 { required: true, message: "Please enter session title" },
@@ -36,7 +36,7 @@ const StepThree = Form.create({
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item label="Session Description" className="mb-4">
+          <Form.Item label="Session Description" className="mb-3">
             {getFieldDecorator("session_description", {
               rules: [
                 {
@@ -56,7 +56,7 @@ const StepThree = Form.create({
         </Col>
       </Row>
       <Divider></Divider>
-      <Form.Item className="text-center">
+      <Form.Item className="text-center mb-0">
         <Button
           size="large"
           style={{ width: 160 }}

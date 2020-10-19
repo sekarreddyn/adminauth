@@ -145,11 +145,12 @@ body .main-header{
 
     div{
       text-align: center;
-      width: 50%;
+      width: 60%;
       padding: 15px 0;
 
       &:first-child{
         border-right: solid 1px $gray-300;
+        width: 40%;
       }
     }
 
@@ -237,6 +238,7 @@ body .main-header{
   font: monospace;
   position: relative;
 }
+
 .terminal::after {
   content: "";
   position: absolute;
@@ -253,10 +255,38 @@ body .main-header{
   );
   pointer-events: none;
 }
+
 ::selection {
   background: #0080ff;
   text-shadow: none;
 }
+
 pre {
   margin: 0;
+}
+
+.preview{
+  margin-bottom: 24px;
+
+  span{
+    display: block;
+    overflow-wrap: break-word;
+  }
+
+  .title{
+    display: inline-block;
+    overflow: hidden;
+    line-height: 39.9999px;
+    white-space: nowrap;
+    text-align: right;
+    vertical-align: middle;
+  }
+  
+  .value{
+    font-weight: bold;
+    font-size: 16px;
+    color: #212121;
+    letter-spacing: 0;
+    line-height: 1.8;
+  }
 }

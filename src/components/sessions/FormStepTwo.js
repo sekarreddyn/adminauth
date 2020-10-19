@@ -30,7 +30,7 @@ const StepTwo = Form.create({
       <Divider></Divider>
       <Row gutter={30}>
         <Col span={8}>
-          <Form.Item label="Start Date" className="mb-4">
+          <Form.Item label="Start Date" className="mb-3">
             {getFieldDecorator("start_date", {
               rules: [{ required: true, message: "Please select start date" }],
               initialValue: props.start_date,
@@ -44,7 +44,7 @@ const StepTwo = Form.create({
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item label="End Date" className="mb-4">
+          <Form.Item label="End Date" className="mb-3">
             {getFieldDecorator("end_date", {
               rules: [{ required: true, message: "Please select end date" }],
               initialValue: props.end_date,
@@ -59,7 +59,7 @@ const StepTwo = Form.create({
         </Col>
       </Row>
       <Divider></Divider>
-      <Form.Item className="text-center">
+      <Form.Item className="text-center mb-0">
         <Button
           size="large"
           style={{ width: 160 }}

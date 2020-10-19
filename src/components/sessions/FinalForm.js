@@ -13,7 +13,7 @@ const { Step } = Steps;
 const dateFormat = "DD-MM-YYYY";
 class FinalForm extends Component {
   state = {
-    step: 0,
+    step: 3,
     step_one_fields: {
       bu_list: [],
       group_list: [],
@@ -258,7 +258,7 @@ class FinalForm extends Component {
               key={item.title}
               title={item.title}
               description={item.description}
-              className="pb-4"
+              className="pb-4 mt-4"
             />
           ))}
         </Steps>

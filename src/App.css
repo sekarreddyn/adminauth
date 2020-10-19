@@ -4659,6 +4659,10 @@ body .ant-steps .ant-steps-item-process > .ant-steps-item-container > .ant-steps
   color: #F40000;
 }
 
+body .ant-steps .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+  background: #F40000;
+}
+
 body.login {
   background: url("./assets/login-bg.jpg") no-repeat center center;
   background-size: cover;
@@ -4852,12 +4856,13 @@ body .main-header .creat-btn:hover, body .main-header .creat-btn:focus, body .ma
 
 .session-card-data div {
   text-align: center;
-  width: 50%;
+  width: 60%;
   padding: 15px 0;
 }
 
 .session-card-data div:first-child {
   border-right: solid 1px #dee2e6;
+  width: 40%;
 }
 
 .session-card-data span {
@@ -4925,4 +4930,67 @@ body .main-header .creat-btn:hover, body .main-header .creat-btn:focus, body .ma
   font-weight: bold;
   color: #212529;
   padding: 0;
+}
+
+.terminal {
+  background-color: black;
+  background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 2rem;
+  color: white;
+  font: monospace;
+  position: relative;
+}
+
+.terminal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
+  pointer-events: none;
+}
+
+::-moz-selection {
+  background: #0080ff;
+  text-shadow: none;
+}
+
+::selection {
+  background: #0080ff;
+  text-shadow: none;
+}
+
+pre {
+  margin: 0;
+}
+
+.preview {
+  margin-bottom: 24px;
+}
+
+.preview span {
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.preview .title {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 39.9999px;
+  white-space: nowrap;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.preview .value {
+  font-weight: bold;
+  font-size: 16px;
+  color: #212121;
+  letter-spacing: 0;
+  line-height: 1.8;
 }

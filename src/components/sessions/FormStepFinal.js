@@ -40,44 +40,36 @@ const StepFinal = Form.create({
 
       <Row gutter={30}>
         <Col span={8}>
-          <Form.Item label="Group">
-            <Input
-              size="large"
-              value={props.step_one_fields.group_list.toString()}
-            />
-          </Form.Item>
+          <div className="preview">
+            <span className="title">Group</span>
+            <span className="value">{props.step_one_fields.group_list.toString()}</span>
+          </div>
         </Col>
         <Col span={8}>
-          <Form.Item label="Business Unit">
-            <Input
-              size="large"
-              value={props.step_one_fields.bu_list.toString()}
-            />
-          </Form.Item>
+          <div className="preview">
+            <span className="title">Business Unit</span>
+            <span className="value">{props.step_one_fields.bu_list.toString()}</span>
+          </div>
         </Col>
         <Col span={8}>
-          <Form.Item label="Country">
-            <Input
-              size="large"
-              value={props.step_one_fields.country_list.toString()}
-            />
-          </Form.Item>
+          <div className="preview">
+            <span className="title">Country</span>
+            <span className="value">{props.step_one_fields.country_list.toString()}</span>
+          </div>
+        </Col>
+      </Row>
+      <Row gutter={30} >
+        <Col span={8}>
+          <div className="preview">
+            <span className="title">Brand</span>
+            <span className="value">{props.step_one_fields.brand_list.toString()}</span>
+          </div>
         </Col>
         <Col span={8}>
-          <Form.Item label="Brand">
-            <Input
-              size="large"
-              value={props.step_one_fields.brand_list.toString()}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label="Media Tactic">
-            <Input
-              size="large"
-              value={props.step_one_fields.mt_list.toString()}
-            />
-          </Form.Item>
+          <div className="preview">
+            <span className="title">Media Tactic</span>
+            <span className="value">{props.step_one_fields.mt_list.toString()}</span>
+          </div>
         </Col>
       </Row>
 
@@ -86,24 +78,16 @@ const StepFinal = Form.create({
       <h4 className="font-weight-bold text-primary mb-4">2. Time Frame</h4>
       <Row gutter={30}>
         <Col span={8}>
-          <Form.Item label="Start Date">
-            <Input
-              size="large"
-              value={moment(props.step_two_fields.start_date).format(
-                "DD-MM-YYYY"
-              )}
-            />
-          </Form.Item>
+          <div className="preview">
+            <span className="title">Start Date</span>
+            <span className="value">{moment(props.step_two_fields.start_date).format("DD-MM-YYYY")}</span>
+          </div>
         </Col>
         <Col span={8}>
-          <Form.Item label="End Date">
-            <Input
-              size="large"
-              value={moment(props.step_two_fields.end_date).format(
-                "DD-MM-YYYY"
-              )}
-            />
-          </Form.Item>
+          <div className="preview">
+            <span className="title">End Date</span>
+            <span className="value">{moment(props.step_two_fields.end_date).format("DD-MM-YYYY")}</span>
+          </div>
         </Col>
       </Row>
 
@@ -120,7 +104,7 @@ const StepFinal = Form.create({
       </Row>
       <Divider></Divider>
 
-      <Form.Item className="text-center">
+      <Form.Item className="text-center mb-0">
         <Button size="large" type="default" onClick={storeValues}>
           Back
         </Button>
