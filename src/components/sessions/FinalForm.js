@@ -8,12 +8,11 @@ import { sessionActions } from "../../actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
-import swal from "sweetalert";
 const { Step } = Steps;
 const dateFormat = "DD-MM-YYYY";
 class FinalForm extends Component {
   state = {
-    step: 3,
+    step: 0,
     step_one_fields: {
       bu_list: [],
       group_list: [],
