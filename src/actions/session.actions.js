@@ -18,19 +18,6 @@ export const sessionActions = {
   getSessionKpi,
 };
 
-let payload = {
-  group_list: ["Asia Pacific"],
-  country_list: ["Indonesia"],
-  mt_list: ["TV"],
-  brand_list: ["Coca-Cola"],
-};
-let payload1 = {
-  bu_list: ["ASEAN"],
-  country_list: ["Indonesia"],
-  mt_list: ["TV"],
-  brand_list: ["Coca-Cola"],
-};
-
 function getSessions(pagable) {
   return (dispatch) => {
     dispatch(request(pagable));
@@ -160,11 +147,11 @@ function deleteSession(id) {
     return { type: sessionConstants.DELETE_SESSION_FAILURE, id };
   }
 }
-function getGroups() {
+function getGroups(data) {
   return (dispatch) => {
     dispatch(request());
     http
-      .post(`/core/base-group`, payload1)
+      .post(`/core/base-group`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -186,11 +173,11 @@ function getGroups() {
     return { type: sessionConstants.GET_GROUPS_FAILURE, error };
   }
 }
-function getBusinessUnits() {
+function getBusinessUnits(data) {
   return (dispatch) => {
     dispatch(request());
     http
-      .post(`/core/base-business-unit`, payload)
+      .post(`/core/base-business-unit`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -212,11 +199,11 @@ function getBusinessUnits() {
     return { type: sessionConstants.GET_BUSINESS_UNITS_FAILURE, error };
   }
 }
-function getCountries() {
+function getCountries(data) {
   return (dispatch) => {
     dispatch(request());
     http
-      .post(`/core/base-country`, payload)
+      .post(`/core/base-country`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -238,11 +225,11 @@ function getCountries() {
     return { type: sessionConstants.GET_COUNTRIES_FAILURE, error };
   }
 }
-function getBrands() {
+function getBrands(data) {
   return (dispatch) => {
     dispatch(request());
     http
-      .post(`/core/base-brand`, payload)
+      .post(`/core/base-brand`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));
@@ -264,11 +251,11 @@ function getBrands() {
     return { type: sessionConstants.GET_BRANDS_FAILURE, error };
   }
 }
-function getMediaTactics() {
+function getMediaTactics(data) {
   return (dispatch) => {
     dispatch(request());
     http
-      .post(`/core/base-media-tactic`, payload)
+      .post(`/core/base-media-tactic`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data.data));

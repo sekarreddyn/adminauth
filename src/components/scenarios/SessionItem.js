@@ -8,7 +8,7 @@ import swal from "sweetalert";
 const DeleteSession = (session_id, dispatch) => {
   swal({
     title: "Are you sure?",
-    text: "Once deleted, you will not be able to recover this imaginary file!",
+    text: "Once deleted, you will not be able to recover this session!",
     icon: "warning",
     buttons: true,
     dangerMode: true,

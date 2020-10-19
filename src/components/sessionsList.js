@@ -14,6 +14,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { sessionActions, scenarioActions } from "../actions";
 import { connect } from "react-redux";
+import swal from "sweetalert";
 const text = (
   <span className="text-dark p-2 d-block">
     <Icon type="info-circle" className="mr-2" /> User Guide
@@ -77,22 +78,6 @@ class sessionsList extends React.Component {
         this.props.scenario.scenarios.data ||
         this.props.scenario.scenarios.data.date
       ) {
-        const {
-          media_gross_profit,
-          media_shipments,
-          media_spend,
-          media_volume,
-        } = this.props.session.get_session_kpi.data;
-        let data = this.props.scenario.scenarios.data.map((item, index) => {
-          return {
-            ...item,
-            media_gross_profit,
-            media_shipments,
-            media_spend,
-            media_volume,
-          };
-        });
-
         this.setState({
           list: [
             ...[
@@ -101,7 +86,7 @@ class sessionsList extends React.Component {
                 scenario_title: "Base Scenario",
               },
             ],
-            ...data,
+            ...this.props.scenario.scenarios.data,
           ],
         });
       }
@@ -127,7 +112,19 @@ class sessionsList extends React.Component {
 
   deleteScenario = (scenario_id) => {
     const { dispatch } = this.props;
-    dispatch(scenarioActions.deleteScenario(scenario_id));
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this scenario!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(scenarioActions.deleteScenario(scenario_id));
+      } else {
+        // swal("Your imaginary file is safe!");
+      }
+    });
   };
 
   cardTitle = (
@@ -308,7 +305,11 @@ class sessionsList extends React.Component {
               columns={columns}
               dataSource={this.state.list}
               pagination={false}
-              loading={get_session_kpi.loading || scenarios.loading}
+              loading={
+                get_session_kpi.loading ||
+                scenarios.loading ||
+                scenario.delete_scenario.loading
+              }
             ></Table>
           </Card>
         </div>

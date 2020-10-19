@@ -7,7 +7,7 @@ const initialState = {
     loading: null,
   },
   delete_scenario: {
-    loading: null,
+    loading: false,
     id: null,
   },
   base_scenario: {

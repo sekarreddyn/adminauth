@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
 const { Step } = Steps;
-const dateFormat = "DD-MM-YYYY";
+const dateFormat = "YYYY-MM-DD";
 class FinalForm extends Component {
   state = {
     step: 0,
@@ -45,15 +45,14 @@ class FinalForm extends Component {
   componentDidMount() {
     document.body.classList.remove("login");
 
-    const { dispatch } = this.props;
     if (this.getSessionId()) {
       this.getSession();
     }
-    dispatch(sessionActions.getBrands());
-    dispatch(sessionActions.getBusinessUnits());
-    dispatch(sessionActions.getCountries());
-    dispatch(sessionActions.getGroups());
-    dispatch(sessionActions.getMediaTactics());
+    // dispatch(sessionActions.getBrands());
+    // dispatch(sessionActions.getBusinessUnits());
+    // dispatch(sessionActions.getCountries());
+    // dispatch(sessionActions.getGroups());
+    // dispatch(sessionActions.getMediaTactics());
   }
 
   componentDidUpdate(prevProps) {
@@ -158,7 +157,7 @@ class FinalForm extends Component {
 
   getStepOneValue = (values) => {
     const { step_one_fields } = this.state;
-    console.log(values);
+
     this.setState({
       step_one_fields: {
         ...step_one_fields,
