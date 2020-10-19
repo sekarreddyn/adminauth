@@ -61,8 +61,7 @@ class RouterApp extends Component {
 
           <PrivateRoute
             exact
-            // path="/run-scenario/:sessionId/:scenarioId"
-            path="/run-scenario"
+            path="/run-scenario/:sessionId/:scenarioId"
             component={RunScenario}
           />
 

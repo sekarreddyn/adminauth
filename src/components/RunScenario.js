@@ -76,10 +76,6 @@ class RunScenario extends React.Component {
                   <output className="text-danger">Run Scenario Failed </output>
                 </pre>
               )}
-
-              <pre>
-                <output className="text-danger">Run Scenario Failed </output>
-              </pre>
             </div>
           </Card>
         </div>
