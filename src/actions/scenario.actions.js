@@ -30,7 +30,9 @@ function createScenario(data) {
             dangerMode: true,
           }).then((ok) => {
             if (ok) {
-              history.push(`/run-scenario/${response.data.scenario_id}`);
+              history.push(
+                `/run-scenario/${data.session_id}/${response.data.scenario_id}`
+              );
             } else {
               history.push(`/scenarios-list/${data.session_id}`);
             }
