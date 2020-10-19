@@ -43,7 +43,7 @@ class RunScenario extends React.Component {
     </div>
   );
   render() {
-    const { run_scenario } = this.state.scenario;
+    const { run_scenario } = this.props.scenario;
     return (
       <div>
         <Breadcrumb>
