@@ -4578,6 +4578,11 @@ body select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+body .ant-dropdown-menu-item:hover,
+body .ant-dropdown-menu-submenu-title:hover {
+  background: rgba(244, 0, 0, 0.05);
+}
+
 body .ant-breadcrumb {
   background: #fff;
   padding: 10px 40px;
@@ -4597,10 +4602,9 @@ body .ant-table-thead {
 
 body .ant-table-thead tr > th {
   padding: 10px 16px;
-  font-weight: 500 !important;
-  font-size: 14px;
+  font-weight: 600 !important;
+  font-size: 13px;
   color: #212121;
-  text-align: center;
 }
 
 body .ant-table-body tr:hover td {
@@ -4635,21 +4639,17 @@ body .ReactTable .rt-thead .rt-th, body .ReactTable .rt-thead .rt-td {
   border-right: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-  padding: 10px 5px;
+  padding: 16px 5px;
   font-weight: 500 !important;
 }
 
 body .ReactTable .rt-td {
   font-size: 14px;
-  padding: 10px 0;
+  padding: 10px;
 }
 
 body .ReactTable .rt-tbody .rt-tr-group {
   border-bottom: 1px solid #e8e8e8;
-}
-
-body .ReactTable .rt-tbody .rt-tr-group:last-child .rt-td {
-  border-bottom: none;
 }
 
 body .ReactTable .rt-tbody .rt-tr-group .rt-td {
@@ -4663,6 +4663,18 @@ body .ReactTable .rt-tbody .rt-tr-group .rt-tr {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+body .ReactTable .rt-thead .rt-th.-sort-asc,
+body .ReactTable .rt-thead .rt-td.-sort-asc {
+  -webkit-box-shadow: inset 0 3px 0 0 rgba(244, 0, 0, 0.6);
+          box-shadow: inset 0 3px 0 0 rgba(244, 0, 0, 0.6);
+}
+
+body .ReactTable .rt-thead .rt-th.-sort-desc,
+body .ReactTable .rt-thead .rt-td.-sort-desc {
+  -webkit-box-shadow: inset 0 -3px 0 0 rgba(244, 0, 0, 0.6);
+          box-shadow: inset 0 -3px 0 0 rgba(244, 0, 0, 0.6);
 }
 
 body .ReactTable div[contenteditable="true"] {
@@ -5074,10 +5086,77 @@ pre {
   background: #fff !important;
 }
 
+.custom-radio .ant-radio-button-wrapper {
+  font-weight: 600;
+  padding-left: 40px;
+}
+
+.custom-radio .ant-radio-button-wrapper:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #FFFFFF;
+  border: 1px solid #BDBDBD;
+  -webkit-box-shadow: 0 2px 4px 0 #E0E0E0;
+          box-shadow: 0 2px 4px 0 #E0E0E0;
+  border-radius: 4px;
+}
+
+.custom-radio .ant-radio-button-wrapper:not(.ant-radio-button-wrapper-disabled)::before {
+  background: #fff !important;
+  opacity: 0.5;
+}
+
+.custom-radio .ant-radio-button-wrapper .ant-radio-button:before {
+  content: "\2713";
+  position: absolute;
+  left: 14px;
+  font-size: 14px;
+  opacity: 0;
+}
+
+.custom-radio .ant-radio-button-wrapper .ant-radio-button-checked:before {
+  opacity: 1;
+}
+
+.custom-radio .ant-radio-button-wrapper:hover {
+  color: #86D295;
+}
+
+.custom-radio .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  border-color: #86D295;
+  color: #86D295;
+  -webkit-box-shadow: -1px 0 0 0 #86D295;
+          box-shadow: -1px 0 0 0 #86D295;
+}
+
+.custom-radio .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):before {
+  background: #FFFFFF;
+  border: 1px solid #86D295;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(134, 210, 149, 0.3);
+          box-shadow: 0 2px 4px 0 rgba(134, 210, 149, 0.3);
+  border-radius: 4px;
+  opacity: 1;
+}
+
 .custom-radio .ant-radio-group {
   width: 100%;
 }
 
 .custom-radio .ant-radio-group .ant-radio-button-wrapper {
   width: 50%;
+}
+
+.custom-radio.moo .ant-form-item-label > label {
+  color: #17a2b8;
+}
+
+.custom-radio.ibc .ant-form-item-label > label {
+  color: #FF6720;
 }

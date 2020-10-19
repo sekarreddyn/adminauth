@@ -84,27 +84,19 @@ class FormStepOne extends Component {
 
             <Col span={4} className="text-center border-right">
               <h5 className="text-muted mb-3">MEDIA SPEND</h5>
-              <b className="text-dark">{media_spend}
-                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
-              </b>
+              <b className="text-dark">{media_spend}</b>
             </Col>
             <Col span={4} className="text-center border-right">
               <h5 className="text-muted mb-3">MEDIA VOLUME</h5>
-              <b className="text-dark">{media_volume}
-                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
-              </b>
+              <b className="text-dark">{media_volume}</b>
             </Col>
             <Col span={4} className="text-center border-right">
               <h5 className="text-muted mb-3">MEDIA GROSS PROFIT</h5>
-              <b className="text-dark">{media_gross_profit}
-                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
-              </b>
+              <b className="text-dark">{media_gross_profit}</b>
             </Col>
             <Col span={4} className="text-center">
               <h5 className="text-muted mb-3">SHIPMENTS</h5>
-              <b className="text-dark">{media_shipments}
-                <span className="session-count ml-2"><Icon type="line" className="mr-1" />0%</span>
-              </b>
+              <b className="text-dark">{media_shipments}</b>
             </Col>
           </Row>
 

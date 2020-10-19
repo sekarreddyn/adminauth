@@ -297,6 +297,64 @@ pre {
 
 .custom-radio{
 
+  .ant-radio-button-wrapper{
+    font-weight: 600;
+    padding-left: 40px;
+
+    &:before{
+      content:"";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      left: 10px;
+      top: 0; bottom: 0;
+      margin: auto;
+      background: #FFFFFF;
+      border: 1px solid #BDBDBD;
+      box-shadow: 0 2px 4px 0 #E0E0E0;
+      border-radius: 4px;
+    }
+
+    &:not(.ant-radio-button-wrapper-disabled)::before{
+      background: #fff !important;
+      opacity: 0.5;
+    }
+
+    .ant-radio-button{
+
+      &:before{
+        content:"\2713";
+        position: absolute;
+        left: 14px;
+        font-size: 14px;
+        opacity: 0;
+      }
+
+      &-checked:before{
+        opacity: 1;
+      }
+    }
+  }
+
+  .ant-radio-button-wrapper:hover{
+    color: $success;
+  }
+
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+    border-color: $success;
+    color: $success;
+    box-shadow: -1px 0 0 0 $success;
+
+    &:before{
+      background: #FFFFFF;
+      border: 1px solid #86D295;
+      box-shadow: 0 2px 4px 0 rgba(134,210,149,0.30);
+      border-radius: 4px;
+      opacity: 1;
+    }
+  }
+
   .ant-radio-group{
     width: 100%;
 
@@ -305,7 +363,11 @@ pre {
     }
   }
 
-  .moo{
+  &.moo .ant-form-item-label > label{
+    color: $info;
+  }
 
+  &.ibc .ant-form-item-label > label{
+    color: $secondary;
   }
 }

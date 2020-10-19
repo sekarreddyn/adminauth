@@ -23,7 +23,6 @@ class StepThree extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.validateInput}>
-        <Divider></Divider>
         <Row gutter={30}>
           <Col span={24}>
             <Form.Item label="Scenario Title" className="mb-4">
