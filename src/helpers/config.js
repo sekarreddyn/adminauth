@@ -6,7 +6,7 @@ if (process.env.baseURL) {
   };
 } else {
   config = {
-    baseURL: "http://23.98.131.109:5000/",
+    baseURL: "https://mediasim.appngeek.com/",
   };
 }
 
