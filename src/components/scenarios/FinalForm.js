@@ -149,6 +149,10 @@ class FinalForm extends Component {
     const { dispatch } = this.props;
     dispatch(scenarioActions.getBaseScenario(this.getSessionId()));
   };
+  getScenario = () => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.getScenario(this.getSessionId()));
+  };
 
   createScenario = (data) => {
     const { dispatch } = this.props;
@@ -157,7 +161,7 @@ class FinalForm extends Component {
 
   updateScenario = (data) => {
     const { dispatch } = this.props;
-    dispatch(scenarioActions.updateScenario(data));
+    dispatch(scenarioActions.updateScenario(data, this.getScenarioId()));
   };
 
   handleNextButton = () => {

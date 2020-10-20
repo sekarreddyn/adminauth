@@ -70,7 +70,10 @@ class StepThree extends Component {
             style={{ width: 160 }}
             type="primary"
             onClick={this.validateInput}
-            loading={this.props.scenario.create_scenario.loading}
+            loading={
+              this.props.scenario.create_scenario.loading ||
+              this.props.scenario.update_scenario.loading
+            }
           >
             Save
           </Button>

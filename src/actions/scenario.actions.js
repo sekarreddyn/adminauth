@@ -56,14 +56,16 @@ function createScenario(data) {
     return { type: scenarioConstants.CREATE_SCENARIO_FAILURE, error };
   }
 }
-function updateScenario(data) {
+function updateScenario(data, scenario_id) {
   return (dispatch) => {
     dispatch(request());
     http
-      .get(`${appConfig.apiEndpoint}${appConfig.apiUrl}/scenario/`)
+      .put(`/core/scenario/${scenario_id}`, data)
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));
+          toast.success("Scenario updated successfully");
+          history.push(`/scenarios-list/${data.session_id}`);
         }
       })
       .catch(function (error) {
