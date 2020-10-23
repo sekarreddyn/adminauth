@@ -5160,3 +5160,7 @@ pre {
 .custom-radio.ibc .ant-form-item-label > label {
   color: #FF6720;
 }
+
+.ant-dropdown .ant-upload-list {
+  display: none;
+}

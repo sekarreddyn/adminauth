@@ -371,3 +371,10 @@ pre {
     color: $secondary;
   }
 }
+
+.ant-dropdown{
+
+  .ant-upload-list{
+    display: none;
+  }
+}
