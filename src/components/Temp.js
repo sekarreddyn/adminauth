@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Dropdown, Menu, Button, Icon, Upload } from "antd";
-import MenuItem from "antd/lib/menu/MenuItem";
+// import MenuItem from "antd/lib/menu/MenuItem";
+import placeholder from "../assets/placeholder.png"
+
 class Dashbpard extends React.Component {
   state = {};
 
@@ -40,7 +42,12 @@ class Dashbpard extends React.Component {
     return (
       <div className="outer-wrapper">
         <Card title={this.cardTitle}>
-
+          <div className="placeholder">
+            <img src={placeholder} alt="" />
+            <h3 className="text-primary">No Sessions Found!</h3>
+            <p>Sorry! You’ve not created any sessions so far, click the below button to create one</p>
+            <Button type="primary">Create New Sesssion</Button>
+          </div>
         </Card>
       </div>
     );

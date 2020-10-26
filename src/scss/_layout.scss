@@ -378,3 +378,22 @@ pre {
     display: none;
   }
 }
+
+.placeholder{
+  text-align: center;
+  padding: 40px 0;
+  max-width: 400px;
+  margin: 0 auto;
+
+  img{
+    margin-bottom: 40px;
+  }
+
+  h3{
+    font-weight: bold;
+  }
+
+  p{
+    margin-bottom: 30px;
+  }
+}

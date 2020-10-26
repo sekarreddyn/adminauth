@@ -5164,3 +5164,22 @@ pre {
 .ant-dropdown .ant-upload-list {
   display: none;
 }
+
+.placeholder {
+  text-align: center;
+  padding: 40px 0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.placeholder img {
+  margin-bottom: 40px;
+}
+
+.placeholder h3 {
+  font-weight: bold;
+}
+
+.placeholder p {
+  margin-bottom: 30px;
+}
