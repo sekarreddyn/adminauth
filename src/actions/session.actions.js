@@ -2,7 +2,7 @@ import { sessionConstants } from "../constants";
 import { http, history } from "../helpers";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import { errorHandlerActions } from "../actions";
+import { errorHandlerActions, scenarioActions } from "../actions";
 export const sessionActions = {
   getSessions,
   createSession,
@@ -304,7 +304,7 @@ function getSession(id) {
   }
 }
 
-function getSessionKpi(id) {
+function getSessionKpi(id, type) {
   return (dispatch) => {
     dispatch(request(id));
     http
@@ -312,6 +312,15 @@ function getSessionKpi(id) {
       .then(function (response) {
         if (response.data) {
           dispatch(success(response.data));
+          if (type === "list")
+            dispatch(
+              scenarioActions.getScenarios(id, [
+                {
+                  ...response.data,
+                  scenario_title: "Base Scenario",
+                },
+              ])
+            );
         }
       })
       .catch(function (error) {

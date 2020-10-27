@@ -14,7 +14,7 @@ const StepFinal = Form.create({
           start_date: moment(props.step_two_fields.start_date).format(
             dateFormat
           ),
-          end_date: moment(props.step_two_fields.start_date).format(dateFormat),
+          end_date: moment(props.step_two_fields.end_date).format(dateFormat),
         };
 
         props.handleConfirmButton({

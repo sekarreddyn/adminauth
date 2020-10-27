@@ -1,5 +1,6 @@
 import { errorhandlerConstants } from "../constants";
 import { toast } from "react-toastify";
+
 const initialState = {
   error: {},
 };
@@ -14,8 +15,8 @@ export function errorhandler(state = initialState, action) {
         ...state,
       };
     case errorhandlerConstants.HTTP_401_ERROR:
-      toast.error("401 Unauthorised");
-      localStorage.removeItem("msuser");
+      // toast.error("401 Unauthorised");
+
       return {
         ...state,
       };
@@ -42,7 +43,7 @@ export function errorhandler(state = initialState, action) {
       };
 
     case errorhandlerConstants.HTTP_NETWORK_ERROR:
-      toast.error("Server Unreachable");
+      toast.error("Something went wrong");
       return {
         ...state,
       };

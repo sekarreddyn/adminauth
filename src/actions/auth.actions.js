@@ -20,8 +20,8 @@ function login(data) {
             ...response.data,
             token: response.data.Authorization,
           };
-          history.push("/");
           localStorage.setItem("msuser", JSON.stringify(user));
+          history.push("/");
           dispatch(success(user));
         } else {
           dispatch(failure(response.data.reason));
@@ -46,9 +46,18 @@ function login(data) {
 
 function logout() {
   return (dispatch) => {
-    localStorage.removeItem("msuser");
-    dispatch({ type: authConstants.LOGOUT });
-    history.push("/login");
+    http
+      .post("auth/logout")
+      .then(function (response) {
+        if (response.status) {
+          localStorage.removeItem("msuser");
+          history.push("/login");
+          dispatch({ type: authConstants.LOGOUT });
+        }
+      })
+      .catch(function (error) {
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
+      });
   };
 }
 
@@ -56,9 +65,9 @@ function signup(data) {
   return (dispatch) => {
     dispatch(request(authActions));
     http
-      .post("auth/request-access", data)
+      .post("user/", data)
       .then(function (response) {
-        if (response.status === 200) {
+        if (response.status === 201) {
           let user = {
             ...response.data,
             token: response.data.token,

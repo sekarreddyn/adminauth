@@ -11,6 +11,7 @@ import analyticedge from "../assets/analyticedge-logo.png";
 
 class Login extends Component {
   componentDidMount() {
+    localStorage.removeItem("msuser");
     document.body.classList.add("login");
     return () => {
       document.body.classList.remove("login");

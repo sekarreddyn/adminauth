@@ -19,6 +19,20 @@ const initialState = {
     loading: false,
     date: null,
   },
+  scenario: {
+    data: {
+      scenario_id: null,
+      session_id: null,
+      scenario_title: "",
+      scenario_description: "",
+      scenario_sd: null,
+      scenario_ed: null,
+      is_max_vol: null,
+      is_agg_constraint: null,
+    },
+    loading: false,
+    date: null,
+  },
   granular_data: {
     data: [],
     loading: null,
@@ -29,6 +43,20 @@ const initialState = {
     status: "",
     start_date: null,
     end_date: null,
+  },
+
+  get_scenario_kpi: {
+    data: {
+      media_spend: 0,
+      media_shipments: 0,
+      media_gross_profit: 0,
+      media_volume: 0,
+    },
+    loading: null,
+  },
+  get_optimized_data: {
+    data: [],
+    loading: true,
   },
 };
 export function scenario(state = initialState, action) {
@@ -167,6 +195,7 @@ export function scenario(state = initialState, action) {
       return {
         ...state,
         granular_data: {
+          data: action.data,
           loading: false,
         },
       };
@@ -209,6 +238,86 @@ export function scenario(state = initialState, action) {
           end_date: new Date().toLocaleString(),
         },
       };
+    case scenarioConstants.GET_SCENARIO_REQUEST:
+      return {
+        ...state,
+        scenario: {
+          ...state.scenarios,
+          loading: true,
+        },
+      };
+    case scenarioConstants.GET_SCENARIO_SUCCESS:
+      return {
+        ...state,
+        scenario: {
+          ...state.scenarios,
+          data: action.data,
+        },
+      };
+    case scenarioConstants.GET_SCENARIO_FAILURE:
+      return {
+        ...state,
+        scenario: {
+          ...state.scenarios,
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_SCENARIO_KPI_REQUEST:
+      return {
+        ...state,
+        get_scenario_kpi: {
+          ...state.get_scenario_kpi,
+          data: {
+            media_spend: 0,
+            media_shipments: 0,
+            media_gross_profit: 0,
+            media_volume: 0,
+          },
+          loading: true,
+        },
+      };
+    case scenarioConstants.GET_SCENARIO_KPI_SUCCESS:
+      return {
+        ...state,
+        get_scenario_kpi: {
+          data: { ...action.data, date: new Date() },
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_SCENARIO_KPI_FAILURE:
+      return {
+        ...state,
+        get_scenario_kpi: {
+          ...state.get_scenario_kpi,
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_OPTIMIZED_DATA_REQUEST:
+      return {
+        ...state,
+        get_optimized_data: {
+          ...state.get_optimized_data,
+          data: [],
+          loading: true,
+        },
+      };
+    case scenarioConstants.GET_OPTIMIZED_DATA_SUCCESS:
+      return {
+        ...state,
+        get_optimized_data: {
+          data: action.data,
+          loading: false,
+        },
+      };
+    case scenarioConstants.GET_OPTIMIZED_DATA_FAILURE:
+      return {
+        ...state,
+        get_optimized_data: {
+          ...state.get_optimized_data,
+          loading: false,
+        },
+      };
+
     default:
       return state;
   }

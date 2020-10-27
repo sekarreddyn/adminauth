@@ -39,7 +39,7 @@ class StepThree extends Component {
               {getFieldDecorator("scenario_description", {
                 rules: [
                   {
-                    required: false,
+                    required: true,
                     message: "Please enter scenario description",
                   },
                 ],
@@ -75,7 +75,7 @@ class StepThree extends Component {
               this.props.scenario.update_scenario.loading
             }
           >
-            Save
+            {this.props.ScenarioId ? "Update" : "Save"}
           </Button>
         </Form.Item>
       </Form>

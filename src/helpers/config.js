@@ -6,7 +6,7 @@ if (process.env.baseURL) {
   };
 } else {
   config = {
-    baseURL: "https://mediasim.appngeek.com/",
+    baseURL: "https://mediasim.server.appngeek.com/",
   };
 }
 

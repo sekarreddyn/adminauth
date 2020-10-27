@@ -43,16 +43,19 @@ class FinalForm extends Component {
   };
 
   componentDidMount() {
+    let d = new Date();
+    let pastYear = d.getFullYear() - 1;
     document.body.classList.remove("login");
-
     if (this.getSessionId()) {
       this.getSession();
+    } else {
+      this.setState({
+        step_two_fields: {
+          start_date: moment(`${pastYear}-01-01`, dateFormat),
+          end_date: moment(`${pastYear}-12-01`, dateFormat),
+        },
+      });
     }
-    // dispatch(sessionActions.getBrands());
-    // dispatch(sessionActions.getBusinessUnits());
-    // dispatch(sessionActions.getCountries());
-    // dispatch(sessionActions.getGroups());
-    // dispatch(sessionActions.getMediaTactics());
   }
 
   componentDidUpdate(prevProps) {

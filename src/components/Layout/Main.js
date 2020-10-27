@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Router, Route } from "react-router-dom";
 import Login from "../../components/Login";
 import Dashboard from "../../components/Dashboard";
-import sessionsList from "../sessionsList";
+import scenarioList from "../scenarioList";
 import Temp from "../../components/Temp";
 import RequestAccess from "../RequestAcess";
 import Organization from "../../components/Organization";
@@ -12,6 +12,7 @@ import RequestEmail from "../../components/RequestEmail";
 import SessionCreation from "../../components/sessions/FinalForm";
 import ScenarioCreation from "../../components/scenarios/FinalForm";
 import RunScenario from "../../components/RunScenario";
+import OptimizedData from "../../components/OptimizedData";
 import { history } from "../../helpers/history";
 import PrivateRoute from "../../helpers/privateRoute";
 import ErrorBoundary from "../Utilities/ErrorBoundary";
@@ -34,7 +35,7 @@ class RouterApp extends Component {
           <PrivateRoute
             exact
             path="/scenarios-list/:sessionId"
-            component={sessionsList}
+            component={scenarioList}
           />
           <PrivateRoute
             exact
@@ -62,6 +63,11 @@ class RouterApp extends Component {
             exact
             path="/run-scenario/:sessionId/:scenarioId"
             component={RunScenario}
+          />
+          <PrivateRoute
+            exact
+            path="/optimized-data/:sessionId/:scenarioId"
+            component={OptimizedData}
           />
 
           <ToastContainer

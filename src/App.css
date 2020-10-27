@@ -5137,7 +5137,7 @@ pre {
 }
 
 .custom-radio .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):before {
-  background: #FFFFFF;
+  color: #86D295 !important;
   border: 1px solid #86D295;
   -webkit-box-shadow: 0 2px 4px 0 rgba(134, 210, 149, 0.3);
           box-shadow: 0 2px 4px 0 rgba(134, 210, 149, 0.3);
@@ -5160,9 +5160,12 @@ pre {
 .custom-radio.ibc .ant-form-item-label > label {
   color: #FF6720;
 }
-
-.ant-dropdown .ant-upload-list {
-  display: none;
+.ant-radio-button-wrapper-disabled.ant-radio-button-wrapper-checked {
+  color: #86D295 !important;
+  background-color: #e6e6e6 !important;
+  border-color: #d9d9d9 !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .placeholder {
@@ -5182,4 +5185,18 @@ pre {
 
 .placeholder p {
   margin-bottom: 30px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.ant-input-number-handler-wrap {
+  display: none !important;
 }

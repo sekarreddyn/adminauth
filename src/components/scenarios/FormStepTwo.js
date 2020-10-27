@@ -13,597 +13,52 @@ import {
   Menu,
   InputNumber,
 } from "antd";
+
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { scenarioActions } from "../../actions";
-
+import XLSX from "xlsx";
+import { ExportSheet } from "react-xlsx-sheet";
+import { toast } from "react-toastify";
 class FormStepTwo extends Component {
   constructor() {
     super();
     this.state = {
       aggregated_data: [],
-      granular_data: [
-        {
-          shipments: 3154918,
-          spend: 7000,
-          media_tactic: "TV",
-          country: "Indonesia",
-          group: "Asia Pacific",
-          saturation_parameter: 0.82,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.078,
-          profit: -5849,
-          roi_b: 0.1644132385,
-          uplift: 822,
-          cost_per_point: 346,
-          grp: 20,
-          brand: "Coca-Cola",
-          business_unit: "ASEAN",
-          factor: 1200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 1.4,
-          spend_share: 0.0008143351,
-          gp: 1150,
-          spend_lower_limit: 4900,
-          spend_upper_limit: 14000,
-        },
-        {
-          shipments: 109327989,
-          spend: 1473000,
-          media_tactic: "TV",
-          country: "Philippines",
-          group: "Asia Pacific",
-          saturation_parameter: 0.82,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.118,
-          profit: 7260600,
-          roi_b: 5.9291243697,
-          uplift: 9704000,
-          cost_per_point: 191,
-          grp: 7712,
-          brand: "Coca-Cola",
-          business_unit: "ASEAN",
-          factor: 1200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 0.9,
-          spend_share: 0.1713593696,
-          gp: 8733600,
-          spend_lower_limit: 1031100,
-          spend_upper_limit: 2946000,
-        },
-        {
-          shipments: 125957399,
-          spend: 5652000,
-          media_tactic: "TV",
-          country: "Thailand",
-          group: "Asia Pacific",
-          saturation_parameter: 0.82,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.073,
-          profit: 1986768,
-          roi_b: 1.3515160182,
-          uplift: 7638768,
-          cost_per_point: 569,
-          grp: 9933,
-          brand: "Coca-Cola",
-          business_unit: "ASEAN",
-          factor: 1200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 1,
-          spend_share: 0.657517418,
-          gp: 7638768,
-          spend_lower_limit: 3956400,
-          spend_upper_limit: 11304000,
-        },
-        {
-          shipments: 61708663,
-          spend: 3608000,
-          media_tactic: "TV",
-          country: "Vietnam",
-          group: "Asia Pacific",
-          saturation_parameter: 0.82,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.044,
-          profit: -1502429,
-          roi_b: 0.5835838861,
-          uplift: 2105570,
-          cost_per_point: 415,
-          grp: 8693,
-          brand: "Coca-Cola",
-          business_unit: "ASEAN",
-          factor: 1200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 1,
-          spend_share: 0.4197315719,
-          gp: 2105570,
-          spend_lower_limit: 2525600,
-          spend_upper_limit: 7216000,
-        },
-        {
-          shipments: 704320370,
-          spend: 31101000,
-          media_tactic: "TV",
-          country: "China",
-          group: "Asia Pacific",
-          saturation_parameter: 0.42,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.162,
-          profit: 31281629,
-          roi_b: 2.0058078507,
-          uplift: 41867536,
-          cost_per_point: 11772,
-          grp: 2641,
-          brand: "Coca-Cola",
-          business_unit: "Greater China and Korea",
-          factor: 5200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 1.49,
-          spend_share: 3.618090803,
-          gp: 62382629,
-          spend_lower_limit: 21770700,
-          spend_upper_limit: 62202000,
-        },
-        {
-          shipments: 73304821,
-          spend: 7934000,
-          media_tactic: "TV",
-          country: "India",
-          group: "Asia Pacific",
-          saturation_parameter: 0.82,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.275,
-          profit: 1790553,
-          roi_b: 1.2256810297,
-          uplift: 9724553,
-          cost_per_point: 2175,
-          grp: 3647,
-          brand: "Coca-Cola",
-          business_unit: "India & Southwest Asia",
-          factor: 1200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 1,
-          spend_share: 0.9229906572,
-          gp: 9724553,
-          spend_lower_limit: 55538100,
-          spend_upper_limit: 158681000,
-        },
-        {
-          shipments: 123418096,
-          spend: 18165000,
-          media_tactic: "TV",
-          country: "Japan",
-          group: "Asia Pacific",
-          saturation_parameter: 0.42,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.164,
-          profit: 27293059,
-          roi_b: 2.5025080937,
-          uplift: 10823347,
-          cost_per_point: 4217,
-          grp: 4307,
-          brand: "Coca-Cola",
-          business_unit: "Japan",
-          factor: 5200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 4.2,
-          spend_share: 2.1131995575,
-          gp: 45458059,
-          spend_lower_limit: 12715500,
-          spend_upper_limit: 36330000,
-        },
-        {
-          shipments: 114167173,
-          spend: 5568000,
-          media_tactic: "TV",
-          country: "Australia",
-          group: "Asia Pacific",
-          saturation_parameter: 0.49,
-          modified_on: "2020-10-15",
-          media_elasticity: 0.107,
-          profit: 25290423,
-          roi_b: 5.5421020001,
-          uplift: 8548039,
-          cost_per_point: 680,
-          grp: 8188,
-          brand: "Coca-Cola",
-          business_unit: "South Pacific",
-          factor: 5200,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: 3.61,
-          spend_share: 0.647745397,
-          gp: 30858423,
-          spend_lower_limit: 3897600,
-          spend_upper_limit: 11136000,
-        },
-        {
-          shipments: null,
-          spend: 5568000,
-          media_tactic: null,
-          country: "Australia",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 30858423,
-          spend_lower_limit: 113600,
-          spend_upper_limit: 1136000,
-        },
-        {
-          shipments: null,
-          spend: 31101000,
-          media_tactic: null,
-          country: "China",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 62382629,
-          spend_lower_limit: 6220200,
-          spend_upper_limit: 62202000,
-        },
-        {
-          shipments: null,
-          spend: 7934000,
-          media_tactic: null,
-          country: "India",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 9724553,
-          spend_lower_limit: 1586800,
-          spend_upper_limit: 15868000,
-        },
-        {
-          shipments: null,
-          spend: 7000,
-          media_tactic: null,
-          country: "Indonesia",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 1150,
-          spend_lower_limit: 1586800,
-          spend_upper_limit: 15868000,
-        },
-        {
-          shipments: null,
-          spend: 18165000,
-          media_tactic: null,
-          country: "Japan",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 45458059,
-          spend_lower_limit: 3633000,
-          spend_upper_limit: 36330000,
-        },
-        {
-          shipments: null,
-          spend: 1473000,
-          media_tactic: null,
-          country: "Philippines",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 8733600,
-          spend_lower_limit: 294600,
-          spend_upper_limit: 2946000,
-        },
-        {
-          shipments: null,
-          spend: 5652000,
-          media_tactic: null,
-          country: "Thailand",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 7638768,
-          spend_lower_limit: 1130400,
-          spend_upper_limit: 11304000,
-        },
-        {
-          shipments: null,
-          spend: 3608000,
-          media_tactic: null,
-          country: "Vietnam",
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 2105570,
-          spend_lower_limit: 721600,
-          spend_upper_limit: 7216000,
-        },
-        {
-          shipments: null,
-          spend: 73508000,
-          media_tactic: null,
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: "Coca-Cola",
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 166902752,
-          spend_lower_limit: 14701600,
-          spend_upper_limit: 147016000,
-        },
-        {
-          shipments: null,
-          spend: 10740000,
-          media_tactic: null,
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: "ASEAN",
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 18479088,
-          spend_lower_limit: 5370000,
-          spend_upper_limit: 21480000,
-        },
-        {
-          shipments: null,
-          spend: 31101000,
-          media_tactic: null,
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: "Greater China and Korea",
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 62382629,
-          spend_lower_limit: 15550500,
-          spend_upper_limit: 62202000,
-        },
-        {
-          shipments: null,
-          spend: 7934000,
-          media_tactic: null,
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: "India & Southwest Asia",
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 9724553,
-          spend_lower_limit: 3967000,
-          spend_upper_limit: 15868000,
-        },
-        {
-          shipments: null,
-          spend: 18165000,
-          media_tactic: null,
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: "Japan",
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 45458059,
-          spend_lower_limit: 98025100,
-          spend_upper_limit: 36330000,
-        },
-        {
-          shipments: null,
-          spend: 5568000,
-          media_tactic: null,
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: "South Pacific",
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 30858423,
-          spend_lower_limit: 2784000,
-          spend_upper_limit: 11136000,
-        },
-        {
-          shipments: null,
-          spend: 73508000,
-          media_tactic: null,
-          country: null,
-          group: "Asia Pacific",
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 166902752,
-          spend_lower_limit: 58806400,
-          spend_upper_limit: 147016000,
-        },
-        {
-          shipments: null,
-          spend: 73508000,
-          media_tactic: "TV",
-          country: null,
-          group: null,
-          saturation_parameter: null,
-          modified_on: "2020-10-15",
-          media_elasticity: null,
-          profit: null,
-          roi_b: null,
-          uplift: null,
-          cost_per_point: null,
-          grp: null,
-          brand: null,
-          business_unit: null,
-          factor: null,
-          session_id: "428eaf9f-978a-44b9-afe5-34a97ac928e6",
-          gp_uc: null,
-          spend_share: null,
-          gp: 166902752,
-          spend_lower_limit: 51455600,
-          spend_upper_limit: 147016000,
-        },
+      granular_data: [],
+      is_agg_constraint: null,
+      loading: null,
+      head: [
+        { title: "SessionId", dataIndex: "session_id" },
+        { title: "Group", dataIndex: "group" },
+        { title: "BussinessUunit", dataIndex: "business_unit" },
+        { title: "Country", dataIndex: "country" },
+        { title: "Brand", dataIndex: "brand" },
+        { title: "MediaTactics", dataIndex: "media_tactic" },
+        { title: "GRP", dataIndex: "grp" },
+        { title: "Spend", dataIndex: "spend" },
+        { title: "MediaElasticity", dataIndex: "media_elasticity" },
+        { title: "Shipments", dataIndex: "shipments" },
+        { title: "GPUC", dataIndex: "gp_uc" },
+        { title: "CPP", dataIndex: "cost_per_point" },
+        { title: "GP", dataIndex: "gp" },
+        { title: "SaturationParameter", dataIndex: "saturation_parameter" },
+        { title: "Profit", dataIndex: "profit" },
+        { title: "ROIB", dataIndex: "roi_b" },
+        { title: "Uplift", dataIndex: "uplift" },
+        { title: "Factor", dataIndex: "factor" },
+        { title: "SpendShare", dataIndex: "spend_share" },
+        { title: "SpendLowerLimit", dataIndex: "spend_upper_limit" },
+        { title: "SpendUpperLimt", dataIndex: "spend_lower_limit" },
+        { title: "ModifiedOn", dataIndex: "modified_on" },
       ],
-      is_agg_constraint: true,
+      file: {},
+      cols: [],
     };
     this.renderEditable1 = this.renderEditable1.bind(this);
     this.renderEditable2 = this.renderEditable2.bind(this);
+    this.handleFile = this.handleFile.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -612,7 +67,83 @@ class FormStepTwo extends Component {
         aggregated_data: this.props.aggregatedData,
       });
     }
+
+    this.setState({
+      is_agg_constraint: this.props.is_agg_constraint,
+    });
   }
+  handleChange(e) {
+    const files = e.target.files;
+    if (files && files[0])
+      this.setState({ file: files[0], loading: true }, () => this.handleFile());
+  }
+
+  handleFile() {
+    /* Boilerplate to set up FileReader */
+    const reader = new FileReader();
+    const rABS = !!reader.readAsBinaryString;
+
+    reader.onload = (e) => {
+      /* Parse data */
+      const bstr = e.target.result;
+      const wb = XLSX.read(bstr, {
+        type: rABS ? "binary" : "array",
+        bookVBA: true,
+      });
+      /* Get first worksheet */
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      /* Convert array of arrays */
+      const data = XLSX.utils.sheet_to_json(ws);
+      let formatedData = data.map((item) => ({
+        group: item.Group ? item.Group : null,
+        business_unit: item.BussinessUunit ? item.BussinessUunit : null,
+        country: item.Country ? item.Country : null,
+        brand: item.Brand ? item.Brand : null,
+        media_tactic: item.MediaTactics ? item.MediaTactics : null,
+        grp: item.GRP ? item.GRP : null,
+        spend: item.Spend ? item.Spend : null,
+        spend_share: item.SpendShare ? item.SpendShare : null,
+        profit: item.Profit ? item.Profit : null,
+        roi_b: item.ROIB ? item.ROIB : null,
+        saturation_parameter: item.SaturationParameter
+          ? item.SaturationParameter
+          : null,
+        session_id: item.SessionId ? item.SessionId : null,
+        media_elasticity: item.MediaElasticity ? item.MediaElasticity : null,
+        shipments: item.Shipments ? item.Shipments : null,
+        gp_uc: item.GPUC ? item.GPUC : null,
+        cost_per_point: item.CPP ? item.CPP : null,
+        factor: item.Factor ? item.Factor : null,
+        gp: item.GP ? item.GP : null,
+        uplift: item.Uplift ? item.Uplift : null,
+        spend_upper_limit: item.SpendUpperLimt ? item.SpendUpperLimt : null,
+        spend_lower_limit: item.SpendLowerLimit ? item.SpendLowerLimit : null,
+        modified_on: item.ModifiedOn ? item.ModifiedOn : null,
+      }));
+
+      this.setState(
+        {
+          granular_data: formatedData,
+        },
+        () => this.hideloading()
+      );
+    };
+
+    if (rABS) {
+      reader.readAsBinaryString(this.state.file);
+    } else {
+      reader.readAsArrayBuffer(this.state.file);
+    }
+  }
+  hideloading = () => {
+    this.setState(
+      {
+        loading: false,
+      },
+      () => toast.success("Granular data imported successfully")
+    );
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -715,19 +246,22 @@ class FormStepTwo extends Component {
     }
     if (
       this.props.scenario.granular_data.data !==
-      prevProps.scenario.granular_data.data
+        prevProps.scenario.granular_data.data &&
+      !this.props.ScenarioId
     ) {
       if (this.props.scenario.granular_data.data) {
         this.setState({
-          // granular_data: this.props.scenario.granular_data.data.map(
-          //   (item, index) => {
-          //     return {
-          //       ...item,
-          //       spend_lower_limit: null,
-          //       spend_upper_limit: null,
-          //     };
-          //   }
-          // ),
+          granular_data: this.props.scenario.granular_data.data,
+        });
+      }
+    }
+    if (
+      this.props.granular_data !== this.state.granular_data &&
+      this.props.ScenarioId
+    ) {
+      if (this.state.granular_data) {
+        this.setState({
+          granular_data: this.props.granular_data,
         });
       }
     }
@@ -735,41 +269,31 @@ class FormStepTwo extends Component {
 
   renderEditable1(cellInfo) {
     return (
-      <div
-        style={{ backgroundColor: "#fafafa" }}
+      <InputNumber
+        style={{ backgroundColor: "#fafafa", width: "100%" }}
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => {
+        onChange={(e) => {
           const aggregated_data = [...this.state.aggregated_data];
-          aggregated_data[cellInfo.index][cellInfo.column.id] = parseInt(
-            e.target.innerHTML
-          );
+          aggregated_data[cellInfo.index][cellInfo.column.id] = e;
           this.setState({ aggregated_data });
         }}
-        dangerouslySetInnerHTML={{
-          __html: this.state.aggregated_data[cellInfo.index][
-            cellInfo.column.id
-          ],
-        }}
+        value={this.state.aggregated_data[cellInfo.index][cellInfo.column.id]}
       />
     );
   }
   renderEditable2(cellInfo) {
     return (
-      <div
-        style={{ backgroundColor: "#fafafa" }}
+      <InputNumber
+        style={{ backgroundColor: "#fafafa", width: "100%" }}
         contentEditable
         suppressContentEditableWarning
-        onBlur={(e) => {
+        onChange={(e) => {
           const granular_data = [...this.state.granular_data];
-          granular_data[cellInfo.index][cellInfo.column.id] = parseInt(
-            e.target.innerHTML
-          );
+          granular_data[cellInfo.index][cellInfo.column.id] = e;
           this.setState({ granular_data });
         }}
-        dangerouslySetInnerHTML={{
-          __html: this.state.granular_data[cellInfo.index][cellInfo.column.id],
-        }}
+        value={this.state.granular_data[cellInfo.index][cellInfo.column.id]}
       />
     );
   }
@@ -777,15 +301,29 @@ class FormStepTwo extends Component {
     this.setState({
       is_agg_constraint: e.target.value,
     });
-    if (!e.target.value) this.getGranularData(this.props.baseScenario);
+    if (!e.target.value && !this.props.ScenarioId) {
+      this.getGranularData(this.props.baseScenario);
+    }
+    if (
+      !e.target.value &&
+      this.props.ScenarioId &&
+      this.state.granular_data == null
+    ) {
+      this.getGranularData(this.props.baseScenario);
+    }
   };
 
   getGranularData = (data) => {
     const { dispatch } = this.props;
     dispatch(scenarioActions.getGranularData({ mod_base_table: data }));
   };
+
+  upload() {
+    document.getElementById("file-input").click();
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
+
     return (
       <div>
         <>
@@ -854,6 +392,7 @@ class FormStepTwo extends Component {
                     <Radio.Group
                       size="large"
                       onChange={this.onBudgetConstChange}
+                      disabled={this.props.ScenarioId}
                     >
                       <Radio.Button value={true}>Aggregated</Radio.Button>
                       <Radio.Button value={false}>Granular</Radio.Button>
@@ -871,43 +410,6 @@ class FormStepTwo extends Component {
                   <Col span={12}>
                     <h3 className="mb-0 text-dark">Aggregated Data</h3>
                   </Col>
-                  <Col span={12} className="ml-auto text-right">
-                    <Dropdown
-                      overlay={
-                        <Menu>
-                          <Menu.Item className="py-2 border-bottom">
-                            <Icon
-                              type="edit"
-                              style={{ fontSize: 16 }}
-                              className="mr-2"
-                            />{" "}
-                            Edit in UI
-                          </Menu.Item>
-                          <Menu.Item className="py-2 border-bottom">
-                            <Icon
-                              type="download"
-                              style={{ fontSize: 16 }}
-                              className="mr-2"
-                            />{" "}
-                            Import Data
-                          </Menu.Item>
-                          <Menu.Item className="py-2">
-                            <Icon
-                              type="upload"
-                              style={{ fontSize: 16 }}
-                              className="mr-2"
-                            />{" "}
-                            Upload Data
-                          </Menu.Item>
-                        </Menu>
-                      }
-                      placement="bottomLeft"
-                    >
-                      <Button type="primary">
-                        Actions <Icon type="caret-down" />
-                      </Button>
-                    </Dropdown>
-                  </Col>
                 </Row>
                 <Row gutter={[16, 16]} className="d-flex pt-2">
                   <Col span={24} className="mt-3 ">
@@ -915,7 +417,7 @@ class FormStepTwo extends Component {
                       data={this.state.aggregated_data}
                       columns={[
                         {
-                          Header: "Group Threshold",
+                          Header: "Constraints",
                           accessor: "name",
                           // Cell: this.renderEditable,
                         },
@@ -973,28 +475,30 @@ class FormStepTwo extends Component {
                       overlay={
                         <Menu>
                           <Menu.Item className="py-2 border-bottom">
-                            <Icon
-                              type="edit"
-                              style={{ fontSize: 16 }}
-                              className="mr-2"
-                            />{" "}
-                            Edit in UI
+                            <Button type="link" onClick={this.upload}>
+                              <input
+                                type="file"
+                                name="file"
+                                id="file-input"
+                                accept=".xlsx"
+                                onChange={this.handleChange}
+                                style={{ width: 100 }}
+                                hidden
+                              />
+                              <Icon type="upload" /> Import
+                            </Button>
                           </Menu.Item>
-                          <Menu.Item className="py-2 border-bottom">
-                            <Icon
-                              type="download"
-                              style={{ fontSize: 16 }}
-                              className="mr-2"
-                            />{" "}
-                            Import Data
-                          </Menu.Item>
-                          <Menu.Item className="py-2">
-                            <Icon
-                              type="upload"
-                              style={{ fontSize: 16 }}
-                              className="mr-2"
-                            />{" "}
-                            Upload Data
+                          <Menu.Item className="py-2 ">
+                            <ExportSheet
+                              header={this.state.head}
+                              fileName={`granular_data`}
+                              dataSource={this.state.granular_data}
+                              xlsx={XLSX}
+                            >
+                              <Button type="link">
+                                <Icon type="download" /> Export
+                              </Button>
+                            </ExportSheet>
                           </Menu.Item>
                         </Menu>
                       }
@@ -1009,7 +513,9 @@ class FormStepTwo extends Component {
                 <Row gutter={[16, 16]} className="d-flex pt-4">
                   <Col span={24} className="mt-3 ">
                     <ReactTable
-                      data={this.state.granular_data}
+                      data={
+                        this.state.granular_data ? this.state.granular_data : []
+                      }
                       columns={[
                         {
                           Header: "Group",
@@ -1042,6 +548,12 @@ class FormStepTwo extends Component {
                           className: "text-center",
                         },
                         {
+                          Header: "Media Elasticity",
+                          accessor: "media_elasticity",
+                          // Cell: this.renderEditable2,
+                          className: "text-center",
+                        },
+                        {
                           Header: "GRP's",
                           accessor: "grp",
                           // Cell: this.renderEditable2,
@@ -1050,7 +562,7 @@ class FormStepTwo extends Component {
                         {
                           Header: "Spend",
                           accessor: "spend",
-                          Cell: this.renderEditable2,
+                          // Cell: this.renderEditable2,
                           className: "text-center",
                         },
 
@@ -1070,9 +582,36 @@ class FormStepTwo extends Component {
                       defaultPageSize={10}
                       className="-striped -highlight"
                       showPagination={false}
-                      loading={this.props.scenario.granular_data.loading}
-                      pageSize={this.state.granular_data.length}
+                      loading={
+                        this.props.scenario.granular_data.loading ||
+                        this.state.loading
+                      }
+                      pageSize={
+                        this.state.granular_data !== null &&
+                        this.state.granular_data.length
+                      }
                     />
+                  </Col>
+                </Row>
+                <Row gutter={[16, 16]}>
+                  <Col span={8}>
+                    <Form.Item label="YOY Spend Change" className="mb-3">
+                      {getFieldDecorator("yoy_change", {
+                        rules: [
+                          {
+                            required: true,
+                            message: "Please enter yoy spend change",
+                          },
+                        ],
+                        initialValue: this.props.yoy_change,
+                      })(
+                        <InputNumber
+                          size="large"
+                          placeholder="YOY Spend "
+                          style={{ width: "100%" }}
+                        />
+                      )}
+                    </Form.Item>
                   </Col>
                 </Row>
               </>

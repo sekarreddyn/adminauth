@@ -1,4 +1,5 @@
 import { errorhandlerConstants } from "../constants";
+import { history } from "../helpers";
 export const errorHandlerActions = {
   handleHTTPError,
 };
@@ -31,6 +32,8 @@ function handleHTTPError(error) {
     };
   }
   function execute401Handler(error) {
+    localStorage.removeItem("msuser");
+    history.push("/login");
     return {
       type: errorhandlerConstants.HTTP_401_ERROR,
       error: error,

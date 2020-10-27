@@ -5,7 +5,7 @@ import { sessionActions } from "../actions";
 import { connect } from "react-redux";
 import Loading from "./Loading/SessionItem";
 import SessionItem from "./sessions/SessionItem";
-
+import placeholder from "../assets/placeholder.png";
 const text = (
   <span className="text-dark p-2 d-block">
     <Icon type="info-circle" className="mr-2" /> User Guide
@@ -55,10 +55,13 @@ class Dashboard extends React.Component {
   onSearch = (value) => {
     this.setState({
       list: this.props.session.get_sessions.data.filter((item) =>
-        item.session_title ? item.session_title.includes(value) : item
+        item.session_title
+          ? item.session_title.toUpperCase().includes(value.toUpperCase())
+          : item
       ),
     });
   };
+
   render() {
     const { session } = this.props;
     const { get_sessions } = session;
@@ -123,6 +126,22 @@ class Dashboard extends React.Component {
               ))}
             </Row>
           )}
+
+          {(loading === false || this.props.delete_session.loading === false) &&
+            this.state.list.length === 0 && (
+              <div className="placeholder">
+                <img src={placeholder} alt="" />
+                <h3 className="text-primary">No Sessions Found!</h3>
+                <p>
+                  Sorry! You’ve not created any sessions so far, click the below
+                  button to create one
+                </p>
+
+                <Button type="primary">
+                  <NavLink to="/create-session"> Create New Sesssion</NavLink>
+                </Button>
+              </div>
+            )}
         </div>
       </>
     );

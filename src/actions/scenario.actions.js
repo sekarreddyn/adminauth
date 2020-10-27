@@ -1,5 +1,5 @@
 import { scenarioConstants } from "../constants";
-import { http, appConfig, history } from "../helpers";
+import { http, history } from "../helpers";
 import { errorHandlerActions } from "../actions";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
@@ -11,6 +11,9 @@ export const scenarioActions = {
   getScenarios,
   getGranularData,
   runScenario,
+  getScenario,
+  getScenarioKpi,
+  getOptimizedData,
 };
 
 function createScenario(data) {
@@ -139,14 +142,14 @@ function getBaseScenario(session_id) {
   }
 }
 
-function getScenarios(session_id) {
+function getScenarios(session_id, scenarioKpi) {
   return (dispatch) => {
     dispatch(request());
     http
       .get(`/core/scenarios-from-session/${session_id}`)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          dispatch(success([...scenarioKpi, ...response.data]));
         }
       })
       .catch(function (error) {
@@ -172,7 +175,14 @@ function getGranularData(data) {
       .post(`/core/granular-table-concat`, data)
       .then(function (response) {
         if (response.data) {
-          dispatch(success(response.data));
+          let mapData = response.data.map((item, index) => {
+            return {
+              ...item,
+              spend_lower_limit: null,
+              spend_upper_limit: null,
+            };
+          });
+          dispatch(success(mapData));
         }
       })
       .catch(function (error) {
@@ -220,5 +230,84 @@ function runScenario(scenario_id) {
   }
   function failure(error) {
     return { type: scenarioConstants.RUN_SCENARIO_FAILURE, error };
+  }
+}
+function getScenario(id) {
+  return (dispatch) => {
+    dispatch(request());
+    http
+      .get(`/core/scenario-metadata/${id}`)
+      .then(function (response) {
+        if (response.data) {
+          dispatch(success(response.data));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
+      });
+  };
+
+  function request() {
+    return { type: scenarioConstants.GET_SCENARIO_REQUEST };
+  }
+  function success(data) {
+    return { type: scenarioConstants.GET_SCENARIO_SUCCESS, data };
+  }
+  function failure(error) {
+    return { type: scenarioConstants.GET_SCENARIO_FAILURE, error };
+  }
+}
+function getScenarioKpi(id) {
+  return (dispatch) => {
+    dispatch(request(id));
+    http
+      .get(`/core/optimized-kpi/${id}`)
+      .then(function (response) {
+        if (response.data) {
+          dispatch(success(response.data));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
+      });
+  };
+
+  function request() {
+    return { type: scenarioConstants.GET_SCENARIO_KPI_REQUEST };
+  }
+  function success(data) {
+    return { type: scenarioConstants.GET_SCENARIO_KPI_SUCCESS, data };
+  }
+  function failure(error) {
+    return { type: scenarioConstants.GET_SCENARIO_KPI_FAILURE, error };
+  }
+}
+
+function getOptimizedData(id) {
+  return (dispatch) => {
+    dispatch(request(id));
+    http
+      .get(`/core/optimized-data/${id}`)
+      .then(function (response) {
+        if (response.data) {
+          dispatch(success(response.data));
+        }
+      })
+      .catch(function (error) {
+        dispatch(failure(error));
+        dispatch(errorHandlerActions.handleHTTPError(error.response));
+      });
+  };
+
+  function request() {
+    return { type: scenarioConstants.GET_OPTIMIZED_DATA_REQUEST };
+  }
+  function success(data) {
+    return { type: scenarioConstants.GET_OPTIMIZED_DATA_SUCCESS, data };
+  }
+  function failure(error) {
+    return { type: scenarioConstants.GET_OPTIMIZED_DATA_FAILURE, error };
   }
 }

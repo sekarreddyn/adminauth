@@ -22,11 +22,21 @@ class RequestAccess extends Component {
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(authActions.signup(values));
+        let data = values;
+
+        delete data.confirmPassword;
+        this.props.dispatch(authActions.signup(data));
       }
     });
   };
 
+  compareToPassword = (rule, value, callback) => {
+    if (value && value !== this.props.form.getFieldValue("password")) {
+      callback("Password  and confirm password should be same!");
+    } else {
+      callback();
+    }
+  };
   render() {
     const { signup } = this.props;
     const { loading } = signup;
@@ -65,21 +75,6 @@ class RequestAccess extends Component {
                 width: 350,
               }}
             >
-              <Form.Item className="mb-3" label="User Name">
-                {getFieldDecorator("full_name", {
-                  rules: [
-                    { required: true, message: "Please enter your username" },
-                  ],
-                })(
-                  <Input
-                    prefix={
-                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                    }
-                    placeholder="User Name"
-                    size="large"
-                  />
-                )}
-              </Form.Item>
               <Form.Item className="mb-3" label="Email Address">
                 {getFieldDecorator("email", {
                   rules: [
@@ -100,7 +95,52 @@ class RequestAccess extends Component {
                 )}
               </Form.Item>
 
-              <Form.Item className="mb-0">
+              <Form.Item className="mb-3 pb-0" label="Password">
+                {getFieldDecorator("password", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please enter your password",
+                    },
+                    {
+                      min: 6,
+                      message: "Your password must be atleast 6 characters",
+                    },
+                    {
+                      max: 16,
+                      message: "Your password should not exceed 16 characters",
+                    },
+                  ],
+                })(
+                  <Input.Password
+                    type="password"
+                    placeholder="******"
+                    size="large"
+                  />
+                )}
+              </Form.Item>
+
+              <Form.Item className="mb-3 pb-2" label="Confirm Password">
+                {getFieldDecorator("confirmPassword", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please enter your confirm password",
+                    },
+                    {
+                      validator: this.compareToPassword,
+                    },
+                  ],
+                })(
+                  <Input.Password
+                    type="password"
+                    placeholder="******"
+                    size="large"
+                  />
+                )}
+              </Form.Item>
+
+              <Form.Item className="mb-0 mt-1">
                 <Button
                   type="primary"
                   htmlType="submit"

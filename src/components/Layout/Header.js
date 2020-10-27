@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, Row, Col, Tooltip, Button } from "antd";
+import { Layout, Menu, Icon, Row, Col, Tooltip } from "antd";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { authActions, dashboardActions } from "../../actions";

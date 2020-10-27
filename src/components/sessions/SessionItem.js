@@ -36,7 +36,11 @@ const SessionItem = ({
     <p className="session-card-desc">{session_description}</p>
     <div className="session-card-data d-flex align-items-center w-100">
       <div className="scenarios-count">
-        <span className="number">{scenario_count}</span>
+        <span className="number">
+          <NavLink type="primary" to={"/scenarios-list/" + session_id}>
+            {scenario_count}
+          </NavLink>
+        </span>
         <span className="text">Scenarios</span>
       </div>
       <div className="scenarios-count">
@@ -51,7 +55,7 @@ const SessionItem = ({
       <span className="ml-auto">
         <Button className="mr-2" type="primary">
           <NavLink type="primary" to={"/scenarios-list/" + session_id}>
-            View
+            Scenarios
           </NavLink>
         </Button>
         <Dropdown

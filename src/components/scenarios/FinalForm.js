@@ -46,6 +46,12 @@ class FinalForm extends Component {
     baseScenario: [],
     aggregatedData: [
       {
+        name: "Group Threshold",
+        id: "grp_threshold",
+        lower_limit: -10,
+        upper_limit: 10,
+      },
+      {
         name: "BU Threshold",
         id: "bu_threshold",
         lower_limit: -10,
@@ -55,7 +61,7 @@ class FinalForm extends Component {
         name: "Country Threshold",
         lower_limit: -10,
         id: "country_threshold",
-        upper_limit: 30,
+        upper_limit: 10,
       },
       {
         name: "Brand Threshold",
@@ -69,13 +75,8 @@ class FinalForm extends Component {
         lower_limit: -10,
         upper_limit: 10,
       },
-      {
-        name: "GRP Threshold",
-        id: "grp_threshold",
-        lower_limit: -10,
-        upper_limit: 10,
-      },
     ],
+    granular_data: [],
   };
 
   componentDidMount() {
@@ -87,8 +88,9 @@ class FinalForm extends Component {
     }
     if (this.getScenarioId() && this.getSessionId()) {
       this.getSession();
-      this.getSessionKpi(this.getSessionId());
-      this.getBaseScenario(this.getSessionId());
+      this.getScenario();
+      this.getScenarioKpi(this.getSessionId());
+      // this.getBaseScenario(this.getSessionId());
     }
   }
 
@@ -121,11 +123,79 @@ class FinalForm extends Component {
     }
     if (
       this.props.scenario.base_scenario.data !==
-      prevProps.scenario.base_scenario.data
+        prevProps.scenario.base_scenario.data &&
+      !this.getScenarioId()
     ) {
       if (this.props.scenario.base_scenario.data) {
         this.setState({
           baseScenario: this.props.scenario.base_scenario.data,
+        });
+      }
+    }
+    if (
+      this.props.scenario.scenario.data !== prevProps.scenario.scenario.data &&
+      this.getScenarioId()
+    ) {
+      if (this.props.scenario.scenario.data) {
+        this.setState({
+          step_three_fields: {
+            scenario_title: this.props.scenario.scenario.data.scenario_title,
+            scenario_description: this.props.scenario.scenario.data
+              .scenario_description,
+          },
+
+          baseScenario: this.props.scenario.scenario.data.scenario_data,
+
+          aggregatedData: [
+            {
+              name: "Group Threshold",
+              id: "grp_threshold",
+              lower_limit: this.props.scenario.scenario.data
+                .grp_threshold_lower,
+              upper_limit: this.props.scenario.scenario.data
+                .grp_threshold_upper,
+            },
+            {
+              name: "BU Threshold",
+              id: "bu_threshold",
+              lower_limit: this.props.scenario.scenario.data.bu_threshold_lower,
+              upper_limit: this.props.scenario.scenario.data.bu_threshold_upper,
+            },
+            {
+              name: "Country Threshold",
+              lower_limit: this.props.scenario.scenario.data
+                .country_threshold_lower,
+              id: "country_threshold",
+              upper_limit: this.props.scenario.scenario.data
+                .country_threshold_upper,
+            },
+            {
+              name: "Brand Threshold",
+              id: "brand_threshold",
+              lower_limit: this.props.scenario.scenario.data
+                .brand_threshold_upper,
+              upper_limit: this.props.scenario.scenario.data
+                .brand_threshold_lower,
+            },
+            {
+              name: "Media Threshold",
+              id: "media_threshold",
+              lower_limit: this.props.scenario.scenario.data
+                .media_threshold_lower,
+              upper_limit: this.props.scenario.scenario.data
+                .media_threshold_upper,
+            },
+          ],
+
+          step_two_fields: {
+            ...this.state.step_two_fields,
+            is_max_vol: this.props.scenario.scenario.data.is_max_vol,
+            is_agg_constraint: this.props.scenario.scenario.data
+              .is_agg_constraint,
+            yoy_change: this.props.scenario.scenario.data.yoy_change,
+          },
+
+          granular_data: this.props.scenario.scenario.data.granular_bounds,
         });
       }
     }
@@ -145,13 +215,17 @@ class FinalForm extends Component {
     dispatch(sessionActions.getSessionKpi(this.getSessionId()));
   };
 
+  getScenarioKpi = () => {
+    const { dispatch } = this.props;
+    dispatch(scenarioActions.getScenarioKpi(this.getScenarioId()));
+  };
   getBaseScenario = () => {
     const { dispatch } = this.props;
     dispatch(scenarioActions.getBaseScenario(this.getSessionId()));
   };
   getScenario = () => {
     const { dispatch } = this.props;
-    dispatch(scenarioActions.getScenario(this.getSessionId()));
+    dispatch(scenarioActions.getScenario(this.getScenarioId()));
   };
 
   createScenario = (data) => {
@@ -275,6 +349,7 @@ class FinalForm extends Component {
             submittedValues={this.getStepOneValue}
             session={this.props.session}
             baseScenario={baseScenario}
+            ScenarioId={this.getScenarioId()}
           />
         ),
       },
@@ -289,6 +364,8 @@ class FinalForm extends Component {
             submittedValues={this.getStepTwoValue}
             aggregatedData={aggregatedData}
             baseScenario={baseScenario}
+            ScenarioId={this.getScenarioId()}
+            granular_data={this.state.granular_data}
           />
         ),
       },
@@ -303,6 +380,7 @@ class FinalForm extends Component {
             handleBackButton={this.handleBackButton}
             submittedValues={this.getStepThreeValue}
             handleConfirmButton={this.handleConfirmButton}
+            ScenarioId={this.getScenarioId()}
           />
         ),
       },
@@ -345,7 +423,9 @@ class FinalForm extends Component {
           <Breadcrumb.Item>Scenario Detail</Breadcrumb.Item>
         </Breadcrumb>
         <div className="outer-wrapper">
-          <Card title="Edit Scenario">
+          <Card
+            title={this.getScenarioId() ? "Edit Scenario" : "Create Scenario"}
+          >
             <Row className="d-flex justify-content-center">
               <Col span={24}>{this.renderStepForm(step)}</Col>
             </Row>

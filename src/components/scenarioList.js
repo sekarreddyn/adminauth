@@ -45,12 +45,20 @@ class sessionsList extends React.Component {
   state = {
     list: [],
   };
-
+  onSearch = (value) => {
+    this.setState({
+      list: this.props.scenario.scenarios.data.filter((item) =>
+        item.scenario_title && item.scenario_title !== "Base Scenario"
+          ? item.scenario_title.toUpperCase().includes(value.toUpperCase())
+          : item
+      ),
+    });
+  };
   componentDidMount() {
     if (this.getSessionId()) {
       this.getSession();
       this.getSessionKpi();
-      this.getScenarios(this.getSessionId());
+      //this.getScenarios(this.getSessionId(),);
     }
   }
   componentDidUpdate(prevProps) {
@@ -78,15 +86,7 @@ class sessionsList extends React.Component {
         this.props.scenario.scenarios.data.date
       ) {
         this.setState({
-          list: [
-            ...[
-              {
-                ...this.props.session.get_session_kpi.data,
-                scenario_title: "Base Scenario",
-              },
-            ],
-            ...this.props.scenario.scenarios.data,
-          ],
+          list: this.props.scenario.scenarios.data,
         });
       }
     }
@@ -102,7 +102,7 @@ class sessionsList extends React.Component {
 
   getSessionKpi = () => {
     const { dispatch } = this.props;
-    dispatch(sessionActions.getSessionKpi(this.getSessionId()));
+    dispatch(sessionActions.getSessionKpi(this.getSessionId(), "list"));
   };
   getScenarios = () => {
     const { dispatch } = this.props;
@@ -125,16 +125,18 @@ class sessionsList extends React.Component {
       }
     });
   };
-  getPercentageChange = (oldNumber, newNumber) => {
-    var decreaseValue = oldNumber - newNumber;
-
-    let val = ((decreaseValue / oldNumber) * 100).toFixed(1);
+  truncDigits = (inputNumber, digits) => {
+    const fact = 10 ** digits;
+    return Math.floor(inputNumber * fact) / fact;
+  };
+  getPercentageChange = (newValue, oldValue) => {
+    let val = this.truncDigits(100 * ((newValue - oldValue) / oldValue), 2);
 
     if (val > 0) {
       return (
         <>
-          {oldNumber}
-          <b className="text-success ml-2">
+          {this.formatNumber(newValue)}
+          <b className="text-success ml-2 ">
             <span className="session-count bg-success">
               <Icon type="caret-up" /> {val}%
             </span>
@@ -144,7 +146,7 @@ class sessionsList extends React.Component {
     } else if (val < 0) {
       return (
         <>
-          {oldNumber}
+          {this.formatNumber(newValue)}
           <b className="text-danger  ml-2">
             <span className="session-count bg-danger">
               <Icon type="caret-down" /> {val}%
@@ -155,7 +157,7 @@ class sessionsList extends React.Component {
     } else {
       return (
         <>
-          {oldNumber}
+          {this.formatNumber(newValue)}
           <b className="text-dark  ml-2">
             <span className="session-count">
               <Icon type="line" /> {val}%
@@ -173,6 +175,7 @@ class sessionsList extends React.Component {
           <Input
             addonAfter={<Icon type="search" />}
             placeholder="Search scenarios"
+            onChange={(e) => this.onSearch(e.target.value)}
           />
         </div>
         <div className="mr-3">
@@ -198,6 +201,10 @@ class sessionsList extends React.Component {
       </div>
     </div>
   );
+
+  formatNumber = (val) => {
+    return val ? val.toLocaleString() : 0;
+  };
   render() {
     const { get_session_kpi, get_session } = this.props.session;
     const { scenario } = this.props;
@@ -243,8 +250,18 @@ class sessionsList extends React.Component {
               </div>
             ) : (
               <div>
-                <strong>{item.media_spend}</strong>
+                <strong>{this.formatNumber(item.media_spend)}</strong>
               </div>
+            )}
+            {item.has_run && item.optimized_kpi ? (
+              <div className="mt-2">
+                {this.getPercentageChange(
+                  item.optimized_kpi.media_spend,
+                  media_spend
+                )}
+              </div>
+            ) : (
+              <div></div>
             )}
           </>
         ),
@@ -263,8 +280,18 @@ class sessionsList extends React.Component {
               </div>
             ) : (
               <div>
-                <strong>{item.media_volume}</strong>
+                <strong>{this.formatNumber(item.media_volume)}</strong>
               </div>
+            )}
+            {item.has_run && item.optimized_kpi ? (
+              <div className="mt-2">
+                {this.getPercentageChange(
+                  item.optimized_kpi.media_volume,
+                  media_volume
+                )}
+              </div>
+            ) : (
+              <div></div>
             )}
           </>
         ),
@@ -285,8 +312,18 @@ class sessionsList extends React.Component {
               </div>
             ) : (
               <div>
-                <strong>{item.media_gross_profit}</strong>
+                <strong>{this.formatNumber(item.media_gross_profit)}</strong>
               </div>
+            )}
+            {item.has_run && item.optimized_kpi ? (
+              <div className="mt-2">
+                {this.getPercentageChange(
+                  item.optimized_kpi.media_gross_profit,
+                  media_gross_profit
+                )}
+              </div>
+            ) : (
+              <div></div>
             )}
           </>
         ),
@@ -307,8 +344,18 @@ class sessionsList extends React.Component {
               </div>
             ) : (
               <div>
-                <strong>{item.media_shipments}</strong>
+                <strong>{this.formatNumber(item.media_shipments)}</strong>
               </div>
+            )}
+            {item.has_run && item.optimized_kpi ? (
+              <div className="mt-2">
+                {this.getPercentageChange(
+                  item.optimized_kpi.media_shipments,
+                  media_shipments
+                )}
+              </div>
+            ) : (
+              <div></div>
             )}
           </>
         ),
@@ -322,16 +369,30 @@ class sessionsList extends React.Component {
           <>
             {item.session_id ? (
               <div className="text-center">
-                <Tooltip placement="top" title="Run Scenario">
-                  <NavLink
-                    to={`/run-scenario/${this.getSessionId()}/${
-                      item.scenario_id
-                    }`}
-                    className="ant-btn ant-btn-link px-2 text-primary"
-                  >
-                    <Icon type="play-circle" style={{ fontSize: "18px" }} />
-                  </NavLink>
-                </Tooltip>
+                {item.has_run === false && (
+                  <Tooltip placement="top" title="Run Scenario">
+                    <NavLink
+                      to={`/run-scenario/${this.getSessionId()}/${
+                        item.scenario_id
+                      }`}
+                      className="ant-btn ant-btn-link px-2 text-primary"
+                    >
+                      <Icon type="play-circle" style={{ fontSize: "18px" }} />
+                    </NavLink>
+                  </Tooltip>
+                )}
+                {item.has_run === true && (
+                  <Tooltip placement="top" title="View Result">
+                    <NavLink
+                      to={`/optimized-data/${this.getSessionId()}/${
+                        item.scenario_id
+                      }`}
+                      className="ant-btn ant-btn-link px-2 text-primary"
+                    >
+                      <Icon type="eye" style={{ fontSize: "18px" }} />
+                    </NavLink>
+                  </Tooltip>
+                )}
 
                 <Tooltip placement="top" title="Edit Scenario">
                   <NavLink

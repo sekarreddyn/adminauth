@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import { Form, Button, Row, Col, Select, Divider } from "antd";
+import { Form, Button, Row, Col, Select, Divider, Checkbox } from "antd";
 import { connect } from "react-redux";
 import { sessionActions } from "../../actions";
 const { Option } = Select;
 
 class FormStepOne extends Component {
-  state = {};
+  state = {
+    checked: false,
+    disabled: false,
+    is_group_list_checked: false,
+    is_bu_list_checked: false,
+    is_country_list_checked: false,
+    is_brand_list_checked: false,
+    is_mt_list_checked: false,
+  };
 
   validateInput = (e) => {
     const { validateFields } = this.props.form;
@@ -18,6 +26,14 @@ class FormStepOne extends Component {
       }
     });
   };
+  toggleChecked = () => {
+    this.setState({ checked: !this.state.checked });
+  };
+
+  toggleDisable = () => {
+    this.setState({ disabled: !this.state.disabled });
+  };
+
   componentDidMount() {
     const { bu_list, country_list, mt_list, brand_list } = this.props;
     let data = {
@@ -136,17 +152,151 @@ class FormStepOne extends Component {
   //   // this.getMediaTactics(data);
   // };
 
+  onCheckboxChange = (e, type) => {
+    const { checked } = e.target;
+    if (type === "group") {
+      this.setState({
+        is_group_list_checked: checked,
+      });
+      this.props.form.setFieldsValue({
+        group_list: checked ? this.props.session.groups.data : [],
+      });
+
+      let data = {
+        group_list: this.props.form.getFieldValue("group_list").length
+          ? this.props.form.getFieldValue("group_list")
+          : null,
+        country_list: this.props.form.getFieldValue("country_list").length
+          ? this.props.form.getFieldValue("country_list")
+          : null,
+        mt_list: this.props.form.getFieldValue("mt_list").length
+          ? this.props.form.getFieldValue("mt_list")
+          : null,
+        brand_list: this.props.form.getFieldValue("brand_list").length
+          ? this.props.form.getFieldValue("brand_list")
+          : null,
+      };
+
+      this.getBusinessUnits(data);
+    }
+    if (type === "business") {
+      this.setState({
+        is_bu_list_checked: checked,
+      });
+
+      this.props.form.setFieldsValue({
+        bu_list: checked ? this.props.session.business_units.data : [],
+      });
+
+      let data = {
+        bu_list: this.props.form.getFieldValue("bu_list").length
+          ? this.props.form.getFieldValue("bu_list")
+          : null,
+        group_list: this.props.form.getFieldValue("group_list").length
+          ? this.props.form.getFieldValue("group_list")
+          : null,
+        mt_list: this.props.form.getFieldValue("mt_list").length
+          ? this.props.form.getFieldValue("mt_list")
+          : null,
+        brand_list: this.props.form.getFieldValue("brand_list").length
+          ? this.props.form.getFieldValue("brand_list")
+          : null,
+      };
+
+      this.getCountries(data);
+    }
+    if (type === "country") {
+      this.setState({
+        is_country_list_checked: checked,
+      });
+
+      this.props.form.setFieldsValue({
+        country_list: checked ? this.props.session.countries.data : [],
+      });
+
+      let data = {
+        country_list: this.props.form.getFieldValue("country_list").length
+          ? this.props.form.getFieldValue("country_list")
+          : null,
+        group_list: this.props.form.getFieldValue("group_list").length
+          ? this.props.form.getFieldValue("group_list")
+          : null,
+        mt_list: this.props.form.getFieldValue("mt_list").length
+          ? this.props.form.getFieldValue("mt_list")
+          : null,
+        bu_list: this.props.form.getFieldValue("bu_list").length
+          ? this.props.form.getFieldValue("bu_list")
+          : null,
+      };
+
+      this.getBrands(data);
+    }
+    if (type === "brand") {
+      this.setState({
+        is_brand_list_checked: checked,
+      });
+
+      this.props.form.setFieldsValue({
+        brand_list: checked ? this.props.session.brands.data : [],
+      });
+
+      let data = {
+        brand_list: this.props.form.getFieldValue("brand_list").length
+          ? this.props.form.getFieldValue("brand_list")
+          : null,
+        country_list: this.props.form.getFieldValue("country_list").length
+          ? this.props.form.getFieldValue("country_list")
+          : null,
+        bu_list: this.props.form.getFieldValue("bu_list").length
+          ? this.props.form.getFieldValue("bu_list")
+          : null,
+        group_list: this.props.form.getFieldValue("group_list").length
+          ? this.props.form.getFieldValue("group_list")
+          : null,
+      };
+
+      this.getMediaTactics(data);
+    }
+    if (type === "media") {
+      this.setState({
+        is_mt_list_checked: checked,
+      });
+
+      this.props.form.setFieldsValue({
+        mt_list: checked ? this.props.session.media_tactics.data : [],
+      });
+    }
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
 
     return (
       <div>
         <>
-          <Form onSubmit={this.validateInput}>
+          <Form onSubmit={this.validateInput} layout="vertical">
             <Divider></Divider>
             <Row gutter={30}>
               <Col span={24}>
-                <Form.Item label="Group" className="mb-3">
+                <Form.Item
+                  label={
+                    <>
+                      Group
+                      <div className="float-right text-dark">
+                        {" "}
+                        <Checkbox
+                          checked={this.state.is_group_list_checked}
+                          disabled={this.props.session.groups.loading}
+                          onChange={(e) => this.onCheckboxChange(e, "group")}
+                          style={{ color: "rgba(0, 0, 0, 0.85)" }}
+                        >
+                          Select all
+                        </Checkbox>
+                      </div>
+                    </>
+                  }
+                  className="mb-3"
+                >
                   {getFieldDecorator("group_list", {
                     rules: [{ required: true, message: "Please select group" }],
                     initialValue: this.props.group_list,
@@ -160,7 +310,7 @@ class FormStepOne extends Component {
                       loading={this.props.session.groups.loading}
                       //   disabled={this.props.session.groups.loading}
                       filterOption={(input, option) =>
-                        option.this.props.children
+                        option.props.children
                           .toLowerCase()
                           .indexOf(input.toLowerCase()) >= 0
                       }
@@ -181,7 +331,28 @@ class FormStepOne extends Component {
               </Col>
 
               <Col span={24}>
-                <Form.Item label="Business Unit" className="mb-3">
+                <Form.Item
+                  label={
+                    <>
+                      Business Unit
+                      <div className="float-right text-dark">
+                        {" "}
+                        <Checkbox
+                          checked={this.state.is_bu_list_checked}
+                          disabled={
+                            this.props.session.business_units.loading ||
+                            this.props.session.groups.data === null
+                          }
+                          onChange={(e) => this.onCheckboxChange(e, "business")}
+                          style={{ color: "rgba(0, 0, 0, 0.85)" }}
+                        >
+                          Select all
+                        </Checkbox>
+                      </div>
+                    </>
+                  }
+                  className="mb-3"
+                >
                   {getFieldDecorator("bu_list", {
                     rules: [
                       {
@@ -199,7 +370,7 @@ class FormStepOne extends Component {
                       showSearch
                       loading={this.props.session.business_units.loading}
                       filterOption={(input, option) =>
-                        option.this.props.children
+                        option.props.children
                           .toLowerCase()
                           .indexOf(input.toLowerCase()) >= 0
                       }
@@ -222,7 +393,25 @@ class FormStepOne extends Component {
               </Col>
 
               <Col span={24}>
-                <Form.Item label="Country" className="mb-3">
+                <Form.Item
+                  label={
+                    <>
+                      Country
+                      <div className="float-right text-dark">
+                        {" "}
+                        <Checkbox
+                          checked={this.state.is_country_list_checked}
+                          disabled={this.props.session.countries.loading}
+                          onChange={(e) => this.onCheckboxChange(e, "country")}
+                          style={{ color: "rgba(0, 0, 0, 0.85)" }}
+                        >
+                          Select all
+                        </Checkbox>
+                      </div>
+                    </>
+                  }
+                  className="mb-3"
+                >
                   {getFieldDecorator("country_list", {
                     rules: [
                       { required: true, message: "Please select country" },
@@ -237,7 +426,7 @@ class FormStepOne extends Component {
                       showSearch
                       loading={this.props.session.countries.loading}
                       filterOption={(input, option) =>
-                        option.this.props.children
+                        option.props.children
                           .toLowerCase()
                           .indexOf(input.toLowerCase()) >= 0
                       }
@@ -258,7 +447,25 @@ class FormStepOne extends Component {
               </Col>
 
               <Col span={24}>
-                <Form.Item label="Brand" className="mb-3">
+                <Form.Item
+                  label={
+                    <>
+                      Brand
+                      <div className="float-right text-dark">
+                        {" "}
+                        <Checkbox
+                          checked={this.state.is_brand_list_checked}
+                          disabled={this.props.session.brands.loading}
+                          onChange={(e) => this.onCheckboxChange(e, "brand")}
+                          style={{ color: "rgba(0, 0, 0, 0.85)" }}
+                        >
+                          Select all
+                        </Checkbox>
+                      </div>
+                    </>
+                  }
+                  className="mb-3"
+                >
                   {getFieldDecorator("brand_list", {
                     rules: [{ required: true, message: "Please select brand" }],
                     initialValue: this.props.brand_list,
@@ -271,7 +478,7 @@ class FormStepOne extends Component {
                       showSearch
                       loading={this.props.session.brands.loading}
                       filterOption={(input, option) =>
-                        option.this.props.children
+                        option.props.children
                           .toLowerCase()
                           .indexOf(input.toLowerCase()) >= 0
                       }
@@ -291,7 +498,25 @@ class FormStepOne extends Component {
                 </Form.Item>
               </Col>
               <Col span={24}>
-                <Form.Item label="Media Tactic" className="mb-3">
+                <Form.Item
+                  label={
+                    <>
+                      Media Tactic
+                      <div className="float-right text-dark">
+                        {" "}
+                        <Checkbox
+                          checked={this.state.is_mt_list_checked}
+                          disabled={this.props.session.media_tactics.loading}
+                          onChange={(e) => this.onCheckboxChange(e, "media")}
+                          style={{ color: "rgba(0, 0, 0, 0.85)" }}
+                        >
+                          Select all
+                        </Checkbox>
+                      </div>
+                    </>
+                  }
+                  className="mb-3"
+                >
                   {getFieldDecorator("mt_list", {
                     rules: [
                       { required: true, message: "Please select media tactic" },
@@ -306,7 +531,7 @@ class FormStepOne extends Component {
                       showSearch
                       loading={this.props.session.media_tactics.loading}
                       filterOption={(input, option) =>
-                        option.this.props.children
+                        option.props.children
                           .toLowerCase()
                           .indexOf(input.toLowerCase()) >= 0
                       }

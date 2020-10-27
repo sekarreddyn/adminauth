@@ -85,7 +85,12 @@ export function session(state = initialState, action) {
 
     case sessionConstants.SEARCH_SESSION: {
       const sessions = state.get_sessions.data.filter((item) =>
-        item.session_title ? item.session_title.includes(action.value) : item
+        item.session_title
+          ? item.session_title
+              .toLowerCase()
+              .includes(action.value)
+              .toLowerCase()
+          : item
       );
       return {
         ...state,
@@ -312,6 +317,12 @@ export function session(state = initialState, action) {
         ...state,
         get_session_kpi: {
           ...state.get_session_kpi,
+          data: {
+            media_spend: 0,
+            media_shipments: 0,
+            media_gross_profit: 0,
+            media_volume: 0,
+          },
           loading: true,
         },
       };
